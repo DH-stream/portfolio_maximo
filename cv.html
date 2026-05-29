@@ -1,473 +1,542 @@
-<!DOCTYPE html>
-<html class="dark" lang="sv">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CV | Max Kristoffersson</title>
+<!DOCTYPE html><html class="dark" lang="sv" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Max Kristoffersson | CV</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-<style>
-  body { background-color:#0C0A09; color:#e8e1df; font-family:'Inter',sans-serif; overflow-x:hidden; }
-  .font-mono { font-family:'JetBrains Mono',monospace; }
-  #mouse-glow { position:fixed;width:600px;height:600px;background:radial-gradient(circle,rgba(0,209,255,0.08) 0%,rgba(0,209,255,0) 70%);border-radius:50%;pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:opacity 0.3s ease; }
-  .mesh-gradient { position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(at 0% 0%,rgba(189,0,255,0.05) 0px,transparent 50%),radial-gradient(at 100% 0%,rgba(0,209,255,0.05) 0px,transparent 50%),radial-gradient(at 100% 100%,rgba(189,0,255,0.05) 0px,transparent 50%),radial-gradient(at 0% 100%,rgba(0,209,255,0.05) 0px,transparent 50%);z-index:0;opacity:0.6; }
-  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle; }
-  #terminal-window { background:rgba(10,10,10,0.95);border:1px solid rgba(0,209,255,0.3);border-radius:12px;backdrop-filter:blur(30px);box-shadow:0 0 60px rgba(0,209,255,0.1),0 30px 80px rgba(0,0,0,0.5); }
-  .terminal-titlebar { background:rgba(26,26,26,0.9);border-bottom:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 0 0; }
-  .dot{width:12px;height:12px;border-radius:50%;display:inline-block}.dot-red{background:#ff5f56}.dot-yellow{background:#ffbd2e}.dot-green{background:#27c93f}
-  @keyframes terminal-blink{0%,100%{opacity:1}50%{opacity:0}}
-  .terminal-cursor{display:inline-block;width:8px;height:1.2em;background:#00d1ff;margin-left:2px;animation:terminal-blink 1s step-end infinite;vertical-align:middle}
-  #terminal-overlay{transition:opacity 0.3s ease} #terminal-modal{transition:all 0.3s ease}
-  .nav-link{font-family:'JetBrains Mono',monospace;font-size:13px;color:#859399;transition:color 0.2s}.nav-link:hover{color:#a4e6ff}.nav-link.active{color:#a4e6ff}
-  .tag{font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(0,209,255,0.08);color:#a4e6ff;border:1px solid rgba(0,209,255,0.2)}
-  .tag-green{background:rgba(54,255,196,0.08);color:#36ffc4;border-color:rgba(54,255,196,0.2)}
-  .tag-purple{background:rgba(189,0,255,0.08);color:#f5d0ff;border-color:rgba(189,0,255,0.2)}
-  @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .animate-in{animation:fadeInUp 0.5s ease forwards}
-  .delay-1{animation-delay:0.05s;opacity:0}.delay-2{animation-delay:0.15s;opacity:0}.delay-3{animation-delay:0.25s;opacity:0}.delay-4{animation-delay:0.35s;opacity:0}.delay-5{animation-delay:0.45s;opacity:0}.delay-6{animation-delay:0.55s;opacity:0}
-  @keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
-  .scanline{position:fixed;width:100%;height:2px;pointer-events:none;z-index:9999;background:linear-gradient(transparent,rgba(0,209,255,0.05),transparent);animation:scanline 8s linear infinite}
-  
-  /* CV Specific */
-  .cv-section {
-    border-left: 1px solid rgba(0,209,255,0.2);
-    padding-left: 24px;
-    position: relative;
-  }
-  .cv-section::before {
-    content: '';
-    position: absolute;
-    left: -5px;
-    top: 8px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #00d1ff;
-    box-shadow: 0 0 12px rgba(0,209,255,0.6);
-  }
-  .cv-card {
-    background: rgba(22,22,22,0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px;
-    transition: all 0.3s;
-  }
-  .cv-card:hover {
-    border-color: rgba(0,209,255,0.25);
-    background: rgba(26,26,26,0.7);
-  }
-  .timeline-connector {
-    position: relative;
-  }
-  .timeline-connector::after {
-    content: '';
-    position: absolute;
-    left: -25px;
-    top: 24px;
-    bottom: -32px;
-    width: 1px;
-    background: linear-gradient(to bottom, rgba(0,209,255,0.3), transparent);
-  }
-  .timeline-connector:last-child::after { display: none; }
-  
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #00d1ff;
-    opacity: 0.7;
-  }
-  
-  .skill-bar-bg { background: rgba(255,255,255,0.06); border-radius: 4px; height: 4px; overflow: hidden; }
-  .skill-bar { height: 4px; border-radius: 4px; background: linear-gradient(90deg, #00d1ff, #a4e6ff); transition: width 1.5s ease; }
-
-  .print-btn {
-    background: rgba(0,209,255,0.1);
-    border: 1px solid rgba(0,209,255,0.3);
-    color: #a4e6ff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .print-btn:hover { background: rgba(0,209,255,0.2); box-shadow: 0 0 20px rgba(0,209,255,0.2); }
-  
-  @media print {
-    body { background: white !important; color: black !important; }
-    .no-print { display: none !important; }
-    .mesh-gradient, #mouse-glow, .scanline { display: none !important; }
-  }
-</style>
-<script>
-  tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#a4e6ff","on-primary":"#003543","primary-container":"#00d1ff","secondary":"#ffffff","secondary-fixed":"#36ffc4","tertiary":"#f5d0ff","surface":"#151312","surface-container":"#221f1e","surface-container-low":"#1d1b1a","surface-container-lowest":"#100e0d","surface-container-high":"#2c2928","surface-container-highest":"#373433","on-surface":"#e8e1df","on-surface-variant":"#bbc9cf","outline":"#859399","outline-variant":"#3c494e","error":"#ffb4ab","charcoal":"#1A1A1A","background":"#151312","on-background":"#e8e1df"},spacing:{"margin-mobile":"16px","gutter":"24px","margin-desktop":"64px","container-max":"1200px"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"}}}}
-</script>
-</head>
-<body class="bg-background">
-<div class="scanline"></div>
-<div id="mouse-glow" style="opacity:0"></div>
-<div class="mesh-gradient"></div>
-
-<!-- Terminal Modal -->
-<div class="fixed inset-0 z-[100] items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 no-print" id="terminal-overlay">
-  <div class="relative w-full max-w-2xl mx-4 transform scale-95 -translate-y-4 opacity-0" id="terminal-modal">
-    <div id="terminal-window">
-      <div class="terminal-titlebar px-4 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
-          <span class="font-mono text-xs text-on-surface-variant ml-3">max@portfolio: ~/cv</span>
-        </div>
-        <button id="close-terminal" class="p-1 hover:bg-white/10 rounded transition-colors">
-          <span class="material-symbols-outlined text-on-surface-variant hover:text-error text-lg">close</span>
-        </button>
-      </div>
-      <div class="p-5 font-mono text-sm min-h-[350px] max-h-[60vh] overflow-y-auto" id="modal-terminal-container">
-        <div id="modal-terminal-history">
-          <p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p>
-          <p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för tillgängliga kommandon.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-primary">➜</span>
-          <span class="text-secondary-fixed">~/cv</span>
-          <div class="relative flex-1">
-            <input autocomplete="off" class="bg-transparent border-none outline-none ring-0 p-0 w-full text-on-surface font-mono text-sm" id="modal-cli-input" type="text"/>
-            <span class="terminal-cursor"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Nav -->
-<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(0,209,255,0.07)] no-print">
-  <nav class="flex justify-between items-center px-6 md:px-16 py-4 max-w-[1200px] mx-auto">
-    <a href="index.html" class="font-mono text-sm text-primary tracking-wider hover:text-primary-container transition-colors">~/max-kristoffersson</a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="index.html" class="nav-link">hem</a>
-      <a href="projects.html" class="nav-link">projekt</a>
-      <a href="cv.html" class="nav-link active">cv</a>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="print-btn no-print">
-        <span class="material-symbols-outlined text-sm">print</span> Skriv ut
-      </button>
-      <button id="open-terminal" class="p-2 rounded-lg hover:bg-white/5 transition-all active:scale-95 group no-print" title="Öppna terminal">
-        <span class="material-symbols-outlined text-primary group-hover:text-primary-container">terminal</span>
-      </button>
-    </div>
-  </nav>
-</header>
-
-<main class="relative z-10 pt-32 pb-24">
-  <div class="max-w-[900px] mx-auto px-6 md:px-16">
-
-    <!-- CV Header -->
-    <div class="animate-in delay-1 mb-12">
-      <div class="cv-card p-8 md:p-10">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div>
-            <div class="section-label mb-2">curriculum vitae</div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight mb-1">Max <span class="text-primary">Kristoffersson</span></h1>
-            <p class="text-secondary-fixed font-mono text-sm tracking-wider">Country Team Operator</p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="tag">Logistik</span>
-              <span class="tag">Automation</span>
-              <span class="tag">WMS</span>
-              <span class="tag tag-green">6+ år erfarenhet</span>
-            </div>
-          </div>
-          <div class="text-sm space-y-2 text-right text-on-surface-variant font-mono min-w-fit">
-            <div class="flex items-center gap-2 justify-end">
-              <span class="text-primary">📞</span>
-              <a href="tel:0722252260" class="hover:text-primary transition-colors">072-225 22 60</a>
-            </div>
-            <div class="flex items-center gap-2 justify-end">
-              <span class="text-primary">✉</span>
-              <a href="mailto:Kristofferssonmax@gmail.com" class="hover:text-primary transition-colors text-xs">Kristofferssonmax@gmail.com</a>
-            </div>
-            <div class="flex items-center gap-2 justify-end">
-              <span class="text-primary">📍</span>
-              <span class="text-xs">Stationsgatan 3, 442 50 Ytterby</span>
-            </div>
-            <div class="flex items-center gap-2 justify-end">
-              <span class="text-primary">🔗</span>
-              <a href="https://www.linkedin.com/in/" target="_blank" class="hover:text-primary transition-colors text-xs">LinkedIn</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- About -->
-    <div class="animate-in delay-2 mb-12">
-      <div class="section-label mb-5">Om mig</div>
-      <div class="cv-card p-6">
-        <p class="text-on-surface-variant leading-relaxed">
-          Jag har växt upp och bott i Örnsköldsvik till studenten. Dagen efter sökte jag mig söderut mot Göteborgstrakten och möttes av mitt första jobb inom logistik som budbilschaufför. Sedan dess har jag varit fast och fascinerats av den blandade arbetsvardagen och de fartfyllda svängar logistiken erbjuder — från terminal och distribution till 3PL-lager och internationell spedition.
-        </p>
-      </div>
-    </div>
-
-    <!-- Work Experience -->
-    <div class="animate-in delay-3 mb-12">
-      <div class="section-label mb-6">Arbetslivserfarenhet</div>
-      <div class="space-y-8">
-
-        <!-- Den Hartogh -->
-        <div class="timeline-connector cv-section">
-          <div class="mb-1 flex flex-col md:flex-row md:items-center md:justify-between gap-1">
-            <div>
-              <h3 class="text-lg font-semibold text-white">Country Team Operator</h3>
-              <div class="text-primary font-mono text-sm">Den Hartogh Liquid Logistics</div>
-            </div>
-            <span class="tag font-mono text-xs">2023 — nu</span>
-          </div>
-          <div class="cv-card p-5 mt-3">
-            <ul class="space-y-2 text-on-surface-variant text-sm">
-              <li class="flex gap-2"><span class="text-primary mt-0.5 flex-shrink-0">›</span>Daglig planering av egna lastbilar samt lejda aktörer</li>
-              <li class="flex gap-2"><span class="text-primary mt-0.5 flex-shrink-0">›</span>Kvalitetsuppföljning av lejda parter</li>
-              <li class="flex gap-2"><span class="text-primary mt-0.5 flex-shrink-0">›</span>Projektledare i integrationsprojekt</li>
-              <li class="flex gap-2"><span class="text-primary mt-0.5 flex-shrink-0">›</span>Upplärning av nyanställda</li>
-              <li class="flex gap-2"><span class="text-primary mt-0.5 flex-shrink-0">›</span>Tät kommunikation med slutkunder</li>
-              <li class="flex gap-2"><span class="text-primary mt-0.5 flex-shrink-0">›</span>Prissättning för inkommande ordrar på spot-basis</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Link Logistics - Warehouse Supervisor -->
-        <div class="timeline-connector cv-section">
-          <div class="mb-1 flex flex-col md:flex-row md:items-center md:justify-between gap-1">
-            <div>
-              <h3 class="text-lg font-semibold text-white">Warehouse Supervisor</h3>
-              <div class="text-secondary-fixed font-mono text-sm">Link Logistics AB</div>
-            </div>
-            <span class="tag tag-green font-mono text-xs">2022 — 2023</span>
-          </div>
-          <div class="cv-card p-5 mt-3">
-            <ul class="space-y-2 text-on-surface-variant text-sm">
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Den tidigare interimapositionen delades upp då arbetet var för stort för en roll</li>
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Fokus skiftat till 3PL-lagret istället för distribution</li>
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Fortsatt optimering av personalresurser samt inkommande ordervolym</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Link Logistics - Interim -->
-        <div class="timeline-connector cv-section">
-          <div class="mb-1 flex flex-col md:flex-row md:items-center md:justify-between gap-1">
-            <div>
-              <h3 class="text-lg font-semibold text-white">Interim Warehouse & Operations Manager</h3>
-              <div class="text-secondary-fixed font-mono text-sm">Link Logistics AB</div>
-            </div>
-            <span class="tag tag-green font-mono text-xs">2021 — 2022</span>
-          </div>
-          <div class="cv-card p-5 mt-3">
-            <p class="text-on-surface-variant text-sm mb-3 italic opacity-80">Min tidigare chef blev långtidssjukskriven. Jag fick täcka upp och börja med omstruktureringen av vår terminalverksamhet.</p>
-            <ul class="space-y-2 text-on-surface-variant text-sm">
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Implementerade nya inkommande kunder i lagersystemet samt uppföljning med nuvarande kunder</li>
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Ansvarade för inköp av utrustning samt förbrukningsmaterial för lagret</li>
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Automatiserade ett antal föråldrade rutiner i Excel</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Link Logistics - Terminal -->
-        <div class="cv-section">
-          <div class="mb-1 flex flex-col md:flex-row md:items-center md:justify-between gap-1">
-            <div>
-              <h3 class="text-lg font-semibold text-white">Terminal & Distribution Supervisor</h3>
-              <div class="text-secondary-fixed font-mono text-sm">Link Logistics AB</div>
-            </div>
-            <span class="tag tag-green font-mono text-xs">2019 — 2021</span>
-          </div>
-          <div class="cv-card p-5 mt-3">
-            <ul class="space-y-2 text-on-surface-variant text-sm">
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Implementering av nya kunder i distributionssystemet</li>
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Skötsel och vård av fordonsflottan</li>
-              <li class="flex gap-2"><span class="text-secondary-fixed mt-0.5 flex-shrink-0">›</span>Kundrelationer och kundvård på plats hos kund</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Education -->
-    <div class="animate-in delay-4 mb-12">
-      <div class="section-label mb-6">Utbildning</div>
-      <div class="space-y-4">
-        <div class="cv-card p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div>
-            <h3 class="text-base font-semibold text-white">Samhällskunskap med inriktning psykologi</h3>
-            <div class="text-primary font-mono text-sm">Mikael Elias Teoretiska Gymnasium</div>
-          </div>
-          <span class="tag font-mono text-xs">2013 — 2016</span>
-        </div>
-        <div class="cv-card p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div>
-            <h3 class="text-base font-semibold text-white">E-kurs för kör- och vilotider</h3>
-            <div class="text-primary font-mono text-sm">Sveriges Åkeriföretag</div>
-          </div>
-          <span class="tag font-mono text-xs">Apr 2025</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Skills -->
-    <div class="animate-in delay-5 mb-12">
-      <div class="section-label mb-6">Kompetenser</div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="cv-card p-6">
-          <h4 class="text-sm font-semibold text-white mb-4 font-mono">Verktyg & System</h4>
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">Excel</span><span class="font-mono text-xs text-primary">Avancerad</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">PowerPoint</span><span class="font-mono text-xs text-primary">Avancerad</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">WMS (Thetis, OnGoing)</span><span class="font-mono text-xs text-primary">Expert</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">Sketchup / CAD</span><span class="font-mono text-xs text-secondary-fixed">Intermediär</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:65%;background:linear-gradient(90deg,#36ffc4,#a4e6ff)"></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="cv-card p-6">
-          <h4 class="text-sm font-semibold text-white mb-4 font-mono">Soft Skills & Språk</h4>
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">Engelska</span><span class="font-mono text-xs text-primary">Flytande</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">Svenska</span><span class="font-mono text-xs text-primary">Modersmål</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:100%"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">Ledarskap & Coaching</span><span class="font-mono text-xs text-secondary-fixed">Stark</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:82%;background:linear-gradient(90deg,#36ffc4,#a4e6ff)"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1.5"><span class="text-sm text-on-surface-variant">Projektledning</span><span class="font-mono text-xs text-secondary-fixed">Stark</span></div>
-              <div class="skill-bar-bg"><div class="skill-bar" style="width:80%;background:linear-gradient(90deg,#36ffc4,#a4e6ff)"></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interests -->
-    <div class="animate-in delay-6 mb-12">
-      <div class="section-label mb-5">Fritidsintressen</div>
-      <div class="cv-card p-6">
-        <div class="flex flex-wrap gap-3">
-          <div class="flex items-center gap-2 bg-white/5 rounded-lg px-4 py-2 text-sm text-on-surface-variant">
-            <span class="text-primary">🏗️</span> C.A.D. & 3D-projekt
-          </div>
-          <div class="flex items-center gap-2 bg-white/5 rounded-lg px-4 py-2 text-sm text-on-surface-variant">
-            <span class="text-primary">👨‍👧</span> Äventyr med familjen
-          </div>
-          <div class="flex items-center gap-2 bg-white/5 rounded-lg px-4 py-2 text-sm text-on-surface-variant">
-            <span class="text-primary">🎮</span> E-sport
-          </div>
-          <div class="flex items-center gap-2 bg-white/5 rounded-lg px-4 py-2 text-sm text-on-surface-variant">
-            <span class="text-primary">⚡</span> Digital Automation & Smarta hem
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Download CTA -->
-    <div class="animate-in delay-6 text-center">
-      <p class="font-mono text-xs text-outline mb-4">Vill du ha en kopia?</p>
-      <button onclick="window.print()" class="print-btn mx-auto">
-        <span class="material-symbols-outlined text-sm">download</span>
-        Ladda ner som PDF
-      </button>
-    </div>
-
-  </div>
-</main>
-
-<footer class="relative z-10 border-t border-white/5 py-10 px-6 md:px-16 no-print">
-  <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-    <a href="index.html" class="font-mono text-xs text-primary hover:text-primary-container transition-colors">~/max-kristoffersson</a>
-    <div class="flex gap-6">
-      <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="font-mono text-xs text-outline hover:text-secondary transition-colors">GitHub</a>
-      <a href="https://www.linkedin.com/in/" target="_blank" class="font-mono text-xs text-outline hover:text-secondary transition-colors">LinkedIn</a>
-      <a href="mailto:Kristofferssonmax@gmail.com" class="font-mono text-xs text-outline hover:text-secondary transition-colors">E-post</a>
-    </div>
-    <span class="font-mono text-xs text-outline">© 2025 Max Kristoffersson</span>
-  </div>
-</footer>
-
-<script>
-  const glow = document.getElementById('mouse-glow');
-  document.addEventListener('mousemove', e => { glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; });
-  document.addEventListener('mouseleave', () => glow.style.opacity='0');
-  document.addEventListener('mouseenter', () => glow.style.opacity='1');
-
-  const COMMANDS = {
-    'help': () => `Tillgängliga kommandon:<br><span class="text-primary">experience</span> — Visa erfarenhet<br><span class="text-primary">skills</span>     — Visa kompetenser<br><span class="text-primary">contact</span>    — Kontaktuppgifter<br><span class="text-primary">home</span>       — Startsidan<br><span class="text-primary">projects</span>   — Projektssida<br><span class="text-primary">clear</span>      — Rensa`,
-    'experience': () => `<span class="text-secondary-fixed">2023–nu</span>   Country Team Operator — Den Hartogh Liquid Logistics<br><span class="text-secondary-fixed">2022–2023</span> Warehouse Supervisor — Link Logistics AB<br><span class="text-secondary-fixed">2021–2022</span> Interim Warehouse & Operations Manager — Link Logistics AB<br><span class="text-secondary-fixed">2019–2021</span> Terminal & Distribution Supervisor — Link Logistics AB`,
-    'skills': () => `Excel, PowerPoint, Sketchup, WMS (Thetis, OnGoing), Engelska, Projektledning, Digital Automation`,
-    'contact': () => `<span class="text-primary">›</span> Mobil: <span class="text-secondary">072-225 22 60</span><br><span class="text-primary">›</span> E-post: <span class="text-secondary">Kristofferssonmax@gmail.com</span><br><span class="text-primary">›</span> Adress: Stationsgatan 3, 442 50, Ytterby`,
-    'home': () => { setTimeout(()=>window.location.href='index.html',500); return `Navigerar hem...`; },
-    'projects': () => { setTimeout(()=>window.location.href='projects.html',500); return `Navigerar till projekt...`; },
-  };
-
-  const historyEl = document.getElementById('modal-terminal-history');
-  const containerEl = document.getElementById('modal-terminal-container');
-  const inputEl = document.getElementById('modal-cli-input');
-  const appendLine = (input, output) => {
-    const line = document.createElement('div'); line.className = 'mb-2';
-    line.innerHTML = `<div class="flex gap-2"><span class="text-primary">➜</span><span class="text-secondary-fixed">~/cv</span><span class="text-on-surface ml-1">${input}</span></div>`;
-    if (output !== null) { const resp = document.createElement('div'); resp.className = 'mb-3 text-on-surface-variant leading-relaxed pl-4 border-l border-white/10'; resp.innerHTML = output; line.appendChild(resp); }
-    historyEl.appendChild(line); containerEl.scrollTop = containerEl.scrollHeight;
-  };
-  inputEl.addEventListener('keydown', e => {
-    if (e.key!=='Enter') return;
-    const raw = inputEl.value.trim(); const cmd = raw.toLowerCase();
-    if (!cmd) return;
-    if (cmd==='clear') { historyEl.innerHTML='<p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p><p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för tillgängliga kommandon.</p>'; inputEl.value=''; return; }
-    const fn = COMMANDS[cmd]; const output = fn ? fn() : `<span class="text-error">Okänt kommando: '${raw}'. Skriv 'help'.</span>`;
-    appendLine(raw, output); inputEl.value='';
-  });
-  containerEl.addEventListener('click', () => inputEl.focus());
-
-  const openBtn=document.getElementById('open-terminal'), closeBtn=document.getElementById('close-terminal'),overlay=document.getElementById('terminal-overlay'),modal=document.getElementById('terminal-modal');
-  const openTerminal=()=>{overlay.classList.remove('hidden');overlay.classList.add('flex');requestAnimationFrame(()=>{overlay.classList.remove('opacity-0');overlay.classList.add('opacity-100');modal.classList.remove('scale-95','-translate-y-4','opacity-0');modal.classList.add('scale-100','translate-y-0','opacity-100')});document.body.style.overflow='hidden';setTimeout(()=>inputEl.focus(),150)};
-  const closeTerminal=()=>{overlay.classList.remove('opacity-100');overlay.classList.add('opacity-0');modal.classList.add('scale-95','-translate-y-4','opacity-0');modal.classList.remove('scale-100','translate-y-0','opacity-100');setTimeout(()=>{overlay.classList.add('hidden');overlay.classList.remove('flex');document.body.style.overflow=''},300)};
-  openBtn.addEventListener('click',e=>{e.stopPropagation();openTerminal()});
-  closeBtn.addEventListener('click',closeTerminal);
-  overlay.addEventListener('click',e=>{if(e.target===overlay)closeTerminal()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.classList.contains('hidden'))closeTerminal()});
-
-  // Animate skill bars on scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.skill-bar').forEach(bar => {
-          const w = bar.style.width; bar.style.width = '0'; setTimeout(()=>bar.style.width=w, 100);
-        });
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#373433",
+                    "inverse-surface": "#e8e1df",
+                    "secondary-container": "#36ffc4",
+                    "surface-container-high": "#2c2928",
+                    "on-secondary-container": "#007255",
+                    "on-error": "#690005",
+                    "tertiary-container": "#e9a9ff",
+                    "primary": "#a4e6ff",
+                    "outline-variant": "#3c494e",
+                    "outline": "#859399",
+                    "surface": "#151312",
+                    "on-primary-fixed": "#001f28",
+                    "glow-cyan": "rgba(0, 209, 255, 0.4)",
+                    "surface-bright": "#3c3837",
+                    "on-tertiary": "#520071",
+                    "surface-container": "#221f1e",
+                    "secondary-fixed-dim": "#00e1ab",
+                    "surface-container-low": "#1d1b1a",
+                    "inverse-primary": "#00677f",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed-variant": "#00513c",
+                    "surface-dim": "#151312",
+                    "primary-fixed-dim": "#4cd6ff",
+                    "deep-blue": "#0A1128",
+                    "tertiary": "#f5d0ff",
+                    "on-tertiary-fixed": "#320047",
+                    "on-tertiary-container": "#8000ae",
+                    "primary-container": "#00d1ff",
+                    "surface-tint": "#4cd6ff",
+                    "glow-purple": "rgba(189, 0, 255, 0.2)",
+                    "surface-container-highest": "#373433",
+                    "primary-fixed": "#b7eaff",
+                    "background": "#151312",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ecb2ff",
+                    "surface-container-lowest": "#100e0d",
+                    "on-surface": "#e8e1df",
+                    "charcoal": "#1A1A1A",
+                    "on-surface-variant": "#bbc9cf",
+                    "on-primary-container": "#00566a",
+                    "on-primary-fixed-variant": "#004e60",
+                    "secondary-fixed": "#36ffc4",
+                    "secondary": "#ffffff",
+                    "inverse-on-surface": "#33302e",
+                    "on-tertiary-fixed-variant": "#74009f",
+                    "on-secondary-fixed": "#002116",
+                    "tertiary-fixed": "#f8d8ff",
+                    "on-secondary": "#003828",
+                    "on-primary": "#003543",
+                    "on-background": "#e8e1df"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "0.75rem",
+                    "xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "container-max": "1200px",
+                    "margin-desktop": "64px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Geist"],
+                    "headline-lg-mobile": ["Geist"],
+                    "body-md": ["Geist"],
+                    "headline-xl": ["Geist"],
+                    "body-lg": ["Geist"],
+                    "label-sm": ["Geist Mono"],
+                    "code-md": ["Geist Mono"]
+            }
+          }
+        }
       }
-    });
-  }, {threshold:0.3});
-  document.querySelectorAll('.cv-card').forEach(c => observer.observe(c));
-</script>
-</body>
-</html>
+    </script>
+<style>
+        body {
+            background-color: #0c0b0a;
+            color: #e8e1df;
+            font-family: 'Geist', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(26, 26, 26, 0.4);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(0, 209, 255, 0.1), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 209, 255, 0.3);
+            transform: translateY(-4px);
+        }
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 209, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(189, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 103, 127, 0.03) 0%, transparent 70%);
+            z-index: -2;
+        }
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px #00d1ff; }
+            50% { transform: scale(1.3); opacity: 0.7; box-shadow: 0 0 20px #00d1ff; }
+        }
+        .timeline-indicator::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background: #00d1ff;
+            border-radius: 50%;
+            animation: pulse-glow 3s infinite ease-in-out;
+            z-index: 2;
+        }
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(45deg);
+            animation: shimmer 4s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-150%) rotate(45deg); }
+            20% { transform: translateX(150%) rotate(45deg); }
+            100% { transform: translateX(150%) rotate(45deg); }
+        }
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); text-shadow: none; }
+            20% { transform: translate(-2px, 2px); text-shadow: 2px 0 #00d1ff, -2px 0 #ff00ff; }
+            40% { transform: translate(-2px, -2px); text-shadow: -2px 0 #00d1ff, 2px 0 #ff00ff; }
+            60% { transform: translate(2px, 2px); text-shadow: 2px 0 #00d1ff, -2px 0 #ff00ff; }
+            80% { transform: translate(2px, -2px); text-shadow: -2px 0 #00d1ff, 2px 0 #ff00ff; }
+            100% { transform: translate(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+    </style>
+</head>
+<body class="selection:bg-primary selection:text-on-primary">
+<div class="mesh-gradient"></div>
+<canvas id="particle-canvas" width="1280" height="2399"></canvas>
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 hidden lg:flex flex-col bg-surface-container-low/40 backdrop-blur-3xl border-r border-white/5 shadow-2xl z-50">
+<div class="flex flex-col h-full py-10">
+<div class="px-8 mb-12">
+<h1 class="font-headline-lg text-primary font-bold tracking-tighter glitch-hover cursor-default">MAX_K</h1>
+<p class="font-label-sm text-xs text-on-surface-variant/60 uppercase tracking-widest mt-1">Operations Specialist</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="reveal stagger-1 active flex items-center gap-4 bg-primary/10 text-primary border-r-2 border-primary px-8 py-4 transition-all" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+<span class="font-body-md font-semibold">Profil</span>
+</a>
+<a class="reveal stagger-2 active flex items-center gap-4 text-on-surface-variant/70 px-8 py-4 hover:bg-white/5 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">bolt</span>
+<span class="font-body-md">Kompetenser</span>
+</a>
+<a class="reveal stagger-3 active flex items-center gap-4 text-on-surface-variant/70 px-8 py-4 hover:bg-white/5 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">mail</span>
+<span class="font-body-md">Kontakt</span>
+</a>
+<a class="reveal stagger-4 active flex items-center gap-4 text-on-surface-variant/70 px-8 py-4 hover:bg-white/5 hover:text-primary transition-all group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">link</span>
+<span class="font-body-md">Länkar</span>
+</a>
+</nav>
+<div class="px-8 mt-auto reveal stagger-5 active">
+<button class="shimmer-btn w-full py-4 px-4 bg-primary text-on-primary font-bold rounded-lg transition-all hover:shadow-[0_0_20px_rgba(0,209,255,0.4)] active:scale-95">
+                    Ladda ner PDF
+                </button>
+</div>
+</div>
+</aside>
+<!-- Mobile Header -->
+<header class="lg:hidden fixed top-0 left-0 right-0 h-20 bg-background/60 backdrop-blur-xl border-b border-white/5 z-50 flex justify-between items-center px-margin-mobile">
+<h1 class="font-headline-lg-mobile font-bold tracking-tighter text-primary">MAX_K</h1>
+<button class="material-symbols-outlined text-primary text-3xl">menu</button>
+</header>
+<main class="lg:ml-64 min-h-screen pt-24 lg:pt-0">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-16">
+<!-- Sidebar Column -->
+<div class="md:col-span-4 space-y-12">
+<div class="reveal stagger-1 flex flex-col items-center md:items-start space-y-8">
+<div class="relative group">
+<div class="absolute -inset-2 bg-gradient-to-tr from-primary to-tertiary-container blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+<img alt="Max Kristoffersson" class="relative w-56 h-56 rounded-2xl border border-white/10 object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRv4XS9tqkxpT3cE4VrHy4_fTKURcFubhfL6n_qmF9jWErQSJL_2tPfYaw9j-kXbAhawb8tuZabcVp0C5ADtdZpqiJgR18PFoRxzsss4qFPkvwNFEr41Uz3WgaZDiUeYxIaSmHWmhJ73S0vJlpiCGpkX1caxTLGNYhlS8YT5piP0iVlvROkqDkg2m3M7IHeOHWGHbJC1HzH33pFKCJaLQdCN9nwwW-sbtf6RiOZhBvK5SQRAdJavQTCdX5WFj197fmOnlJYHbm-C4">
+</div>
+<div class="text-center md:text-left">
+<h2 class="font-headline-xl text-on-surface leading-tight glitch-hover cursor-default">Max Kristoffersson</h2>
+<p class="font-label-sm text-primary tracking-[0.2em] mt-2 uppercase text-sm">Country Team Operator</p>
+</div>
+</div>
+<section class="reveal stagger-2 glass-card p-8 rounded-xl active" style="--mouse-x: 846px; --mouse-y: 1264px;">
+<h3 class="font-label-sm text-xs text-primary mb-6 flex items-center gap-3 tracking-widest uppercase">
+<span class="material-symbols-outlined text-base">history_edu</span>
+                            MIN BAKGRUND
+                        </h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed opacity-90">
+                            Jag har växt upp och bott i Örnsköldsvik till Studenten. Dagen efter sökte jag mig neråt mot Göteborgstrakten och möttes av mitt första jobb inom logistik som budbilschaufför. Därefter har jag varit fast och fascinerats av den blandade arbetsvardagen och fartfyllda svängar Logistik erbjuder.
+                        </p>
+</section>
+<section class="reveal stagger-3 active">
+<h3 class="font-label-sm text-xs text-primary mb-6 flex items-center gap-3 tracking-widest uppercase">
+<span class="material-symbols-outlined text-base">construction</span>
+                            KOMPETENSER
+                        </h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-code-md text-xs text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all cursor-default">Excel</span>
+<span class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-code-md text-xs text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all cursor-default">Powerpoint</span>
+<span class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-code-md text-xs text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all cursor-default">Sketchup</span>
+<span class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-code-md text-xs text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all cursor-default">Engelska</span>
+<span class="px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 font-code-md text-xs text-primary">Thetis</span>
+<span class="px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 font-code-md text-xs text-primary">OnGoing</span>
+</div>
+</section>
+<section class="reveal stagger-4 space-y-6 active">
+<h3 class="font-label-sm text-xs text-primary tracking-widest uppercase">KONTAKT</h3>
+<div class="space-y-4 font-body-md text-on-surface-variant">
+<div class="flex items-center gap-4 group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">phone</span>
+<span class="font-code-md text-sm">072-225 22 60</span>
+</div>
+<div class="flex items-start gap-4 group">
+<span class="material-symbols-outlined text-primary mt-1 group-hover:scale-110 transition-transform">location_on</span>
+<span class="text-sm">Stationsgatan 3, 442 50, Ytterby.</span>
+</div>
+<div class="flex items-center gap-4 group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">mail</span>
+<a class="hover:text-primary transition-colors font-code-md text-sm" href="mailto:Kristofferssonmax@gmail.com">Kristofferssonmax@gmail.com</a>
+</div>
+</div>
+</section>
+</div>
+<!-- Main Content Column -->
+<div class="md:col-span-8 space-y-20">
+<!-- Arbetslivserfarenhet -->
+<section>
+<h3 class="reveal stagger-1 font-headline-lg text-on-surface mb-12 flex items-center gap-6 group">
+<span class="material-symbols-outlined text-primary text-4xl group-hover:rotate-12 transition-transform">work</span>
+<span class="glitch-hover">Arbetslivserfarenhet</span>
+</h3>
+<div class="relative ml-8 space-y-12">
+<!-- Animated Timeline Line -->
+<div class="absolute left-[-28px] top-4 w-[2px] bg-gradient-to-b from-primary via-primary/40 to-transparent h-0 transition-all duration-1000 ease-out" id="timeline-line"></div>
+<!-- Job 1 -->
+<div class="reveal stagger-2 pl-8 relative group">
+<div class="timeline-indicator"></div>
+<div class="glass-card p-10 rounded-xl" style="--mouse-x: 462px; --mouse-y: 1508px;">
+<div class="flex flex-col md:flex-row justify-between mb-8">
+<div>
+<h4 class="font-headline-lg text-primary text-2xl">Den Hartogh Liquid Logistics</h4>
+<p class="font-label-sm text-secondary-fixed uppercase tracking-wider mt-1">Country Team Operator</p>
+</div>
+<span class="font-code-md text-sm text-on-surface-variant/60 bg-white/5 px-3 py-1 rounded-md h-fit mt-2 md:mt-0">2023 — NU</span>
+</div>
+<ul class="space-y-4 font-body-md text-on-surface-variant/90">
+<li class="flex gap-4">
+<span class="text-primary font-bold font-code-md">01</span>
+<span class="">Daglig planering av egna lastbilar samt lejda aktörer. <span class="block text-sm italic opacity-60 mt-1">Kvalitetsuppföljning av dom lejda parterna.</span></span>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold font-code-md">02</span>
+<span class="">Projektledare i integrationsprojekt</span>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold font-code-md">03</span>
+<span class="">Upplärning av nyanställda</span>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold font-code-md">04</span>
+<span class="">Tight kommunikation med slutkunder &amp; prissättning.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Job 2 Group -->
+<div class="reveal stagger-3 pl-8 relative group active">
+<div class="timeline-indicator"></div>
+<div class="glass-card p-10 rounded-xl space-y-12" style="--mouse-x: 462px; --mouse-y: 1138px;">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-lg text-primary text-2xl">Link Logistics AB</h4>
+<span class="font-code-md text-xs text-on-surface-variant/40 tracking-widest">2019 — 2023</span>
+</div>
+<div class="space-y-12">
+<div class="relative pl-6 border-l border-white/10">
+<div class="flex justify-between items-center mb-2">
+<p class="font-body-lg text-secondary-fixed font-semibold">Warehouse Supervisor</p>
+<span class="font-code-md text-xs opacity-50">2022 - 2023</span>
+</div>
+<p class="text-sm text-on-surface-variant/80">Fortsatt optimering av personalresurser samt inkommande ordervolym.</p>
+</div>
+<div class="relative pl-6 border-l border-white/10">
+<div class="flex justify-between items-center mb-2">
+<p class="font-body-lg text-secondary-fixed font-semibold">Interim Warehouse &amp; Operations Manager</p>
+<span class="font-code-md text-xs opacity-50">2021 - 2022</span>
+</div>
+<ul class="space-y-2 text-sm text-on-surface-variant/80">
+<li class="flex gap-2"><span class="text-primary">▹</span> Implementerade nya kunder i lagersystemet.</li>
+<li class="flex gap-2"><span class="text-primary">▹</span> Ansvarade för inköp och strategisk planering.</li>
+<li class="flex gap-2"><span class="text-primary">▹</span> Automatiserade föråldrade Excel-rutiner.</li>
+</ul>
+</div>
+<div class="relative pl-6 border-l border-white/10">
+<div class="flex justify-between items-center mb-2">
+<p class="font-body-lg text-secondary-fixed font-semibold">Terminal &amp; Distribution Supervisor</p>
+<span class="font-code-md text-xs opacity-50">2019 - 2021</span>
+</div>
+<p class="text-sm text-on-surface-variant/80">Implementering av distributionssystem och fordonsflotta.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Utbildning -->
+<section>
+<h3 class="reveal stagger-1 font-headline-lg text-on-surface mb-8 flex items-center gap-6 group active">
+<span class="material-symbols-outlined text-primary text-4xl group-hover:rotate-12 transition-transform">school</span>
+<span class="glitch-hover">Utbildning</span>
+</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="reveal stagger-2 glass-card p-8 rounded-xl active" style="--mouse-x: 526px; --mouse-y: 496px;">
+<h4 class="font-body-lg text-primary font-bold">Mikael Elias Teoretiska Gymnasium</h4>
+<p class="font-body-md text-on-surface-variant mt-2 text-sm">Samhällskunskap med inriktning psykologi</p>
+<p class="font-code-md text-xs text-secondary-fixed mt-6 tracking-widest">2013 — 2016</p>
+</div>
+<div class="reveal stagger-3 glass-card p-8 rounded-xl active" style="--mouse-x: 226px; --mouse-y: 496px;">
+<h4 class="font-body-lg text-primary font-bold">Sveriges Åkeriföretag</h4>
+<p class="font-body-md text-on-surface-variant mt-2 text-sm">E-kurs för kör och vilotider</p>
+<p class="font-code-md text-xs text-secondary-fixed mt-6 tracking-widest">CERT: 20/04/25</p>
+</div>
+</div>
+</section>
+<!-- Fritidsintressen -->
+<section class="reveal stagger-1 active">
+<h3 class="font-headline-lg text-on-surface mb-8 glitch-hover inline-block">Fritidsintressen</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="glass-card p-6 rounded-xl text-center group cursor-default" style="--mouse-x: 526px; --mouse-y: 158px;">
+<span class="material-symbols-outlined text-4xl text-primary-container mb-3 group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500">precision_manufacturing</span>
+<p class="font-label-sm text-[10px] tracking-widest uppercase opacity-70">C.A.D &amp; 3D</p>
+</div>
+<div class="glass-card p-6 rounded-xl text-center group cursor-default" style="--mouse-x: 378px; --mouse-y: 158px;">
+<span class="material-symbols-outlined text-4xl text-primary-container mb-3 group-hover:scale-125 group-hover:-rotate-6 transition-transform duration-500">family_restroom</span>
+<p class="font-label-sm text-[10px] tracking-widest uppercase opacity-70">Familj</p>
+</div>
+<div class="glass-card p-6 rounded-xl text-center group cursor-default" style="--mouse-x: 230px; --mouse-y: 158px;">
+<span class="material-symbols-outlined text-4xl text-primary-container mb-3 group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500">sports_esports</span>
+<p class="font-label-sm text-[10px] tracking-widest uppercase opacity-70">E-sport</p>
+</div>
+<div class="glass-card p-6 rounded-xl text-center group cursor-default" style="--mouse-x: 82px; --mouse-y: 158.0010986328125px;">
+<span class="material-symbols-outlined text-4xl text-primary-container mb-3 group-hover:scale-125 group-hover:-rotate-6 transition-transform duration-500">home_iot_device</span>
+<p class="font-label-sm text-[10px] tracking-widest uppercase opacity-70">Smart Hem&nbsp;</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="lg:ml-64 bg-surface-container-lowest/80 border-t border-white/5 py-16 backdrop-blur-md">
+<div class="max-w-container-max mx-auto px-margin-mobile flex flex-col items-center text-center gap-8">
+<div class="space-y-2">
+<p class="text-primary font-bold tracking-tighter text-2xl">MAX_KRISTOFFERSSON</p>
+<p class="font-code-md text-xs text-on-surface-variant/40">v2.1.0 — TERMINAL_BUILD_REV_0824</p>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant/60 hover:text-primary transition-all flex items-center gap-2 group" href="#">
+<span class="font-label-sm text-xs">LINKEDIN</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">north_east</span>
+</a>
+<a class="text-on-surface-variant/60 hover:text-primary transition-all flex items-center gap-2 group" href="#">
+<span class="font-label-sm text-xs">GITHUB</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">north_east</span>
+</a>
+<a class="text-on-surface-variant/60 hover:text-primary transition-all flex items-center gap-2 group" href="mailto:Kristofferssonmax@gmail.com">
+<span class="font-label-sm text-xs">EMAIL</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">mail</span>
+</a>
+</div>
+<p class="font-code-md text-[10px] text-on-surface-variant/30 uppercase tracking-[0.3em]">© 2024 Designat för framtiden</p>
+</div>
+</footer>
+<!-- FAB -->
+
+<script>
+        // Particle System
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 60; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedX: Math.random() * 0.4 - 0.2,
+                    speedY: Math.random() * 0.4 - 0.2,
+                    opacity: Math.random() * 0.5 + 0.1
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.y > canvas.height) p.y = 0;
+                if (p.y < 0) p.y = canvas.height;
+
+                ctx.fillStyle = `rgba(0, 209, 255, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', initParticles);
+        initParticles();
+        animateParticles();
+
+        // Mouse interaction for glass cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Timeline drawing animation on scroll
+        window.addEventListener('scroll', () => {
+            const timelineLine = document.getElementById('timeline-line');
+            const mainCanvas = document.querySelector('main');
+            const scrollPercent = (window.scrollY / (mainCanvas.scrollHeight - window.innerHeight)) * 100;
+            timelineLine.style.height = `${Math.min(scrollPercent * 1.5, 100)}%`;
+        });
+    </script>
+
+
+</body></html>
