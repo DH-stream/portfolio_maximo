@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="dark" lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projekt | Max Kristoffersson</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  body { background-color: #0C0A09; color: #e8e1df; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .glass-card {
+    background: rgba(26,26,26,0.6); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .glass-card:hover { border-color: rgba(0,209,255,0.4); box-shadow: 0 0 30px rgba(0,209,255,0.1); transform: translateY(-4px); }
+  #mouse-glow {
+    position:fixed; width:600px; height:600px;
+    background:radial-gradient(circle,rgba(0,209,255,0.08) 0%,rgba(0,209,255,0) 70%);
+    border-radius:50%; pointer-events:none; z-index:1;
+    transform:translate(-50%,-50%); transition:opacity 0.3s ease;
+  }
+  .mesh-gradient {
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background: radial-gradient(at 0% 0%,rgba(189,0,255,0.05) 0px,transparent 50%),
+                radial-gradient(at 100% 0%,rgba(0,209,255,0.05) 0px,transparent 50%),
+                radial-gradient(at 100% 100%,rgba(189,0,255,0.05) 0px,transparent 50%),
+                radial-gradient(at 0% 100%,rgba(0,209,255,0.05) 0px,transparent 50%);
+    z-index:0; opacity:0.6;
+  }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+  #terminal-window { background:rgba(10,10,10,0.95); border:1px solid rgba(0,209,255,0.3); border-radius:12px; backdrop-filter:blur(30px); box-shadow:0 0 60px rgba(0,209,255,0.1),0 30px 80px rgba(0,0,0,0.5); }
+  .terminal-titlebar { background:rgba(26,26,26,0.9); border-bottom:1px solid rgba(255,255,255,0.08); border-radius:12px 12px 0 0; }
+  .dot { width:12px; height:12px; border-radius:50%; display:inline-block; }
+  .dot-red{background:#ff5f56} .dot-yellow{background:#ffbd2e} .dot-green{background:#27c93f}
+  @keyframes terminal-blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .terminal-cursor { display:inline-block; width:8px; height:1.2em; background:#00d1ff; margin-left:2px; animation:terminal-blink 1s step-end infinite; vertical-align:middle; }
+  #terminal-overlay { transition:opacity 0.3s ease; }
+  #terminal-modal { transition:all 0.3s ease; }
+  .nav-link { font-family:'JetBrains Mono',monospace; font-size:13px; color:#859399; transition:color 0.2s; }
+  .nav-link:hover { color:#a4e6ff; }
+  .nav-link.active { color:#a4e6ff; }
+  .tag { font-family:'JetBrains Mono',monospace; font-size:11px; padding:3px 10px; border-radius:999px; background:rgba(0,209,255,0.08); color:#a4e6ff; border:1px solid rgba(0,209,255,0.2); }
+  .tag-purple { background:rgba(189,0,255,0.08); color:#f5d0ff; border-color:rgba(189,0,255,0.2); }
+  .tag-green { background:rgba(54,255,196,0.08); color:#36ffc4; border-color:rgba(54,255,196,0.2); }
+  .border-beam { position:relative; overflow:hidden; }
+  .border-beam::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:2px; background:linear-gradient(90deg,transparent,#00d1ff,transparent); animation:beam 3s infinite linear; }
+  @keyframes beam { 0%{left:-100%} 100%{left:100%} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .animate-in { animation:fadeInUp 0.6s ease forwards; }
+  .delay-1{animation-delay:0.1s;opacity:0} .delay-2{animation-delay:0.25s;opacity:0} .delay-3{animation-delay:0.4s;opacity:0}
+  @keyframes scanline { 0%{transform:translateY(-100%)} 100%{transform:translateY(100vh)} }
+  .scanline { position:fixed; width:100%; height:2px; pointer-events:none; z-index:9999; background:linear-gradient(transparent,rgba(0,209,255,0.05),transparent); animation:scanline 8s linear infinite; }
+</style>
+<script>
+  tailwind.config = {
+    darkMode:"class",
+    theme:{ extend:{ colors:{ "primary":"#a4e6ff","on-primary":"#003543","primary-container":"#00d1ff","secondary":"#ffffff","secondary-fixed":"#36ffc4","tertiary":"#f5d0ff","surface":"#151312","surface-container":"#221f1e","surface-container-low":"#1d1b1a","surface-container-lowest":"#100e0d","surface-container-high":"#2c2928","surface-container-highest":"#373433","on-surface":"#e8e1df","on-surface-variant":"#bbc9cf","outline":"#859399","outline-variant":"#3c494e","error":"#ffb4ab","charcoal":"#1A1A1A","background":"#151312","on-background":"#e8e1df" }, spacing:{"margin-mobile":"16px","gutter":"24px","margin-desktop":"64px","container-max":"1200px"}, borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"} } }
+  }
+</script>
+</head>
+<body class="bg-background">
+<div class="scanline"></div>
+<div id="mouse-glow" style="opacity:0"></div>
+<div class="mesh-gradient"></div>
+
+<!-- Terminal Modal -->
+<div class="fixed inset-0 z-[100] items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0" id="terminal-overlay">
+  <div class="relative w-full max-w-2xl mx-4 transform scale-95 -translate-y-4 opacity-0" id="terminal-modal">
+    <div id="terminal-window">
+      <div class="terminal-titlebar px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+          <span class="font-mono text-xs text-on-surface-variant ml-3">max@portfolio: ~/projects</span>
+        </div>
+        <button id="close-terminal" class="p-1 hover:bg-white/10 rounded transition-colors">
+          <span class="material-symbols-outlined text-on-surface-variant hover:text-error text-lg">close</span>
+        </button>
+      </div>
+      <div class="p-5 font-mono text-sm min-h-[350px] max-h-[60vh] overflow-y-auto" id="modal-terminal-container">
+        <div id="modal-terminal-history">
+          <p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p>
+          <p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för tillgängliga kommandon.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-primary">➜</span>
+          <span class="text-secondary-fixed">~/projects</span>
+          <div class="relative flex-1">
+            <input autocomplete="off" class="bg-transparent border-none outline-none ring-0 p-0 w-full text-on-surface font-mono text-sm" id="modal-cli-input" type="text"/>
+            <span class="terminal-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(0,209,255,0.07)]">
+  <nav class="flex justify-between items-center px-6 md:px-16 py-4 max-w-[1200px] mx-auto">
+    <a href="index.html" class="font-mono text-sm text-primary tracking-wider hover:text-primary-container transition-colors">~/max-kristoffersson</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="nav-link">hem</a>
+      <a href="projects.html" class="nav-link active">projekt</a>
+      <a href="cv.html" class="nav-link">cv</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="open-terminal" class="p-2 rounded-lg hover:bg-white/5 transition-all active:scale-95 group" title="Öppna terminal">
+        <span class="material-symbols-outlined text-primary group-hover:text-primary-container">terminal</span>
+      </button>
+      <div class="md:hidden flex items-center gap-1 ml-2">
+        <a href="index.html" class="p-2 rounded-lg hover:bg-white/5 transition-all"><span class="material-symbols-outlined text-outline text-sm">home</span></a>
+        <a href="cv.html" class="p-2 rounded-lg hover:bg-white/5 transition-all"><span class="material-symbols-outlined text-outline text-sm">description</span></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="relative z-10 pt-32 pb-24">
+  <!-- Hero -->
+  <section class="max-w-[1200px] mx-auto px-6 md:px-16 mb-16">
+    <div class="max-w-2xl">
+      <div class="animate-in delay-1 mb-3"><span class="tag">~/projects</span></div>
+      <h1 class="animate-in delay-2 text-5xl md:text-6xl font-bold text-white leading-tight mb-5 tracking-tight">Mina <span class="text-primary">Projekt</span></h1>
+      <p class="animate-in delay-3 text-on-surface-variant text-lg leading-relaxed">
+        En samling av automation, logistikverktyg och personliga projekt. Från hemautomation till digitala arbetsflöden.
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="max-w-[1200px] mx-auto px-6 md:px-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Project 1: Home Automation -->
+      <div class="glass-card rounded-xl overflow-hidden flex flex-col border-beam">
+        <div class="relative aspect-video bg-surface-container-highest flex items-center justify-center group overflow-hidden">
+          <div class="absolute inset-0" style="background:radial-gradient(circle at 30% 50%,rgba(0,209,255,0.1),transparent 60%),radial-gradient(circle at 70% 50%,rgba(189,0,255,0.08),transparent 60%)"></div>
+          <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(circle at 2px 2px,rgba(0,209,255,0.3) 1px,transparent 0);background-size:24px 24px"></div>
+          <span class="material-symbols-outlined text-primary text-7xl group-hover:scale-110 transition-transform duration-500 relative z-10" style='font-variation-settings:"FILL" 0,"wght" 300'>home_iot_device</span>
+        </div>
+        <div class="p-8 flex-grow flex flex-col">
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="tag">Home Assistant</span>
+            <span class="tag">Node-RED</span>
+            <span class="tag">MQTT</span>
+          </div>
+          <h3 class="text-2xl font-semibold text-white mb-3">Hemautomation</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-grow">
+            Ett komplett smarthemssystem byggt med Home Assistant och Node-RED. Automatiserar belysning, klimat, energiövervakning och närvaro — lokalt och utan molntjänster.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="border border-outline/30 text-secondary px-5 py-2 rounded-lg text-sm hover:bg-white/5 hover:border-primary/40 transition-all active:scale-95">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Excel Automation -->
+      <div class="glass-card rounded-xl overflow-hidden flex flex-col">
+        <div class="relative aspect-video bg-surface-container-highest flex items-center justify-center group overflow-hidden">
+          <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 50%,rgba(54,255,196,0.08),transparent 60%)"></div>
+          <div class="absolute inset-0 opacity-10" style="background-image:linear-gradient(rgba(54,255,196,0.15) 1px,transparent 1px),linear-gradient(90deg,rgba(54,255,196,0.15) 1px,transparent 1px);background-size:40px 40px"></div>
+          <span class="material-symbols-outlined text-secondary-fixed text-7xl group-hover:scale-110 transition-transform duration-500 relative z-10" style='font-variation-settings:"FILL" 0,"wght" 300'>table_chart</span>
+        </div>
+        <div class="p-8 flex-grow flex flex-col">
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="tag tag-green">Excel</span>
+            <span class="tag tag-green">VBA</span>
+            <span class="tag tag-green">Power Query</span>
+          </div>
+          <h3 class="text-2xl font-semibold text-white mb-3">Logistikautomation i Excel</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-grow">
+            Automatiserade föråldrade manuella rutiner på lagret med Excel och VBA. Reducerade administrativ tid markant och minskade risken för mänskliga fel i orderhantering.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="border border-outline/30 text-secondary px-5 py-2 rounded-lg text-sm hover:bg-white/5 hover:border-primary/40 transition-all active:scale-95">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: Portfolio Site -->
+      <div class="glass-card rounded-xl overflow-hidden flex flex-col">
+        <div class="relative aspect-video bg-surface-container-highest flex items-center justify-center group overflow-hidden">
+          <div class="absolute inset-0" style="background:radial-gradient(circle at 40% 40%,rgba(189,0,255,0.1),transparent 60%),radial-gradient(circle at 60% 60%,rgba(0,209,255,0.08),transparent 50%)"></div>
+          <div class="absolute inset-0 opacity-15" style="background-image:linear-gradient(rgba(189,0,255,0.2) 1px,transparent 1px),linear-gradient(90deg,rgba(189,0,255,0.2) 1px,transparent 1px);background-size:32px 32px"></div>
+          <span class="material-symbols-outlined text-tertiary text-7xl group-hover:rotate-6 transition-transform duration-500 relative z-10" style='font-variation-settings:"FILL" 0,"wght" 300'>terminal</span>
+        </div>
+        <div class="p-8 flex-grow flex flex-col">
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="tag tag-purple">HTML/CSS</span>
+            <span class="tag tag-purple">JavaScript</span>
+            <span class="tag tag-purple">Tailwind</span>
+          </div>
+          <h3 class="text-2xl font-semibold text-white mb-3">Portfolio — Den här sidan</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-grow">
+            Min personliga portfolio med en interaktiv terminal. Byggt med modern HTML/CSS och ett cyber-minimalistiskt designsystem. Hostad på GitHub Pages.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="bg-primary text-on-primary px-5 py-2 rounded-lg text-sm font-semibold hover:shadow-[0_0_20px_rgba(0,209,255,0.4)] transition-all active:scale-95">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: WMS Integration -->
+      <div class="glass-card rounded-xl overflow-hidden flex flex-col">
+        <div class="relative aspect-video bg-surface-container-highest flex items-center justify-center group overflow-hidden">
+          <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 50%,rgba(0,209,255,0.06),transparent 60%)"></div>
+          <div class="absolute inset-0 opacity-10" style="background:repeating-linear-gradient(45deg,transparent,transparent 15px,rgba(0,209,255,0.15) 15px,rgba(0,209,255,0.15) 16px)"></div>
+          <span class="material-symbols-outlined text-primary text-7xl group-hover:scale-110 transition-transform duration-500 relative z-10" style='font-variation-settings:"FILL" 0,"wght" 300'>inventory_2</span>
+        </div>
+        <div class="p-8 flex-grow flex flex-col">
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="tag">WMS</span>
+            <span class="tag">Thetis</span>
+            <span class="tag">OnGoing</span>
+          </div>
+          <h3 class="text-2xl font-semibold text-white mb-3">WMS-integration & Onboarding</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-grow">
+            Projektledde implementering av nya kunder i WMS-system (Thetis & OnGoing). Byggde processer och rutiner för smidig onboarding och löpande uppföljning.
+          </p>
+          <div class="flex gap-3">
+            <button class="border border-outline/30 text-outline px-5 py-2 rounded-lg text-sm cursor-default font-mono text-xs">Internt projekt</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="relative z-10 border-t border-white/5 py-10 px-6 md:px-16">
+  <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <a href="index.html" class="font-mono text-xs text-primary hover:text-primary-container transition-colors">~/max-kristoffersson</a>
+    <div class="flex gap-6">
+      <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="font-mono text-xs text-outline hover:text-secondary transition-colors">GitHub</a>
+      <a href="https://www.linkedin.com/in/" target="_blank" class="font-mono text-xs text-outline hover:text-secondary transition-colors">LinkedIn</a>
+      <a href="mailto:Kristofferssonmax@gmail.com" class="font-mono text-xs text-outline hover:text-secondary transition-colors">E-post</a>
+    </div>
+    <span class="font-mono text-xs text-outline">© 2025 Max Kristoffersson</span>
+  </div>
+</footer>
+
+<script>
+  const glow = document.getElementById('mouse-glow');
+  document.addEventListener('mousemove', e => { glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; });
+  document.addEventListener('mouseleave', () => glow.style.opacity='0');
+  document.addEventListener('mouseenter', () => glow.style.opacity='1');
+
+  const COMMANDS = {
+    'help': () => `Tillgängliga kommandon:<br><span class="text-primary">ls</span>        — Lista projekt<br><span class="text-primary">about</span>     — Om Max<span class="text-primary"><br>contact</span>   — Kontakt<br><span class="text-primary">home</span>      — Gå till startsidan<br><span class="text-primary">cv</span>        — Gå till CV<br><span class="text-primary">clear</span>     — Rensa`,
+    'ls': () => `<div class="grid grid-cols-2 gap-x-4 gap-y-1 my-1"><span class="text-secondary-fixed">drwxr-xr-x</span><span>hemautomation/</span><span class="text-secondary-fixed">drwxr-xr-x</span><span>excel-automation/</span><span class="text-secondary-fixed">drwxr-xr-x</span><span>portfolio/</span><span class="text-secondary-fixed">drwxr-xr-x</span><span>wms-integration/</span></div>`,
+    'about': () => `Max Kristoffersson — Country Team Operator @ Den Hartogh Liquid Logistics.<br>Logistikproffs med passion för automation och smarta system.`,
+    'contact': () => `E-post: <span class="text-secondary">Kristofferssonmax@gmail.com</span><br>Mobil: <span class="text-secondary">072-225 22 60</span>`,
+    'home': () => { setTimeout(()=>window.location.href='index.html',500); return `<span class="text-secondary-fixed">Navigerar hem...</span>`; },
+    'cv': () => { setTimeout(()=>window.location.href='cv.html',500); return `<span class="text-secondary-fixed">Navigerar till CV...</span>`; },
+  };
+
+  const historyEl = document.getElementById('modal-terminal-history');
+  const containerEl = document.getElementById('modal-terminal-container');
+  const inputEl = document.getElementById('modal-cli-input');
+
+  const appendLine = (input, output) => {
+    const line = document.createElement('div');
+    line.className = 'mb-2';
+    line.innerHTML = `<div class="flex gap-2"><span class="text-primary">➜</span><span class="text-secondary-fixed">~/projects</span><span class="text-on-surface ml-1">${input}</span></div>`;
+    if (output !== null) {
+      const resp = document.createElement('div');
+      resp.className = 'mb-3 text-on-surface-variant leading-relaxed pl-4 border-l border-white/10';
+      resp.innerHTML = output;
+      line.appendChild(resp);
+    }
+    historyEl.appendChild(line);
+    containerEl.scrollTop = containerEl.scrollHeight;
+  };
+
+  inputEl.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const raw = inputEl.value.trim(); const cmd = raw.toLowerCase();
+    if (!cmd) return;
+    if (cmd === 'clear') {
+      historyEl.innerHTML = '<p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p><p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för tillgängliga kommandon.</p>';
+      inputEl.value = ''; return;
+    }
+    const fn = COMMANDS[cmd];
+    const output = fn ? fn() : `<span class="text-error">Okänt kommando: '${raw}'. Skriv 'help'.</span>`;
+    appendLine(raw, output); inputEl.value = '';
+  });
+  containerEl.addEventListener('click', () => inputEl.focus());
+
+  const openBtn = document.getElementById('open-terminal');
+  const closeBtn = document.getElementById('close-terminal');
+  const overlay = document.getElementById('terminal-overlay');
+  const modal = document.getElementById('terminal-modal');
+
+  const openTerminal = () => {
+    overlay.classList.remove('hidden'); overlay.classList.add('flex');
+    requestAnimationFrame(() => {
+      overlay.classList.remove('opacity-0'); overlay.classList.add('opacity-100');
+      modal.classList.remove('scale-95','-translate-y-4','opacity-0');
+      modal.classList.add('scale-100','translate-y-0','opacity-100');
+    });
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => inputEl.focus(), 150);
+  };
+  const closeTerminal = () => {
+    overlay.classList.remove('opacity-100'); overlay.classList.add('opacity-0');
+    modal.classList.add('scale-95','-translate-y-4','opacity-0');
+    modal.classList.remove('scale-100','translate-y-0','opacity-100');
+    setTimeout(() => { overlay.classList.add('hidden'); overlay.classList.remove('flex'); document.body.style.overflow=''; }, 300);
+  };
+  openBtn.addEventListener('click', e => { e.stopPropagation(); openTerminal(); });
+  closeBtn.addEventListener('click', closeTerminal);
+  overlay.addEventListener('click', e => { if(e.target===overlay) closeTerminal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'&&!overlay.classList.contains('hidden')) closeTerminal(); });
+</script>
+</body>
+</html>
