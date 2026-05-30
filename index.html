@@ -1,390 +1,409 @@
-<!DOCTYPE html><html class="dark" lang="sv"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!DOCTYPE html>
+<html class="dark" lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Max Kristoffersson — Logistik & Automation</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "surface-container-lowest": "#100e0d",
-                    "on-primary-container": "#00566a",
-                    "on-tertiary-fixed": "#320047",
-                    "tertiary": "#f5d0ff",
-                    "secondary-fixed-dim": "#00e1ab",
-                    "outline-variant": "#3c494e",
-                    "primary-container": "#00d1ff",
-                    "primary-fixed-dim": "#4cd6ff",
-                    "deep-blue": "#0A1128",
-                    "surface-container": "#221f1e",
-                    "charcoal": "#1A1A1A",
-                    "surface-dim": "#151312",
-                    "on-surface-variant": "#bbc9cf",
-                    "primary": "#a4e6ff",
-                    "on-primary": "#003543",
-                    "inverse-primary": "#00677f",
-                    "outline": "#859399",
-                    "on-primary-fixed-variant": "#004e60",
-                    "tertiary-fixed-dim": "#ecb2ff",
-                    "on-error-container": "#ffdad6",
-                    "on-secondary": "#003828",
-                    "on-error": "#690005",
-                    "inverse-surface": "#e8e1df",
-                    "secondary-fixed": "#36ffc4",
-                    "primary-fixed": "#b7eaff",
-                    "on-tertiary-container": "#8000ae",
-                    "surface-container-low": "#1d1b1a",
-                    "on-tertiary": "#520071",
-                    "tertiary-container": "#e9a9ff",
-                    "glow-cyan": "rgba(0, 209, 255, 0.4)",
-                    "secondary": "#ffffff",
-                    "surface-bright": "#3c3837",
-                    "secondary-container": "#36ffc4",
-                    "inverse-on-surface": "#33302e",
-                    "on-secondary-container": "#007255",
-                    "surface-variant": "#373433",
-                    "surface-container-highest": "#373433",
-                    "background": "#151312",
-                    "surface-container-high": "#2c2928",
-                    "on-secondary-fixed-variant": "#00513c",
-                    "tertiary-fixed": "#f8d8ff",
-                    "on-background": "#e8e1df",
-                    "glow-purple": "rgba(189, 0, 255, 0.2)",
-                    "error-container": "#93000a",
-                    "on-tertiary-fixed-variant": "#74009f",
-                    "on-primary-fixed": "#001f28",
-                    "surface": "#151312",
-                    "on-surface": "#e8e1df",
-                    "on-secondary-fixed": "#002116",
-                    "error": "#ffb4ab",
-                    "surface-tint": "#4cd6ff"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "container-max": "1200px",
-                    "margin-desktop": "64px",
-                    "unit": "8px",
-                    "margin-mobile": "16px",
-                    "gutter": "24px"
-            },
-            "fontFamily": {
-                    "body-md": ["Geist"],
-                    "label-sm": ["JetBrains Mono"],
-                    "headline-lg-mobile": ["Geist"],
-                    "body-lg": ["Geist"],
-                    "headline-xl": ["Geist"],
-                    "code-md": ["JetBrains Mono"],
-                    "headline-lg": ["Geist"]
-            },
-            "fontSize": {
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
-                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "code-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
-            }
-          },
-        },
-      }
-    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-card {
-            background: rgba(26, 26, 26, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        /* Advanced Dynamic Background */
-        @keyframes mesh-drift {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-        
-        .mesh-bg-animated {
-            background-color: #151312;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 209, 255, 0.2) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(189, 0, 255, 0.15) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(0, 103, 127, 0.1) 0px, transparent 40%),
-                radial-gradient(at 100% 100%, rgba(0, 209, 255, 0.2) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(189, 0, 255, 0.15) 0px, transparent 50%);
-            background-size: 200% 200%;
-            animation: mesh-drift 15s ease infinite;
-        }
+  body { background-color: #0C0A09; color: #e8e1df; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        @keyframes float-slow {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
-            33% { transform: translate(50px, -70px) scale(1.2); opacity: 0.2; }
-            66% { transform: translate(-30px, 30px) scale(0.9); opacity: 0.15; }
-            100% { transform: translate(0, 0) scale(1); opacity: 0.1; }
-        }
+  .glass-card {
+    background: rgba(26,26,26,0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .glass-card:hover {
+    border-color: rgba(0,209,255,0.4);
+    box-shadow: 0 0 30px rgba(0,209,255,0.1);
+    transform: translateY(-4px);
+  }
 
-        .atmospheric-glow {
-            filter: blur(120px);
-            animation: float-slow 25s infinite ease-in-out;
-            will-change: transform, opacity;
-        }
+  #mouse-glow {
+    position: fixed; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,209,255,0.08) 0%, rgba(0,209,255,0) 70%);
+    border-radius: 50%; pointer-events: none; z-index: 1;
+    transform: translate(-50%,-50%); transition: opacity 0.3s ease;
+  }
+  .mesh-gradient {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background:
+      radial-gradient(at 0% 0%, rgba(189,0,255,0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(0,209,255,0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(189,0,255,0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(0,209,255,0.05) 0px, transparent 50%);
+    z-index: 0; opacity: 0.6;
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    vertical-align: middle;
+  }
 
-        .halo-effect {
-            position: fixed;
-            width: 800px;
-            height: 800px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(76, 214, 255, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: -5;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease;
-        }
+  /* Terminal */
+  #terminal-window {
+    background: rgba(10,10,10,0.95);
+    border: 1px solid rgba(0,209,255,0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 60px rgba(0,209,255,0.1), 0 30px 80px rgba(0,0,0,0.5);
+  }
+  .terminal-titlebar {
+    background: rgba(26,26,26,0.9);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px 12px 0 0;
+  }
+  .dot { width:12px; height:12px; border-radius:50%; display:inline-block; }
+  .dot-red { background:#ff5f56; }
+  .dot-yellow { background:#ffbd2e; }
+  .dot-green { background:#27c93f; }
 
-        .terminal-container {
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 209, 255, 0.1);
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 18px;
-            background-color: #a4e6ff;
-            margin-left: 2px;
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
-        }
-        #terminal-input {
-            caret-color: transparent;
-        }
-        .typing-effect {
-            display: inline;
-        }
-    </style>
-</head>
-<body class="bg-background text-on-background font-body-md min-h-screen selection:bg-primary/30 relative overflow-x-hidden mesh-bg-animated">
-<!-- Mouse Reactive Halo -->
-<div class="halo-effect" id="mouse-halo" style="left: 851px; top: 789px;"></div>
-<!-- Dynamic Background Elements -->
-<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-<div class="atmospheric-glow absolute top-[-10%] left-[10%] w-[600px] h-[600px] bg-primary rounded-full" style="animation-duration: 25s;"></div>
-<div class="atmospheric-glow absolute bottom-[-15%] right-[-5%] w-[700px] h-[700px] bg-tertiary-container rounded-full" style="animation-delay: -7s; animation-duration: 30s;"></div>
-<div class="atmospheric-glow absolute top-[30%] right-[15%] w-[400px] h-[400px] bg-secondary-fixed rounded-full" style="animation-delay: -12s; animation-duration: 22s;"></div>
-<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.01]"></div>
-</div>
-<!-- TopNavBar -->
-<nav class="fixed top-0 left-0 w-full z-50 bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/30" id="home">
-<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
-<div class="font-headline-lg text-headline-lg font-bold tracking-tighter text-primary">MAX KRISTOFFERSSON</div>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-primary border-b-2 border-primary pb-1 font-body-md text-body-md transition-all duration-300" href="index.html">Hem</a>
-<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="projects.html">Projekt</a>
-<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="#terminal">Terminal</a>
-<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="#footer">Kontakt</a>
-</div>
-<a href="cv.html" class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-label-sm text-label-sm font-bold active:scale-95 transition-transform duration-200">CV</a></div>
-</nav>
-<main class="pb-24 max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative pt-40">
-<!-- Enhanced Terminal Section -->
-<section class="max-w-4xl mx-auto relative z-10 min-h-[60vh] flex items-center" id="terminal">
-<div class="glass-card rounded-xl overflow-hidden terminal-container border border-outline-variant/30 bg-black/80 w-full">
-<!-- PowerShell Style Header -->
-<div class="bg-[#1e1e1e] border-b border-outline-variant/20 flex items-center justify-between px-4 h-10 select-none">
-<div class="flex items-center gap-2">
-<div class="bg-[#2d2d2d] px-4 h-full flex items-center gap-2 border-t-2 border-primary-container">
-<span class="material-symbols-outlined text-[16px] text-primary-container">terminal</span>
-<span class="text-xs font-medium text-on-surface tracking-wide">PowerShell</span>
-<span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-white cursor-pointer ml-2">close</span>
-</div>
-<button class="text-on-surface-variant hover:bg-white/5 p-1 rounded transition-colors">
-<span class="material-symbols-outlined text-[18px]">add</span>
-</button>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex gap-4">
-<span class="material-symbols-outlined text-[18px] text-on-surface-variant hover:text-white cursor-pointer">remove</span>
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-white cursor-pointer">check_box_outline_blank</span>
-<span class="material-symbols-outlined text-[18px] text-on-surface-variant hover:hover:bg-red-500 hover:text-white cursor-pointer px-1">close</span>
-</div>
-</div>
-</div>
-<!-- Terminal Body -->
-<div class="p-8 h-96 overflow-y-auto font-code-md text-code-md bg-black/60 text-on-surface-variant scroll-smooth relative" id="terminal-body">
-<div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-primary/5 to-transparent opacity-30"></div>
-<div class="relative z-10">
-<div class="mb-4">
-<p class="text-primary-fixed-dim">Windows PowerShell</p>
-<p class="mb-2">Copyright (C) Microsoft Corporation. All rights reserved.</p>
-<p class="text-on-surface-variant/50 italic mb-4">Try the new cross-platform PowerShell https://aka.ms/pscore</p>
-<p class="text-on-surface-variant/70 italic">Skriv 'help' för att se tillgängliga kommandon.</p>
-</div>
-<div class="space-y-1" id="terminal-output"></div>
-<div class="flex mt-2 items-center" id="input-line">
-<span class="text-primary-container mr-2 font-bold font-code-md">PS C:\Users\Max&gt;</span>
-<div class="flex-1 relative flex items-center">
-<input autocomplete="off" autofocus="" class="bg-transparent border-none outline-none ring-0 focus:ring-0 p-0 w-full text-white font-code-md selection:bg-primary/40" id="terminal-input" type="text">
-<div class="cursor" id="terminal-cursor"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-surface-container-lowest/80 backdrop-blur-md border-t border-outline-variant/20 py-12 relative z-10" id="footer">
-<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-8">
-<div class="flex gap-12 justify-center">
-<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank">LinkedIn</a>
-<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="https://github.com/DH-stream/portfolio_maximo" target="_blank">GitHub</a>
-<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="mailto:Kristofferssonmax@gmail.com">E-post</a>
-</div>
-<div class="text-on-surface-variant font-label-sm text-label-sm opacity-60 text-center">
-            © 2024 Utvecklare. Skapad med precision.
-        </div>
-</div>
-</footer>
+  @keyframes terminal-blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .terminal-cursor {
+    display:inline-block; width:8px; height:1.2em;
+    background:#00d1ff; margin-left:2px;
+    animation:terminal-blink 1s step-end infinite; vertical-align:middle;
+  }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .animate-in { animation: fadeInUp 0.6s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; opacity:0; }
+  .delay-2 { animation-delay: 0.25s; opacity:0; }
+  .delay-3 { animation-delay: 0.4s; opacity:0; }
+  .delay-4 { animation-delay: 0.55s; opacity:0; }
+  .delay-5 { animation-delay: 0.7s; opacity:0; }
+
+  @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(0,209,255,0.2)} 50%{box-shadow:0 0 40px rgba(0,209,255,0.4)} }
+  .glow-pulse { animation: glowPulse 3s ease infinite; }
+
+  /* Modal */
+  #terminal-overlay { transition: opacity 0.3s ease; }
+  #terminal-modal { transition: all 0.3s ease; }
+
+  .nav-link { font-family:'JetBrains Mono',monospace; font-size:13px; color:#859399; transition:color 0.2s; }
+  .nav-link:hover { color:#a4e6ff; }
+  .nav-link.active { color:#a4e6ff; }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  .scanline {
+    position:fixed; width:100%; height:2px; pointer-events:none; z-index:9999;
+    background: linear-gradient(transparent, rgba(0,209,255,0.05), transparent);
+    animation: scanline 8s linear infinite;
+  }
+  .tag {
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    padding:3px 10px; border-radius:999px;
+    background:rgba(0,209,255,0.08); color:#a4e6ff;
+    border:1px solid rgba(0,209,255,0.2);
+  }
+  .stat-card {
+    background:rgba(26,26,26,0.5); border:1px solid rgba(255,255,255,0.07);
+    border-radius:12px; padding:24px; transition:all 0.3s;
+  }
+  .stat-card:hover { border-color:rgba(0,209,255,0.3); background:rgba(26,26,26,0.7); }
+</style>
 <script>
-    // Mouse Halo Logic
-    const halo = document.getElementById('mouse-halo');
-    document.addEventListener('mousemove', (e) => {
-        halo.style.left = e.clientX + 'px';
-        halo.style.top = e.clientY + 'px';
-    });
-
-    const terminalInput = document.getElementById('terminal-input');
-    const terminalOutput = document.getElementById('terminal-output');
-    const terminalBody = document.getElementById('terminal-body');
-    const inputLine = document.getElementById('input-line');
-    const terminalCursor = document.getElementById('terminal-cursor');
-
-    let isTyping = false;
-
-    const projects = ["CloudScale Engine", "Neural Linker", "Secure Shield"];
-
-    const typeResponse = async (text, delay = 20) => {
-        isTyping = true;
-        inputLine.classList.add('hidden');
-        
-        const responseLine = document.createElement('div');
-        responseLine.className = 'mt-1 mb-2 text-on-surface';
-        terminalOutput.appendChild(responseLine);
-
-        const span = document.createElement('span');
-        span.className = 'typing-effect';
-        responseLine.appendChild(span);
-
-        await new Promise(resolve => setTimeout(resolve, 400));
-
-        for (let i = 0; i < text.length; i++) {
-            if (text.substr(i, 4) === '<br/') {
-                span.innerHTML += '<br/>';
-                i += 4;
-            } else if (text[i] === '<') {
-                let endTag = text.indexOf('>', i);
-                span.innerHTML += text.substring(i, endTag + 1);
-                i = endTag;
-            } else {
-                span.innerHTML += text[i];
-            }
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-
-        inputLine.classList.remove('hidden');
-        terminalInput.focus();
-        isTyping = false;
-    };
-
-    const commands = {
-        'goto home': () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return 'Navigerar till Hem...';
+  tailwind.config = {
+    darkMode:"class",
+    theme:{
+      extend:{
+        colors:{
+          "primary":"#a4e6ff","on-primary":"#003543",
+          "primary-container":"#00d1ff",
+          "secondary":"#ffffff","secondary-fixed":"#36ffc4",
+          "tertiary":"#f5d0ff",
+          "surface":"#151312","surface-container":"#221f1e",
+          "surface-container-low":"#1d1b1a","surface-container-lowest":"#100e0d",
+          "surface-container-high":"#2c2928","surface-container-highest":"#373433",
+          "on-surface":"#e8e1df","on-surface-variant":"#bbc9cf",
+          "outline":"#859399","outline-variant":"#3c494e",
+          "error":"#ffb4ab","charcoal":"#1A1A1A","background":"#151312",
+          "on-background":"#e8e1df"
         },
-        'goto projects': () => {
-            document.getElementById('terminal').scrollIntoView({ behavior: 'smooth' });
-            return 'Navigerar till Projekt...';
-        },
-        'goto contact': () => {
-            document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
-            return 'Navigerar till Kontakt...';
-        },
-        'list': () => {
-            return `Hittade ${projects.length} aktiva projekt:<br/>` + 
-                   projects.map(p => `- <span class="text-secondary-fixed">${p}</span>`).join('<br/>');
-        },
-        'clear': () => {
-            terminalOutput.innerHTML = '';
-            return null;
-        }
-    };
-
-    const regexMatches = [
-        { pattern: /^(hej|hallå|tjena|hi|hello)/i, response: 'Hej där! Hur kan jag hjälpa dig idag? Skriv "help" för en lista på vad jag kan göra.' },
-        { pattern: /^(vem är du|who are you|om max|berätta om dig)/i, response: 'Jag är Max Kristoffersson, en passionerad utvecklare fokuserad på skalbara molnlösningar och AI-integrationer.' },
-        { pattern: /^(hjälp|help|\?)/i, response: `Tillgängliga kommandon:<br/>
-            - <span class="text-primary-container">goto home</span>: Scrolla till toppen<br/>
-            - <span class="text-primary-container">goto projects</span>: Visa mina projekt<br/>
-            - <span class="text-primary-container">goto contact</span>: Kontakta mig<br/>
-            - <span class="text-primary-container">list</span>: Lista alla projekt<br/>
-            - <span class="text-primary-container">clear</span>: Rensa terminalen<br/>
-            - <span class="text-primary-container">help</span>: Visa denna hjälpmeny` }
-    ];
-
-    terminalInput.addEventListener('keydown', async (e) => {
-        if (e.key === 'Enter' && !isTyping) {
-            const fullInput = terminalInput.value.trim();
-            const cmd = fullInput.toLowerCase();
-            
-            const promptLine = document.createElement('div');
-            promptLine.className = 'mt-2';
-            promptLine.innerHTML = `<span class="text-primary-container font-bold">PS C:\\Users\\Max&gt;</span> <span class="text-white">${fullInput}</span>`;
-            terminalOutput.appendChild(promptLine);
-
-            terminalInput.value = '';
-            
-            let response = '';
-            
-            if (commands[cmd]) {
-                response = commands[cmd]();
-            } 
-            else if (cmd !== '') {
-                const match = regexMatches.find(m => m.pattern.test(cmd));
-                if (match) {
-                    response = match.response;
-                } else {
-                    response = `<span class="text-error-container">The term '${fullInput}' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>`;
-                }
-            }
-
-            if (response) {
-                await typeResponse(response);
-            }
-
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        }
-    });
-
-    terminalBody.addEventListener('click', () => {
-        if (!isTyping) terminalInput.focus();
-    });
-
-    terminalInput.addEventListener('focus', () => terminalCursor.style.display = 'inline-block');
-    terminalInput.addEventListener('blur', () => terminalCursor.style.display = 'none');
+        spacing:{"margin-mobile":"16px","gutter":"24px","margin-desktop":"64px","container-max":"1200px"},
+        borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"}
+      }
+    }
+  }
 </script>
+</head>
+<body class="bg-background">
+<div class="scanline"></div>
+<div id="mouse-glow" style="opacity:0"></div>
+<div class="mesh-gradient"></div>
 
+<!-- Terminal Modal Overlay -->
+<div class="fixed inset-0 z-[100] items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0" id="terminal-overlay">
+  <div class="relative w-full max-w-2xl mx-4 transform scale-95 -translate-y-4 opacity-0" id="terminal-modal">
+    <div id="terminal-window">
+      <div class="terminal-titlebar px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="font-mono text-xs text-on-surface-variant ml-3">max@portfolio: ~</span>
+        </div>
+        <button id="close-terminal" class="p-1 hover:bg-white/10 rounded transition-colors">
+          <span class="material-symbols-outlined text-on-surface-variant hover:text-error text-lg">close</span>
+        </button>
+      </div>
+      <div class="p-5 font-mono text-sm min-h-[350px] max-h-[60vh] overflow-y-auto" id="modal-terminal-container">
+        <div id="modal-terminal-history">
+          <p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p>
+          <p class="text-secondary opacity-40 mb-1">(c) 2025 Max Kristoffersson.</p>
+          <p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för att se tillgängliga kommandon.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-primary">➜</span>
+          <span class="text-secondary-fixed">~</span>
+          <div class="relative flex-1">
+            <input autocomplete="off" class="bg-transparent border-none outline-none ring-0 p-0 w-full text-on-surface font-mono text-sm" id="modal-cli-input" type="text" placeholder=""/>
+            <span class="terminal-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-</body></html>
+<!-- Nav -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(0,209,255,0.07)]">
+  <nav class="flex justify-between items-center px-6 md:px-16 py-4 max-w-[1200px] mx-auto">
+    <div class="font-mono text-sm text-primary tracking-wider">~/max-kristoffersson</div>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="nav-link active">hem</a>
+      <a href="projects.html" class="nav-link">projekt</a>
+      <a href="cv.html" class="nav-link">cv</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="open-terminal" class="p-2 rounded-lg hover:bg-white/5 transition-all active:scale-95 group" title="Öppna terminal">
+        <span class="material-symbols-outlined text-primary group-hover:text-primary-container">terminal</span>
+      </button>
+      <!-- Mobile menu -->
+      <div class="md:hidden flex items-center gap-1 ml-2">
+        <a href="projects.html" class="p-2 rounded-lg hover:bg-white/5 transition-all">
+          <span class="material-symbols-outlined text-outline text-sm">folder</span>
+        </a>
+        <a href="cv.html" class="p-2 rounded-lg hover:bg-white/5 transition-all">
+          <span class="material-symbols-outlined text-outline text-sm">description</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="relative z-10">
+
+  <!-- Hero -->
+  <section class="min-h-screen flex items-center px-6 md:px-16 max-w-[1200px] mx-auto">
+    <div class="w-full grid md:grid-cols-2 gap-16 items-center pt-20">
+      <!-- Left -->
+      <div>
+        <div class="animate-in delay-1 mb-4">
+          <span class="tag">Country Team Operator @ Den Hartogh</span>
+        </div>
+        <h1 class="animate-in delay-2 text-5xl md:text-6xl font-bold text-white leading-tight mb-4 tracking-tight">
+          Max<br/><span class="text-primary">Kristoffersson</span>
+        </h1>
+        <p class="animate-in delay-3 text-on-surface-variant text-lg leading-relaxed mb-8 max-w-md">
+          Logistikproffs med passion för automation, system och att göra saker smartare — från terminalplanering till hemautomation.
+        </p>
+        <div class="animate-in delay-4 flex flex-wrap gap-3">
+          <a href="projects.html" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-semibold text-sm hover:shadow-[0_0_25px_rgba(0,209,255,0.4)] transition-all active:scale-95">
+            Se mina projekt
+          </a>
+          <a href="cv.html" class="border border-outline/30 text-secondary px-6 py-3 rounded-lg font-semibold text-sm hover:bg-white/5 hover:border-primary/40 transition-all active:scale-95">
+            Visa CV
+          </a>
+        </div>
+        <div class="animate-in delay-5 mt-8 flex items-center gap-6">
+          <a href="https://www.linkedin.com/in/" target="_blank" class="text-outline hover:text-primary transition-colors font-mono text-xs">LinkedIn</a>
+          <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="text-outline hover:text-primary transition-colors font-mono text-xs">GitHub</a>
+          <a href="mailto:Kristofferssonmax@gmail.com" class="text-outline hover:text-primary transition-colors font-mono text-xs">E-post</a>
+        </div>
+      </div>
+
+      <!-- Right: Terminal -->
+      <div class="animate-in delay-3 hidden md:block">
+        <div id="terminal-window" class="glow-pulse">
+          <div class="terminal-titlebar px-4 py-3 flex items-center gap-2">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="font-mono text-xs text-on-surface-variant ml-3">max@portfolio: ~</span>
+          </div>
+          <div class="p-5 font-mono text-sm min-h-[320px] max-h-[400px] overflow-y-auto" id="landing-terminal-container">
+            <div id="landing-terminal-history">
+              <p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p>
+              <p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för tillgängliga kommandon.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-primary">➜</span>
+              <span class="text-secondary-fixed">~</span>
+              <div class="relative flex-1">
+                <input autocomplete="off" class="bg-transparent border-none outline-none ring-0 p-0 w-full text-on-surface font-mono text-sm" id="landing-cli-input" type="text" placeholder=""/>
+                <span class="terminal-cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="px-6 md:px-16 max-w-[1200px] mx-auto pb-24">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="stat-card text-center">
+        <div class="text-3xl font-bold text-primary mb-1">6+</div>
+        <div class="font-mono text-xs text-outline">År inom logistik</div>
+      </div>
+      <div class="stat-card text-center">
+        <div class="text-3xl font-bold text-secondary-fixed mb-1">3PL</div>
+        <div class="font-mono text-xs text-outline">Lagerexpertis</div>
+      </div>
+      <div class="stat-card text-center">
+        <div class="text-3xl font-bold text-tertiary mb-1">WMS</div>
+        <div class="font-mono text-xs text-outline">Thetis & OnGoing</div>
+      </div>
+      <div class="stat-card text-center">
+        <div class="text-3xl font-bold text-primary mb-1">∞</div>
+        <div class="font-mono text-xs text-outline">Passion för automation</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="relative z-10 border-t border-white/5 py-10 px-6 md:px-16">
+  <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <span class="font-mono text-xs text-primary">~/max-kristoffersson</span>
+    <div class="flex gap-6">
+      <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="font-mono text-xs text-outline hover:text-secondary transition-colors">GitHub</a>
+      <a href="https://www.linkedin.com/in/" target="_blank" class="font-mono text-xs text-outline hover:text-secondary transition-colors">LinkedIn</a>
+      <a href="mailto:Kristofferssonmax@gmail.com" class="font-mono text-xs text-outline hover:text-secondary transition-colors">E-post</a>
+    </div>
+    <span class="font-mono text-xs text-outline">© 2025 Max Kristoffersson</span>
+  </div>
+</footer>
+
+<script>
+  // Mouse glow
+  const glow = document.getElementById('mouse-glow');
+  document.addEventListener('mousemove', e => { glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; });
+  document.addEventListener('mouseleave', () => glow.style.opacity='0');
+  document.addEventListener('mouseenter', () => glow.style.opacity='1');
+
+  // Terminal logic (shared)
+  const COMMANDS = {
+    'help': () => `Tillgängliga kommandon:<br>
+<span class="text-primary">about</span>     — Om Max<br>
+<span class="text-primary">skills</span>    — Kompetenser<br>
+<span class="text-primary">contact</span>   — Kontaktuppgifter<br>
+<span class="text-primary">projects</span>  — Gå till projekt<br>
+<span class="text-primary">cv</span>        — Gå till CV<br>
+<span class="text-primary">clear</span>     — Rensa terminal`,
+    'about': () => `<span class="text-secondary">Max Kristoffersson</span> — Country Team Operator @ Den Hartogh Liquid Logistics.<br>Uppvuxen i Örnsköldsvik, nu baserad i Ytterby. Passionerad logistikproffs med känsla för system, automation och att göra vardagen smartare.`,
+    'skills': () => `<span class="text-secondary-fixed">Tekniska kompetenser:</span><br>
+<span class="text-primary">›</span> Excel & PowerPoint<br>
+<span class="text-primary">›</span> WMS-system (Thetis, OnGoing)<br>
+<span class="text-primary">›</span> Sketchup / CAD<br>
+<span class="text-primary">›</span> Digital Automation<br>
+<span class="text-primary">›</span> Engelska (flytande)`,
+    'contact': () => `<span class="text-secondary-fixed">Kontaktuppgifter:</span><br>
+<span class="text-primary">›</span> Mobil: <span class="text-secondary">072-225 22 60</span><br>
+<span class="text-primary">›</span> E-post: <span class="text-secondary">Kristofferssonmax@gmail.com</span><br>
+<span class="text-primary">›</span> Adress: Stationsgatan 3, 442 50, Ytterby<br>
+<span class="text-primary">›</span> LinkedIn: <a href="https://www.linkedin.com/in/" target="_blank" class="text-primary underline">Min LinkedIn-sida</a>`,
+    'projects': () => { setTimeout(()=>window.location.href='projects.html',500); return `<span class="text-secondary-fixed">Navigerar till projekt...</span>`; },
+    'cv': () => { setTimeout(()=>window.location.href='cv.html',500); return `<span class="text-secondary-fixed">Navigerar till CV...</span>`; },
+  };
+
+  function createTerminal(historyEl, containerEl, inputEl) {
+    const appendLine = (input, output) => {
+      const line = document.createElement('div');
+      line.className = 'mb-2';
+      line.innerHTML = `<div class="flex gap-2"><span class="text-primary">➜</span><span class="text-secondary-fixed">~</span><span class="text-on-surface ml-1">${input}</span></div>`;
+      if (output !== null) {
+        const resp = document.createElement('div');
+        resp.className = 'mb-3 text-on-surface-variant leading-relaxed pl-4 border-l border-white/10';
+        resp.innerHTML = output;
+        line.appendChild(resp);
+      }
+      historyEl.appendChild(line);
+      containerEl.scrollTop = containerEl.scrollHeight;
+    };
+
+    inputEl.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const raw = inputEl.value.trim();
+      const cmd = raw.toLowerCase();
+      if (!cmd) return;
+
+      if (cmd === 'clear') {
+        historyEl.innerHTML = '<p class="text-secondary opacity-40 mb-1">Max Portfolio Terminal [Version 1.0.0]</p><p class="text-secondary-fixed opacity-70 mb-4">Skriv <span class="text-primary">help</span> för tillgängliga kommandon.</p>';
+        inputEl.value = '';
+        return;
+      }
+
+      const fn = COMMANDS[cmd];
+      const output = fn ? fn() : `<span class="text-error">Okänt kommando: '${raw}'. Skriv 'help' för hjälp.</span>`;
+      appendLine(raw, output);
+      inputEl.value = '';
+    });
+    containerEl.addEventListener('click', () => inputEl.focus());
+  }
+
+  // Landing terminal
+  const landingHistory = document.getElementById('landing-terminal-history');
+  const landingContainer = document.getElementById('landing-terminal-container');
+  const landingInput = document.getElementById('landing-cli-input');
+  if (landingHistory && landingContainer && landingInput) {
+    createTerminal(landingHistory, landingContainer, landingInput);
+  }
+
+  // Modal terminal
+  const modalHistory = document.getElementById('modal-terminal-history');
+  const modalContainer = document.getElementById('modal-terminal-container');
+  const modalInput = document.getElementById('modal-cli-input');
+  createTerminal(modalHistory, modalContainer, modalInput);
+
+  // Modal logic
+  const openBtn = document.getElementById('open-terminal');
+  const closeBtn = document.getElementById('close-terminal');
+  const overlay = document.getElementById('terminal-overlay');
+  const modal = document.getElementById('terminal-modal');
+
+  const openTerminal = () => {
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    requestAnimationFrame(() => {
+      overlay.classList.remove('opacity-0');
+      overlay.classList.add('opacity-100');
+      modal.classList.remove('scale-95','-translate-y-4','opacity-0');
+      modal.classList.add('scale-100','translate-y-0','opacity-100');
+    });
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => modalInput.focus(), 150);
+  };
+  const closeTerminal = () => {
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0');
+    modal.classList.add('scale-95','-translate-y-4','opacity-0');
+    modal.classList.remove('scale-100','translate-y-0','opacity-100');
+    setTimeout(() => { overlay.classList.add('hidden'); overlay.classList.remove('flex'); document.body.style.overflow=''; }, 300);
+  };
+  openBtn.addEventListener('click', e => { e.stopPropagation(); openTerminal(); });
+  closeBtn.addEventListener('click', closeTerminal);
+  overlay.addEventListener('click', e => { if(e.target===overlay) closeTerminal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape' && !overlay.classList.contains('hidden')) closeTerminal(); });
+</script>
+</body>
+</html>
