@@ -1,372 +1,442 @@
-<!DOCTYPE html>
-<html class="dark" lang="sv">
-<head>
+<!DOCTYPE html><html class="dark" lang="sv"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Geist:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
-tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      "colors": {
-        "surface-container-lowest":"#100e0d","on-primary-container":"#00566a",
-        "on-tertiary-fixed":"#320047","tertiary":"#f5d0ff",
-        "secondary-fixed-dim":"#00e1ab","outline-variant":"#3c494e",
-        "primary-container":"#00d1ff","primary-fixed-dim":"#4cd6ff",
-        "deep-blue":"#0A1128","surface-container":"#221f1e","charcoal":"#1A1A1A",
-        "surface-dim":"#151312","on-surface-variant":"#bbc9cf","primary":"#a4e6ff",
-        "on-primary":"#003543","inverse-primary":"#00677f","outline":"#859399",
-        "on-primary-fixed-variant":"#004e60","tertiary-fixed-dim":"#ecb2ff",
-        "on-error-container":"#ffdad6","on-secondary":"#003828","on-error":"#690005",
-        "inverse-surface":"#e8e1df","secondary-fixed":"#36ffc4","primary-fixed":"#b7eaff",
-        "on-tertiary-container":"#8000ae","surface-container-low":"#1d1b1a",
-        "on-tertiary":"#520071","tertiary-container":"#e9a9ff",
-        "glow-cyan":"rgba(0,209,255,0.4)","secondary":"#ffffff","surface-bright":"#3c3837",
-        "secondary-container":"#36ffc4","inverse-on-surface":"#33302e",
-        "on-secondary-container":"#007255","surface-variant":"#373433",
-        "surface-container-highest":"#373433","background":"#151312",
-        "surface-container-high":"#2c2928","on-secondary-fixed-variant":"#00513c",
-        "tertiary-fixed":"#f8d8ff","on-background":"#e8e1df",
-        "glow-purple":"rgba(189,0,255,0.2)","error-container":"#93000a",
-        "on-tertiary-fixed-variant":"#74009f","on-primary-fixed":"#001f28",
-        "surface":"#151312","on-surface":"#e8e1df","on-secondary-fixed":"#002116",
-        "error":"#ffb4ab","surface-tint":"#4cd6ff"
-      },
-      "borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
-      "spacing":{"container-max":"1200px","margin-desktop":"64px","unit":"8px","margin-mobile":"16px","gutter":"24px"},
-      "fontFamily":{
-        "body-md":["Geist"],"label-sm":["JetBrains Mono"],"headline-lg-mobile":["Geist"],
-        "body-lg":["Geist"],"headline-xl":["Geist"],"code-md":["JetBrains Mono"],"headline-lg":["Geist"]
-      },
-      "fontSize":{
-        "body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],
-        "label-sm":["12px",{"lineHeight":"16px","fontWeight":"500"}],
-        "headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],
-        "body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],
-        "headline-xl":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],
-        "code-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],
-        "headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}]
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#100e0d",
+                    "on-primary-container": "#00566a",
+                    "on-tertiary-fixed": "#320047",
+                    "tertiary": "#f5d0ff",
+                    "secondary-fixed-dim": "#00e1ab",
+                    "outline-variant": "#3c494e",
+                    "primary-container": "#00d1ff",
+                    "primary-fixed-dim": "#4cd6ff",
+                    "deep-blue": "#0A1128",
+                    "surface-container": "#221f1e",
+                    "charcoal": "#1A1A1A",
+                    "surface-dim": "#151312",
+                    "on-surface-variant": "#bbc9cf",
+                    "primary": "#a4e6ff",
+                    "on-primary": "#003543",
+                    "inverse-primary": "#00677f",
+                    "outline": "#859399",
+                    "on-primary-fixed-variant": "#004e60",
+                    "tertiary-fixed-dim": "#ecb2ff",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary": "#003828",
+                    "on-error": "#690005",
+                    "inverse-surface": "#e8e1df",
+                    "secondary-fixed": "#36ffc4",
+                    "primary-fixed": "#b7eaff",
+                    "on-tertiary-container": "#8000ae",
+                    "surface-container-low": "#1d1b1a",
+                    "on-tertiary": "#520071",
+                    "tertiary-container": "#e9a9ff",
+                    "glow-cyan": "rgba(0, 209, 255, 0.4)",
+                    "secondary": "#ffffff",
+                    "surface-bright": "#3c3837",
+                    "secondary-container": "#36ffc4",
+                    "inverse-on-surface": "#33302e",
+                    "on-secondary-container": "#007255",
+                    "surface-variant": "#373433",
+                    "surface-container-highest": "#373433",
+                    "background": "#151312",
+                    "surface-container-high": "#2c2928",
+                    "on-secondary-fixed-variant": "#00513c",
+                    "tertiary-fixed": "#f8d8ff",
+                    "on-background": "#e8e1df",
+                    "glow-purple": "rgba(189, 0, 255, 0.2)",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#74009f",
+                    "on-primary-fixed": "#001f28",
+                    "surface": "#151312",
+                    "on-surface": "#e8e1df",
+                    "on-secondary-fixed": "#002116",
+                    "error": "#ffb4ab",
+                    "surface-tint": "#4cd6ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1200px",
+                    "margin-desktop": "64px",
+                    "unit": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Geist"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Geist"],
+                    "body-lg": ["Geist"],
+                    "headline-xl": ["Geist"],
+                    "code-md": ["JetBrains Mono"],
+                    "headline-lg": ["Geist"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "code-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
       }
-    }
-  }
-}
-</script>
+    </script>
 <style>
-  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
-  .glass-card {
-    background:rgba(26,26,26,0.4); backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.08);
-  }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(26, 26, 26, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @keyframes mesh-drift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        .mesh-bg-animated {
+            background-color: #151312;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 209, 255, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(189, 0, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(0, 103, 127, 0.1) 0px, transparent 40%),
+                radial-gradient(at 100% 100%, rgba(0, 209, 255, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(189, 0, 255, 0.15) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: mesh-drift 15s ease infinite;
+        }
+        @keyframes float-slow {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+            33% { transform: translate(50px, -70px) scale(1.2); opacity: 0.2; }
+            66% { transform: translate(-30px, 30px) scale(0.9); opacity: 0.15; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+        }
+        .atmospheric-glow {
+            filter: blur(120px);
+            animation: float-slow 25s infinite ease-in-out;
+            will-change: transform, opacity;
+        }
+        .halo-effect {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(76, 214, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -5;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+        .terminal-container {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 209, 255, 0.1);
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: #a4e6ff;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+        .typing-effect { display: inline; }
 
-  /* ── Original animated background ── */
-  @keyframes mesh-drift {
-    0%{background-position:0% 0%} 50%{background-position:100% 100%} 100%{background-position:0% 0%}
-  }
-  .mesh-bg-animated {
-    background-color:#151312;
-    background-image:
-      radial-gradient(at 0% 0%,rgba(0,209,255,0.2) 0px,transparent 50%),
-      radial-gradient(at 100% 0%,rgba(189,0,255,0.15) 0px,transparent 50%),
-      radial-gradient(at 50% 50%,rgba(0,103,127,0.1) 0px,transparent 40%),
-      radial-gradient(at 100% 100%,rgba(0,209,255,0.2) 0px,transparent 50%),
-      radial-gradient(at 0% 100%,rgba(189,0,255,0.15) 0px,transparent 50%);
-    background-size:200% 200%; animation:mesh-drift 15s ease infinite;
-  }
-  @keyframes float-slow {
-    0%{transform:translate(0,0) scale(1);opacity:0.1}
-    33%{transform:translate(50px,-70px) scale(1.2);opacity:0.2}
-    66%{transform:translate(-30px,30px) scale(0.9);opacity:0.15}
-    100%{transform:translate(0,0) scale(1);opacity:0.1}
-  }
-  .atmospheric-glow { filter:blur(120px); animation:float-slow 25s infinite ease-in-out; will-change:transform,opacity; }
+        /* ── CHANGE 1: Cursor fix — hide the real input, show fake text display ── */
+        #terminal-input {
+            /* make it invisible but keep it focusable */
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+            border: none;
+            outline: none;
+            font-size: 16px; /* prevents iOS zoom on focus */
+            background: transparent;
+            color: transparent;
+            caret-color: transparent;
+        }
+        #fake-typed {
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
 
-  /* ── Original mouse halo ── */
-  .halo-effect {
-    position:fixed; width:800px; height:800px; border-radius:50%;
-    background:radial-gradient(circle,rgba(76,214,255,0.05) 0%,transparent 70%);
-    pointer-events:none; z-index:0; transform:translate(-50%,-50%);
-  }
-
-  /* ── Original terminal styles ── */
-  .terminal-container { box-shadow:0 20px 50px rgba(0,0,0,0.6),0 0 2px rgba(0,209,255,0.1); }
-  @keyframes blink { 50%{opacity:0} }
-  .cursor {
-    display:inline-block; width:8px; height:18px; background-color:#a4e6ff;
-    margin-left:2px; animation:blink 1s step-end infinite; vertical-align:middle;
-  }
-  .typing-effect { display:inline; }
-
-  /* ── CURSOR FIX: fake display replaces visible <input> ── */
-  #fake-typed { color:#fff; word-break:break-all; }
-  #fake-cursor {
-    display:none; /* shown on focus via JS */
-    width:8px; height:18px; background:#a4e6ff;
-    animation:blink 1s step-end infinite;
-    vertical-align:middle; margin-left:2px;
-    flex-shrink:0;
-  }
-  #real-input {
-    position:absolute; opacity:0; pointer-events:none;
-    width:1px; height:1px; border:none; outline:none;
-    font-size:16px; background:transparent; color:transparent; caret-color:transparent;
-  }
-
-  /* ── Mobile hamburger menu ── */
-  #mobile-menu { transition:all 0.25s ease; }
-
-  /* ── Scanline ── */
-  @keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
-  .scanline{
-    position:fixed;width:100%;height:2px;pointer-events:none;z-index:9999;
-    background:linear-gradient(transparent,rgba(0,209,255,0.04),transparent);
-    animation:scanline 8s linear infinite;
-  }
-
-  /* Mobile: hide terminal entirely */
-  @media(max-width:767px){
-    #terminal-desktop { display:none !important; }
-  }
+        /* ── CHANGE 2: Mobile — hide terminal, show hero instead ── */
+        @media (max-width: 767px) {
+            #terminal-section { display: none; }
+            #mobile-hero { display: flex; }
+            #mobile-nav-links { display: none; }
+            #hamburger-btn { display: flex; }
+        }
+        @media (min-width: 768px) {
+            #terminal-section { display: flex; }
+            #mobile-hero { display: none; }
+            #mobile-nav-links { display: flex; }
+            #hamburger-btn { display: none; }
+            #mobile-menu { display: none !important; }
+        }
+        #mobile-menu {
+            transition: all 0.25s ease;
+        }
 </style>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen selection:bg-primary/30 relative overflow-x-hidden mesh-bg-animated">
-
-<!-- Scanline -->
-<div class="scanline"></div>
-
 <!-- Mouse Reactive Halo -->
 <div class="halo-effect" id="mouse-halo"></div>
-
-<!-- Atmospheric background glows (original) -->
+<!-- Dynamic Background Elements -->
 <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-  <div class="atmospheric-glow absolute top-[-10%] left-[10%] w-[600px] h-[600px] bg-primary rounded-full" style="animation-duration:25s"></div>
-  <div class="atmospheric-glow absolute bottom-[-15%] right-[-5%] w-[700px] h-[700px] bg-tertiary-container rounded-full" style="animation-delay:-7s;animation-duration:30s"></div>
-  <div class="atmospheric-glow absolute top-[30%] right-[15%] w-[400px] h-[400px] bg-secondary-fixed rounded-full" style="animation-delay:-12s;animation-duration:22s"></div>
-  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.01]"></div>
+<div class="atmospheric-glow absolute top-[-10%] left-[10%] w-[600px] h-[600px] bg-primary rounded-full" style="animation-duration: 25s;"></div>
+<div class="atmospheric-glow absolute bottom-[-15%] right-[-5%] w-[700px] h-[700px] bg-tertiary-container rounded-full" style="animation-delay: -7s; animation-duration: 30s;"></div>
+<div class="atmospheric-glow absolute top-[30%] right-[15%] w-[400px] h-[400px] bg-secondary-fixed rounded-full" style="animation-delay: -12s; animation-duration: 22s;"></div>
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.01]"></div>
 </div>
 
-<!-- ═══ NAV ═══ -->
+<!-- TopNavBar -->
 <nav class="fixed top-0 left-0 w-full z-50 bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/30" id="home">
-  <div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
-    <div class="font-headline-lg text-headline-lg font-bold tracking-tighter text-primary">MAX KRISTOFFERSSON</div>
-
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8">
-      <a class="text-primary border-b-2 border-primary pb-1 font-body-md text-body-md transition-all duration-300" href="index.html">Hem</a>
-      <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="projects.html">Projekt</a>
-      <a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="#footer">Kontakt</a>
-    </div>
-
-    <div class="flex items-center gap-3">
-      <a href="cv.html" class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-label-sm text-label-sm font-bold active:scale-95 transition-transform duration-200">CV</a>
-      <!-- Hamburger (mobile only) -->
-      <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5 transition-all" aria-label="Meny">
-        <span class="material-symbols-outlined text-on-surface-variant text-[28px]" id="hamburger-icon">menu</span>
-      </button>
-    </div>
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<div class="font-headline-lg text-headline-lg font-bold tracking-tighter text-primary">MAX KRISTOFFERSSON</div>
+<!-- Desktop links (original, untouched) -->
+<div class="items-center gap-8" id="mobile-nav-links">
+<a class="text-primary border-b-2 border-primary pb-1 font-body-md text-body-md transition-all duration-300" href="index.html">Hem</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="projects.html">Projekt</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="#terminal">Terminal</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-all duration-300" href="#footer">Kontakt</a>
+</div>
+<div class="flex items-center gap-3">
+<a href="cv.html" class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-label-sm text-label-sm font-bold active:scale-95 transition-transform duration-200">CV</a>
+<!-- CHANGE 2: Hamburger button (mobile only) -->
+<button id="hamburger-btn" class="items-center justify-center p-2 rounded-lg hover:bg-white/5 transition-all" aria-label="Meny">
+  <span class="material-symbols-outlined text-on-surface-variant" id="hamburger-icon">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile dropdown -->
+<div id="mobile-menu" class="hidden border-t border-outline-variant/20 bg-surface-dim/98 backdrop-blur-xl">
+  <div class="flex flex-col px-margin-mobile py-2">
+    <a href="index.html"    class="py-4 text-primary font-body-md border-b border-outline-variant/15">Hem</a>
+    <a href="projects.html" class="py-4 text-on-surface-variant hover:text-primary font-body-md border-b border-outline-variant/15 transition-colors">Projekt</a>
+    <a href="cv.html"       class="py-4 text-on-surface-variant hover:text-primary font-body-md border-b border-outline-variant/15 transition-colors">CV</a>
+    <a href="#footer" id="mobile-contact" class="py-4 text-on-surface-variant hover:text-primary font-body-md transition-colors">Kontakt</a>
   </div>
-
-  <!-- Mobile dropdown menu -->
-  <div id="mobile-menu" class="md:hidden hidden border-t border-outline-variant/20 bg-surface-dim/98 backdrop-blur-xl">
-    <div class="flex flex-col px-margin-mobile py-2">
-      <a href="index.html"    class="py-4 text-primary font-body-md border-b border-outline-variant/15">Hem</a>
-      <a href="projects.html" class="py-4 text-on-surface-variant hover:text-primary font-body-md border-b border-outline-variant/15 transition-colors">Projekt</a>
-      <a href="cv.html"       class="py-4 text-on-surface-variant hover:text-primary font-body-md border-b border-outline-variant/15 transition-colors">CV</a>
-      <a href="#footer" id="mobile-contact-link" class="py-4 text-on-surface-variant hover:text-primary font-body-md transition-colors">Kontakt</a>
-    </div>
-  </div>
+</div>
 </nav>
 
-<!-- ═══ MAIN ═══ -->
 <main class="pb-24 max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative pt-40">
 
-  <!-- Hero + Terminal section -->
-  <section class="max-w-4xl mx-auto relative z-10 min-h-[60vh] flex items-center" id="terminal">
-    <div class="w-full">
-
-      <!-- On mobile: hero text + CTA buttons -->
-      <div class="md:hidden mb-12 text-center">
-        <p class="text-on-surface-variant font-label-sm text-label-sm mb-3 tracking-widest uppercase">Country Team Operator @ Den Hartogh</p>
-        <h1 class="font-headline-xl text-headline-xl font-bold text-on-surface mb-6 leading-tight">
-          Max<br><span class="text-primary">Kristoffersson</span>
-        </h1>
-        <p class="text-body-lg text-on-surface-variant mb-8 max-w-sm mx-auto">
-          Logistikproffs med passion för automation och att göra vardagen smartare.
-        </p>
-        <div class="flex flex-col gap-3 items-center">
-          <a href="projects.html" class="w-full max-w-xs bg-primary-container text-on-primary-container py-4 rounded-xl font-label-sm font-bold text-center active:scale-95 transition-all text-base shadow-[0_0_20px_rgba(0,209,255,0.25)]">
-            Se mina projekt
-          </a>
-          <a href="cv.html" class="w-full max-w-xs border border-outline-variant/40 text-secondary py-4 rounded-xl font-label-sm font-bold text-center active:scale-95 transition-all text-base hover:border-primary/40">
-            Visa CV
-          </a>
-          <div class="flex gap-8 mt-2">
-            <a href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank" class="text-outline hover:text-primary transition-colors font-label-sm text-label-sm">LinkedIn</a>
-            <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank" class="text-outline hover:text-primary transition-colors font-label-sm text-label-sm">GitHub</a>
-            <a href="mailto:Kristofferssonmax@gmail.com" class="text-outline hover:text-primary transition-colors font-label-sm text-label-sm">E-post</a>
-          </div>
-        </div>
+  <!-- CHANGE 2: Mobile hero (hidden on desktop) -->
+  <section id="mobile-hero" class="min-h-[75vh] flex-col justify-center items-center text-center gap-8 relative z-10">
+    <div>
+      <p class="text-on-surface-variant font-label-sm text-label-sm mb-4 tracking-widest uppercase">Country Team Operator @ Den Hartogh</p>
+      <h1 class="font-headline-xl text-headline-xl font-bold text-on-surface mb-6 leading-tight">
+        Max<br><span class="text-primary">Kristoffersson</span>
+      </h1>
+      <p class="text-body-lg text-on-surface-variant mb-10 max-w-sm mx-auto">
+        Logistikproffs med passion för automation och att göra vardagen smartare.
+      </p>
+      <div class="flex flex-col gap-3 items-center w-full">
+        <a href="projects.html" class="w-full max-w-xs bg-primary-container text-on-primary-container py-4 rounded-xl font-label-sm font-bold text-center active:scale-95 transition-all text-base" style="box-shadow:0 0 24px rgba(0,209,255,0.3)">
+          Se mina projekt
+        </a>
+        <a href="cv.html" class="w-full max-w-xs border border-outline-variant/40 text-secondary py-4 rounded-xl font-label-sm font-bold text-center active:scale-95 transition-all text-base">
+          Visa CV
+        </a>
       </div>
-
-      <!-- Desktop: original PowerShell terminal (full width, centered) -->
-      <div id="terminal-desktop" class="glass-card rounded-xl overflow-hidden terminal-container border border-outline-variant/30 bg-black/80">
-        <!-- PowerShell Style Header (original) -->
-        <div class="bg-[#1e1e1e] border-b border-outline-variant/20 flex items-center justify-between px-4 h-10 select-none">
-          <div class="flex items-center gap-2">
-            <div class="bg-[#2d2d2d] px-4 h-full flex items-center gap-2 border-t-2 border-primary-container">
-              <span class="material-symbols-outlined text-[16px] text-primary-container">terminal</span>
-              <span class="text-xs font-medium text-on-surface tracking-wide">PowerShell</span>
-              <span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-white cursor-pointer ml-2">close</span>
-            </div>
-            <button class="text-on-surface-variant hover:bg-white/5 p-1 rounded transition-colors">
-              <span class="material-symbols-outlined text-[18px]">add</span>
-            </button>
-          </div>
-          <div class="flex items-center gap-6">
-            <div class="flex gap-4">
-              <span class="material-symbols-outlined text-[18px] text-on-surface-variant hover:text-white cursor-pointer">remove</span>
-              <span class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-white cursor-pointer">check_box_outline_blank</span>
-              <span class="material-symbols-outlined text-[18px] text-on-surface-variant hover:bg-red-500 hover:text-white cursor-pointer px-1">close</span>
-            </div>
-          </div>
-        </div>
-        <!-- Terminal Body -->
-        <div class="p-8 h-96 overflow-y-auto font-code-md text-code-md bg-black/60 text-on-surface-variant scroll-smooth relative" id="terminal-body">
-          <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-primary/5 to-transparent opacity-30"></div>
-          <div class="relative z-10">
-            <div class="mb-4">
-              <p class="text-primary-fixed-dim">Windows PowerShell</p>
-              <p class="mb-2">Copyright (C) Microsoft Corporation. All rights reserved.</p>
-              <p class="text-on-surface-variant/50 italic mb-4">Try the new cross-platform PowerShell https://aka.ms/pscore</p>
-              <p class="text-on-surface-variant/70 italic">Skriv 'help' för att se tillgängliga kommandon.</p>
-            </div>
-            <div class="space-y-1" id="terminal-output"></div>
-            <!-- Prompt row with FAKE display (cursor fix) -->
-            <div class="flex mt-2 items-center" id="input-line">
-              <span class="text-primary-container mr-2 font-bold font-code-md">PS C:\Users\Max&gt;</span>
-              <div class="flex items-center flex-1">
-                <span id="fake-typed" class="font-code-md"></span>
-                <span id="fake-cursor" style="display:inline-block"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="flex justify-center gap-8 mt-8">
+        <a href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank" class="text-outline hover:text-primary transition-colors font-label-sm text-label-sm">LinkedIn</a>
+        <a href="https://github.com/DH-stream/portfolio_maximo" target="_blank"              class="text-outline hover:text-primary transition-colors font-label-sm text-label-sm">GitHub</a>
+        <a href="mailto:Kristofferssonmax@gmail.com"                                          class="text-outline hover:text-primary transition-colors font-label-sm text-label-sm">E-post</a>
       </div>
-
     </div>
   </section>
+
+  <!-- Original terminal section (desktop) — completely untouched -->
+  <section class="max-w-4xl mx-auto relative z-10 min-h-[60vh] items-center" id="terminal-section">
+    <div class="glass-card rounded-xl overflow-hidden terminal-container border border-outline-variant/30 bg-black/80 w-full">
+      <div class="bg-[#1e1e1e] border-b border-outline-variant/20 flex items-center justify-between px-4 h-10 select-none">
+        <div class="flex items-center gap-2">
+          <div class="bg-[#2d2d2d] px-4 h-full flex items-center gap-2 border-t-2 border-primary-container">
+            <span class="material-symbols-outlined text-[16px] text-primary-container">terminal</span>
+            <span class="text-xs font-medium text-on-surface tracking-wide">PowerShell</span>
+            <span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-white cursor-pointer ml-2">close</span>
+          </div>
+          <button class="text-on-surface-variant hover:bg-white/5 p-1 rounded transition-colors">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="flex gap-4">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant hover:text-white cursor-pointer">remove</span>
+            <span class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-white cursor-pointer">check_box_outline_blank</span>
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant hover:bg-red-500 hover:text-white cursor-pointer px-1">close</span>
+          </div>
+        </div>
+      </div>
+      <div class="p-8 h-96 overflow-y-auto font-code-md text-code-md bg-black/60 text-on-surface-variant scroll-smooth relative" id="terminal-body">
+        <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-primary/5 to-transparent opacity-30"></div>
+        <div class="relative z-10">
+          <div class="mb-4">
+            <p class="text-primary-fixed-dim">Windows PowerShell</p>
+            <p class="mb-2">Copyright (C) Microsoft Corporation. All rights reserved.</p>
+            <p class="text-on-surface-variant/50 italic mb-4">Try the new cross-platform PowerShell https://aka.ms/pscore</p>
+            <p class="text-on-surface-variant/70 italic">Skriv 'help' för att se tillgängliga kommandon.</p>
+          </div>
+          <div class="space-y-1" id="terminal-output"></div>
+          <!-- CHANGE 1: prompt row uses fake display instead of visible input -->
+          <div class="flex mt-2 items-center" id="input-line">
+            <span class="text-primary-container mr-2 font-bold font-code-md">PS C:\Users\Max&gt;</span>
+            <div class="flex items-center" style="flex:1">
+              <span id="fake-typed"></span>
+              <div class="cursor" id="terminal-cursor"></div>
+            </div>
+          </div>
+          <!-- invisible real input -->
+          <input autocomplete="off" id="terminal-input" type="text" autocorrect="off" autocapitalize="none" spellcheck="false">
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- Footer (original, untouched) -->
 <footer class="bg-surface-container-lowest/80 backdrop-blur-md border-t border-outline-variant/20 py-12 relative z-10" id="footer">
-  <div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-8">
-    <div class="flex gap-12 justify-center">
-      <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank">LinkedIn</a>
-      <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="https://github.com/DH-stream/portfolio_maximo" target="_blank">GitHub</a>
-      <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="mailto:Kristofferssonmax@gmail.com">E-post</a>
-    </div>
-    <div class="text-on-surface-variant font-label-sm text-label-sm opacity-60 text-center">© 2025 Max Kristoffersson</div>
-  </div>
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-8">
+<div class="flex gap-12 justify-center">
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank">LinkedIn</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="https://github.com/DH-stream/portfolio_maximo" target="_blank">GitHub</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-colors duration-300" href="mailto:Kristofferssonmax@gmail.com">E-post</a>
+</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm opacity-60 text-center">
+            © 2025 Max Kristoffersson. Skapad med precision.
+        </div>
+</div>
 </footer>
 
-<!-- Invisible real input (focus target) -->
-<input id="real-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-
 <script>
-// ── Mouse halo (original) ──
-const halo = document.getElementById('mouse-halo');
-document.addEventListener('mousemove', e => { halo.style.left=e.clientX+'px'; halo.style.top=e.clientY+'px'; });
+    // Mouse Halo Logic (original)
+    const halo = document.getElementById('mouse-halo');
+    document.addEventListener('mousemove', (e) => {
+        halo.style.left = e.clientX + 'px';
+        halo.style.top = e.clientY + 'px';
+    });
 
-// ── Hamburger ──
-const hamburger    = document.getElementById('hamburger');
-const hamburgerIcon= document.getElementById('hamburger-icon');
-const mobileMenu   = document.getElementById('mobile-menu');
-hamburger.addEventListener('click', () => {
-  const open = !mobileMenu.classList.contains('hidden');
-  mobileMenu.classList.toggle('hidden', open);
-  hamburgerIcon.textContent = open ? 'menu' : 'close';
-});
-document.getElementById('mobile-contact-link').addEventListener('click', () => {
-  mobileMenu.classList.add('hidden'); hamburgerIcon.textContent = 'menu';
-});
+    // ── CHANGE 2: Hamburger ──
+    const hamburgerBtn  = document.getElementById('hamburger-btn');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const mobileMenu    = document.getElementById('mobile-menu');
+    hamburgerBtn.addEventListener('click', () => {
+        const open = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', open);
+        hamburgerIcon.textContent = open ? 'menu' : 'close';
+    });
+    document.getElementById('mobile-contact').addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.textContent = 'menu';
+    });
 
-// ── Terminal (cursor fix: fake display + invisible real input) ──
-const realInput  = document.getElementById('real-input');
-const fakeTyped  = document.getElementById('fake-typed');
-const fakeCursor = document.getElementById('fake-cursor');
-const termBody   = document.getElementById('terminal-body');
-const termOutput = document.getElementById('terminal-output');
-const inputLine  = document.getElementById('input-line');
-let isTyping = false;
+    // ── CHANGE 1: Fake input sync ──
+    const terminalInput  = document.getElementById('terminal-input');
+    const fakeTyped      = document.getElementById('fake-typed');
+    terminalInput.addEventListener('input', () => { fakeTyped.textContent = terminalInput.value; });
 
-realInput.addEventListener('input', () => { fakeTyped.textContent = realInput.value; });
-realInput.addEventListener('focus', () => { fakeCursor.style.display='inline-block'; });
-realInput.addEventListener('blur',  () => { fakeCursor.style.display='none'; });
-termBody.addEventListener('click', () => { if(!isTyping) realInput.focus(); });
+    // Original terminal logic (100% untouched below)
+    const terminalOutput = document.getElementById('terminal-output');
+    const terminalBody   = document.getElementById('terminal-body');
+    const inputLine      = document.getElementById('input-line');
+    const terminalCursor = document.getElementById('terminal-cursor');
 
-const typeResponse = async (text, delay=18) => {
-  isTyping = true;
-  inputLine.classList.add('hidden');
-  const line = document.createElement('div');
-  line.className = 'mt-1 mb-2 text-on-surface';
-  termOutput.appendChild(line);
-  const span = document.createElement('span');
-  span.className = 'typing-effect';
-  line.appendChild(span);
-  await new Promise(r => setTimeout(r, 400));
-  for (let i=0; i<text.length; i++) {
-    if (text.substr(i,4)==='<br/') { span.innerHTML+='<br/>'; i+=4; }
-    else if (text[i]==='<') { let e=text.indexOf('>',i); span.innerHTML+=text.substring(i,e+1); i=e; }
-    else { span.innerHTML+=text[i]; }
-    termBody.scrollTop=termBody.scrollHeight;
-    await new Promise(r=>setTimeout(r,delay));
-  }
-  inputLine.classList.remove('hidden');
-  realInput.focus();
-  isTyping=false;
-};
+    let isTyping = false;
+    const projects = ["HomeBoard", "Budgetly", "Excel Automation"];
 
-const commands = {
-  'goto home':     () => { window.scrollTo({top:0,behavior:'smooth'}); return 'Navigerar till Hem...'; },
-  'goto projects': () => { setTimeout(()=>location.href='projects.html',600); return 'Navigerar till Projekt...'; },
-  'goto cv':       () => { setTimeout(()=>location.href='cv.html',600); return 'Navigerar till CV...'; },
-  'goto contact':  () => { document.getElementById('footer').scrollIntoView({behavior:'smooth'}); return 'Navigerar till Kontakt...'; },
-  'list': () => `Hittade 4 aktiva projekt:<br/>- <span class="text-secondary-fixed">homeboard</span> — Familjekalender<br/>- <span class="text-secondary-fixed">budgetly</span> — Privatekonomiapp<br/>- <span class="text-secondary-fixed">excel-automation</span> — Logistikverktyg<br/>- <span class="text-secondary-fixed">wms-integration</span> — WMS onboarding`,
-  'clear': () => { termOutput.innerHTML=''; return null; },
-};
-const regexMatches = [
-  { pattern:/^(hej|hallå|tjena|hi|hello)/i, response:'Hej där! Skriv "help" för tillgängliga kommandon.' },
-  { pattern:/^(vem är du|who are you|om max|berätta om dig)/i, response:'Jag är Max Kristoffersson — Country Team Operator @ Den Hartogh. Passion för logistik, automation och smarta system.' },
-  { pattern:/^(hjälp|help|\?)/i, response:`Tillgängliga kommandon:<br/>
-- <span class="text-primary-container">goto home</span>: Scrolla till toppen<br/>
-- <span class="text-primary-container">goto projects</span>: Gå till projekt<br/>
-- <span class="text-primary-container">goto cv</span>: Gå till CV<br/>
-- <span class="text-primary-container">goto contact</span>: Kontakta mig<br/>
-- <span class="text-primary-container">list</span>: Lista alla projekt<br/>
-- <span class="text-primary-container">clear</span>: Rensa terminalen` }
-];
+    const typeResponse = async (text, delay = 20) => {
+        isTyping = true;
+        inputLine.classList.add('hidden');
+        const responseLine = document.createElement('div');
+        responseLine.className = 'mt-1 mb-2 text-on-surface';
+        terminalOutput.appendChild(responseLine);
+        const span = document.createElement('span');
+        span.className = 'typing-effect';
+        responseLine.appendChild(span);
+        await new Promise(resolve => setTimeout(resolve, 400));
+        for (let i = 0; i < text.length; i++) {
+            if (text.substr(i, 4) === '<br/') { span.innerHTML += '<br/>'; i += 4; }
+            else if (text[i] === '<') { let endTag = text.indexOf('>', i); span.innerHTML += text.substring(i, endTag + 1); i = endTag; }
+            else { span.innerHTML += text[i]; }
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+        inputLine.classList.remove('hidden');
+        terminalInput.focus();
+        isTyping = false;
+    };
 
-realInput.addEventListener('keydown', async e => {
-  if (e.key!=='Enter'||isTyping) return;
-  const fullInput = realInput.value.trim();
-  const cmd = fullInput.toLowerCase();
-  const promptLine = document.createElement('div');
-  promptLine.className='mt-2';
-  promptLine.innerHTML=`<span class="text-primary-container font-bold">PS C:\\Users\\Max&gt;</span> <span class="text-white">${fullInput}</span>`;
-  termOutput.appendChild(promptLine);
-  realInput.value='';
-  fakeTyped.textContent='';
-  let response='';
-  if (commands[cmd]) { response=commands[cmd](); }
-  else if (cmd!=='') {
-    const match=regexMatches.find(m=>m.pattern.test(cmd));
-    response=match?match.response:`<span class="text-error-container">The term '${fullInput}' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>`;
-  }
-  if (response) await typeResponse(response);
-  termBody.scrollTop=termBody.scrollHeight;
-});
+    const commands = {
+        'goto home': () => { window.scrollTo({ top: 0, behavior: 'smooth' }); return 'Navigerar till Hem...'; },
+        'goto projects': () => { setTimeout(() => location.href = 'projects.html', 600); return 'Navigerar till Projekt...'; },
+        'goto cv': () => { setTimeout(() => location.href = 'cv.html', 600); return 'Navigerar till CV...'; },
+        'goto contact': () => { document.getElementById('footer').scrollIntoView({ behavior: 'smooth' }); return 'Navigerar till Kontakt...'; },
+        'list': () => `Hittade ${projects.length} aktiva projekt:<br/>` + projects.map(p => `- <span class="text-secondary-fixed">${p}</span>`).join('<br/>'),
+        'clear': () => { terminalOutput.innerHTML = ''; return null; }
+    };
+    const regexMatches = [
+        { pattern: /^(hej|hallå|tjena|hi|hello)/i, response: 'Hej där! Hur kan jag hjälpa dig idag? Skriv "help" för en lista på vad jag kan göra.' },
+        { pattern: /^(vem är du|who are you|om max|berätta om dig)/i, response: 'Jag är Max Kristoffersson, Country Team Operator @ Den Hartogh. Passion för logistik och automation.' },
+        { pattern: /^(hjälp|help|\?)/i, response: `Tillgängliga kommandon:<br/>
+            - <span class="text-primary-container">goto home</span>: Scrolla till toppen<br/>
+            - <span class="text-primary-container">goto projects</span>: Gå till projekt<br/>
+            - <span class="text-primary-container">goto cv</span>: Gå till CV<br/>
+            - <span class="text-primary-container">goto contact</span>: Kontakta mig<br/>
+            - <span class="text-primary-container">list</span>: Lista alla projekt<br/>
+            - <span class="text-primary-container">clear</span>: Rensa terminalen<br/>
+            - <span class="text-primary-container">help</span>: Visa denna hjälpmeny` }
+    ];
+
+    terminalInput.addEventListener('keydown', async (e) => {
+        if (e.key === 'Enter' && !isTyping) {
+            const fullInput = terminalInput.value.trim();
+            const cmd = fullInput.toLowerCase();
+            const promptLine = document.createElement('div');
+            promptLine.className = 'mt-2';
+            promptLine.innerHTML = `<span class="text-primary-container font-bold">PS C:\\Users\\Max&gt;</span> <span class="text-white">${fullInput}</span>`;
+            terminalOutput.appendChild(promptLine);
+            terminalInput.value = '';
+            fakeTyped.textContent = '';
+            let response = '';
+            if (commands[cmd]) { response = commands[cmd](); }
+            else if (cmd !== '') {
+                const match = regexMatches.find(m => m.pattern.test(cmd));
+                response = match ? match.response : `<span class="text-error-container">The term '${fullInput}' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.</span>`;
+            }
+            if (response) await typeResponse(response);
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+    });
+
+    terminalBody.addEventListener('click', () => { if (!isTyping) terminalInput.focus(); });
+    terminalInput.addEventListener('focus', () => terminalCursor.style.display = 'inline-block');
+    terminalInput.addEventListener('blur',  () => terminalCursor.style.display = 'none');
 </script>
-</body>
-</html>
+</body></html>
