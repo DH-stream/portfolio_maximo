@@ -130,8 +130,13 @@
         content: "";
         opacity: 0.12;
         pointer-events: none;
-        transform: translate3d(var(--ambient-x), var(--ambient-y), 0);
+        transform: translate3d(-4vw, 2vh, 0) scale(1.02);
         will-change: transform;
+        animation: ambient-drift 34s ease-in-out infinite alternate;
+      }
+
+      @keyframes ambient-drift {
+        to { transform: translate3d(10vw, -8vh, 0) scale(1.14); }
       }
 
       .container {
@@ -514,6 +519,41 @@
       .about-panel-line span:first-child { color: var(--subtle); font-family: "Geist Mono", monospace; font-size: 0.7rem; text-transform: uppercase; }
       .about-panel-line span:last-child { color: var(--text); font-size: 0.95rem; text-align: right; }
 
+      .profile-layout {
+        display: grid;
+        grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
+        gap: clamp(18px, 4vw, 42px);
+        align-items: start;
+      }
+
+      .profile-summary,
+      .profile-role,
+      .profile-education {
+        border: 1px solid var(--border);
+        background: linear-gradient(145deg, rgba(20, 31, 49, 0.78), rgba(15, 21, 38, 0.52));
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.06), 0 18px 46px rgba(0, 0, 0, 0.18);
+      }
+
+      .profile-summary { padding: clamp(22px, 4vw, 32px); }
+      .profile-summary h3 { margin: 0; color: var(--cyan-soft); font-family: "Geist Mono", monospace; font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; }
+      .profile-summary p { margin: 18px 0 24px; color: var(--muted); line-height: 1.7; }
+      .profile-link { display: inline-flex; align-items: center; gap: 8px; color: var(--cyan-soft); font-family: "Geist Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; }
+      .profile-link:hover { color: var(--text); }
+      .profile-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 28px; }
+      .profile-tags span { padding: 6px 8px; border: 1px solid rgba(164, 230, 255, 0.14); color: var(--muted); font-family: "Geist Mono", monospace; font-size: 0.64rem; }
+      .profile-timeline { display: grid; gap: 14px; }
+      .profile-role { padding: clamp(20px, 3vw, 28px); }
+      .profile-role header { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+      .profile-role h3 { margin: 0; color: var(--text); font-size: clamp(1.15rem, 2vw, 1.45rem); letter-spacing: -0.04em; }
+      .profile-role h3 span { display: block; margin-top: 5px; color: var(--cyan-soft); font-family: "Geist Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+      .profile-role time { flex: 0 0 auto; color: var(--subtle); font-family: "Geist Mono", monospace; font-size: 0.68rem; letter-spacing: 0.08em; white-space: nowrap; }
+      .profile-role ul { display: grid; gap: 9px; margin: 0; padding: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.55; list-style: none; }
+      .profile-role li::before { margin-right: 10px; color: var(--cyan); content: "▹"; }
+      .profile-education { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 18px; }
+      .profile-education div { padding: 14px; border: 1px solid rgba(164, 230, 255, 0.1); }
+      .profile-education strong { display: block; color: var(--text); font-size: 0.82rem; line-height: 1.35; }
+      .profile-education span { display: block; margin-top: 7px; color: var(--subtle); font-family: "Geist Mono", monospace; font-size: 0.64rem; line-height: 1.45; }
+
       .project-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -574,7 +614,7 @@
 
       .project-media {
         position: relative;
-        aspect-ratio: 16 / 7.5;
+        aspect-ratio: 16 / 10;
         overflow: hidden;
         border-bottom: 1px solid rgba(164, 230, 255, 0.1);
         background: #0c1320;
@@ -593,7 +633,7 @@
         height: 100%;
         display: block;
         object-fit: cover;
-        object-position: center;
+        object-position: center 22%;
         transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 500ms ease;
       }
 
@@ -760,6 +800,7 @@
       }
 
       .modal-media { position: relative; aspect-ratio: 16 / 8; overflow: hidden; border-bottom: 1px solid var(--border); background: #0a111e; }
+      .modal-media.is-portrait { aspect-ratio: 9 / 14; max-height: min(64vh, 680px); }
       .modal-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: #0a111e; transition: opacity 160ms ease; }
       .gallery-control {
         position: absolute;
@@ -831,6 +872,7 @@
         .section { padding: 84px 0; }
         .section-heading { display: block; }
         .section-heading p { margin-top: 18px; }
+        .profile-layout { grid-template-columns: 1fr; }
         .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
         .contact-layout { grid-template-columns: 1fr; }
       }
@@ -853,6 +895,10 @@
         .project-title { font-size: 1.45rem; }
         .modal-sections { grid-template-columns: 1fr; gap: 24px; }
         .modal-media { aspect-ratio: 16 / 10; }
+        .modal-media.is-portrait { aspect-ratio: 9 / 14; max-height: 58vh; }
+        .profile-role header { display: block; }
+        .profile-role time { display: block; margin-top: 10px; }
+        .profile-education { grid-template-columns: 1fr; }
         .gallery-meta { align-items: start; flex-direction: column; gap: 10px; }
         .gallery-dots { justify-content: start; }
         .footer-inner { display: block; }
@@ -888,6 +934,7 @@
             </a>
             <div class="desktop-nav">
               <a href="#about">Om mig</a>
+              <a href="#career">Erfarenhet</a>
               <a href="#projects">Projekt</a>
               <a href="#contact">Kontakt</a>
               <a class="header-cv" href="cv.html">Ladda ner CV</a>
@@ -896,6 +943,7 @@
           </nav>
           <div class="mobile-nav" id="mobile-nav" aria-label="Mobilnavigation">
             <a href="#about">Om mig</a>
+            <a href="#career">Erfarenhet</a>
             <a href="#projects">Projekt</a>
             <a href="#contact">Kontakt</a>
             <a href="cv.html">Ladda ner CV</a>
@@ -948,11 +996,61 @@
           </div>
         </section>
 
+        <section class="section reveal reel-section" id="career">
+          <div class="container">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">02 / Erfarenhet</p>
+                <h2>Logistik i praktiken. Teknik som förenklar.</h2>
+              </div>
+              <p>En kort professionell sammanfattning av erfarenhet, ansvar och verktyg från min LinkedIn-profil.</p>
+            </div>
+            <div class="profile-layout">
+              <article class="profile-summary reveal">
+                <h3>Max Kristoffersson</h3>
+                <p>Country Team Operator med erfarenhet av transportplanering, kundkontakt och operativt förbättringsarbete. Jag trivs där struktur, kommunikation och teknik möter vardagens behov.</p>
+                <a class="profile-link" href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank" rel="noreferrer">Öppna LinkedIn <span aria-hidden="true">↗</span></a>
+                <div class="profile-tags" aria-label="Kompetenser">
+                  <span>Excel</span><span>PowerPoint</span><span>SketchUp</span><span>Engelska</span><span>Thetis</span><span>OnGoing</span>
+                </div>
+              </article>
+              <div class="profile-timeline">
+                <article class="profile-role reveal">
+                  <header>
+                    <h3>Den Hartogh Liquid Logistics<span>Country Team Operator</span></h3>
+                    <time datetime="2023">2023 — nu</time>
+                  </header>
+                  <ul>
+                    <li>Daglig planering av egna lastbilar samt lejda aktörer.</li>
+                    <li>Kvalitetsuppföljning av lejda parter och tät kommunikation med slutkunder.</li>
+                    <li>Projektledning i integrationsprojekt, upplärning av nyanställda och prissättning.</li>
+                  </ul>
+                </article>
+                <article class="profile-role reveal">
+                  <header>
+                    <h3>Link Logistics AB<span>Warehouse &amp; Operations</span></h3>
+                    <time datetime="2019">2019 — 2023</time>
+                  </header>
+                  <ul>
+                    <li>Optimerade personalresurser och inkommande ordervolym som Warehouse Supervisor.</li>
+                    <li>Implementerade nya kunder, ansvarade för inköp och strategisk planering.</li>
+                    <li>Automatiserade föråldrade Excel-rutiner och arbetade med distributionssystem och fordonsflotta.</li>
+                  </ul>
+                </article>
+                <div class="profile-education reveal" aria-label="Utbildning">
+                  <div><strong>Mikael Elias Teoretiska Gymnasium</strong><span>Samhällskunskap med inriktning psykologi · 2013 — 2016</span></div>
+                  <div><strong>Sveriges Åkeriföretag</strong><span>E-kurs för kör- och vilotider · certifierad 2025</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="section reel-section" id="projects">
           <div class="container">
             <div class="section-heading reveal">
               <div>
-                <p class="eyebrow">02 / Projekt</p>
+                <p class="eyebrow">03 / Projekt</p>
                 <h2>Dessa projekt har jag jobbat på</h2>
               </div>
               <p>Från arbetsflöden och hushållsplanering till visuella verktyg för att bygga bättre digitala upplevelser.</p>
@@ -965,7 +1063,7 @@
           <div class="container">
             <div class="section-heading">
               <div>
-                <p class="eyebrow">03 / Kontakt</p>
+                <p class="eyebrow">04 / Kontakt</p>
                 <h2>Har du en idé eller ett problem att lösa?</h2>
               </div>
               <p>Hör gärna av dig om du vill prata logistik, processer, automation eller digitala verktyg.</p>
@@ -1069,8 +1167,8 @@
           image: "assets/projects/hem-listan-mobile.png",
           imageAlt: "Hem-Listan på en mobilskärm",
           gallery: [
-            { src: "assets/projects/hem-listan-mobile.png", alt: "Hem-Listan på en mobilskärm", caption: "Översikt med aktiva listor och snabba mallar." },
-            { src: "assets/projects/gallery/hem-listan-use-step.png", alt: "Hem-Listan med en skapad Weekendresa-lista", caption: "En mall blir en aktiv lista som kan följas upp i vardagen." }
+            { src: "assets/projects/hem-listan-mobile.png", alt: "Hem-Listan på en mobilskärm", caption: "Översikt med aktiva listor och snabba mallar.", orientation: "portrait" },
+            { src: "assets/projects/gallery/hem-listan-use-step.png", alt: "Hem-Listan med en skapad Weekendresa-lista", caption: "En mall blir en aktiv lista som kan följas upp i vardagen.", orientation: "portrait" }
           ],
           problem: "Vardagliga uppgifter behöver vara enkla att dela, återanvända och följa upp utan att skapa onödig administration.",
           howItWorks: "Listor, mallar, måltidsplanering och receptflöden samlas i en mobil-först-app med lokal funktion och möjlighet till synk.",
@@ -1086,8 +1184,8 @@
           image: "assets/projects/budgetly-mobile.png",
           imageAlt: "Budgetly onboarding på en mobilskärm",
           gallery: [
-            { src: "assets/projects/budgetly-mobile.png", alt: "Budgetly onboarding på en mobilskärm", caption: "Startvyn för budgetering utifrån löneperioder." },
-            { src: "assets/projects/gallery/budgetly-use-step.png", alt: "Budgetly med löne­dagsinställning", caption: "Lönedagen används för att skapa rätt första period." }
+            { src: "assets/projects/budgetly-mobile.png", alt: "Budgetly onboarding på en mobilskärm", caption: "Startvyn för budgetering utifrån löneperioder.", orientation: "portrait" },
+            { src: "assets/projects/gallery/budgetly-use-step.png", alt: "Budgetly med lönedagsinställning", caption: "Lönedagen används för att skapa rätt första period.", orientation: "portrait" }
           ],
           problem: "Månadsvyer passar inte alltid hur inkomster och utgifter faktiskt fördelas när lönen kommer på olika dagar.",
           howItWorks: "Användaren anger sin lönedag och får därefter perioder som följer den verkliga ekonomiska rytmen, med budget- och analysvyer.",
@@ -1192,6 +1290,7 @@
         if (!activeGallery.length) return;
         activeGalleryIndex = (index + activeGallery.length) % activeGallery.length;
         const slide = activeGallery[activeGalleryIndex];
+        modalGallery.classList.toggle("is-portrait", slide.orientation === "portrait");
         modalImage.src = slide.src;
         modalImage.alt = slide.alt;
         modalGalleryCaption.textContent = slide.caption || "";
@@ -1337,7 +1436,8 @@
         const maxTilt = isMobile ? 6 : 11;
 
         reelSections.forEach((section) => {
-          const distance = getLayoutCenter(section) - viewportCenter;
+          const atDocumentTop = window.scrollY < 24 && section.id === "home";
+          const distance = atDocumentTop ? 0 : getLayoutCenter(section) - viewportCenter;
           const normalized = Math.max(-1, Math.min(1, distance / focusRange));
           const falloff = Math.abs(normalized);
           section.style.setProperty("--reel-tilt", `${(normalized * maxTilt).toFixed(2)}deg`);
@@ -1398,24 +1498,31 @@
       }
 
       function cancelReelSettle() {
+        window.clearTimeout(settleTimer);
+        settleTimer = undefined;
         if (settleState !== "settling") return;
-        finishReelSettle();
+        window.clearTimeout(settleFinishTimer);
+        settleFinishTimer = undefined;
+        settleState = "idle";
+        window.scrollTo({ top: window.scrollY, behavior: "auto" });
+        scheduleMotionUpdate();
       }
 
       function settleReel() {
         if (reducedMotion.matches || settleState === "settling") return;
         const nearest = getNearestReelSection();
         if (!nearest || nearest.distance < 14) return;
-        settleState = "settling";
         const targetScrollY = Math.max(0, getLayoutTop(nearest.section) + nearest.section.offsetHeight / 2 - getReelFocusLine());
+        if (Math.abs(targetScrollY - window.scrollY) < 14) return;
+        settleState = "settling";
         window.scrollTo({ top: targetScrollY, behavior: "smooth" });
-        settleFinishTimer = window.setTimeout(finishReelSettle, 900);
+        settleFinishTimer = window.setTimeout(finishReelSettle, 850);
       }
 
       function queueReelSettle() {
         if (reducedMotion.matches || settleState === "settling") return;
         window.clearTimeout(settleTimer);
-        settleTimer = window.setTimeout(settleReel, 180);
+        settleTimer = window.setTimeout(settleReel, 240);
       }
 
       function handleScrollEnd() {

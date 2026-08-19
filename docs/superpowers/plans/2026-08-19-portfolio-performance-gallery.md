@@ -84,3 +84,10 @@
 - [ ] Open a project from the whole tile, move through gallery slides with buttons, keyboard, and swipe, and verify captions/images change.
 - [ ] Verify reduced motion removes transforms/ambient movement while keeping the gallery usable.
 - [ ] Capture desktop modal and mobile modal screenshots outside the repository.
+
+## Follow-up polish approved 2026-08-19
+
+- Keep the background visibly alive without requiring pointer interaction by adding one slow, transform-only ambient drift while retaining pointer response as an enhancement.
+- Make project media more readable by increasing the tile media height and showing portrait gallery slides in a taller modal frame.
+- Make reel settling user-safe: cancel an in-progress smooth settle before accepting new wheel/touch input, allow the top of the document to remain reachable, and only settle after scroll idle.
+- Add a LinkedIn-aligned professional profile section between About and Projects using the existing CV facts: Den Hartogh Liquid Logistics, Link Logistics AB, education, and skills. Keep it professional and link to the existing LinkedIn profile.
