@@ -667,6 +667,24 @@
 
       .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+      .reel-section.reveal {
+        opacity: 0;
+        transform: perspective(1100px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1)) translateY(22px);
+      }
+
+      .reel-section.reveal.is-visible {
+        opacity: var(--reel-opacity, 1);
+        transform: perspective(1100px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1));
+      }
+
+      .reel-section:not([data-reel-focus]) .section-heading,
+      .reel-section:not([data-reel-focus]) .project-card,
+      .reel-section:not([data-reel-focus]) .contact-card { filter: saturate(0.88); }
+
+      .reel-section[data-reel-focus] .section-heading,
+      .reel-section[data-reel-focus] .project-card,
+      .reel-section[data-reel-focus] .contact-card { filter: none; }
+
       dialog {
         width: min(900px, calc(100% - 32px));
         max-height: min(860px, calc(100vh - 32px));
@@ -753,7 +771,9 @@
         .hero-actions { display: grid; grid-template-columns: 1fr; }
         .button { width: 100%; }
         .hero-signal { display: none; }
-        .reel-section { transform: perspective(900px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1)); }
+        .reel-section,
+        .reel-section.reveal,
+        .reel-section.reveal.is-visible { transform: perspective(900px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1)); }
         .reel-section::before { inset: 8% 0; }
         .project-grid { grid-template-columns: 1fr; gap: 16px; }
         .project-content { padding: 21px 20px 23px; }
@@ -773,7 +793,9 @@
         *::before,
         *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         .reveal { opacity: 1; transform: none; }
-        .reel-section { transform: none; opacity: 1; will-change: auto; }
+        .reel-section,
+        .reel-section.reveal,
+        .reel-section.reveal.is-visible { transform: none; opacity: 1; will-change: auto; }
         .project-card { transform: none; }
       }
     </style>
@@ -1075,6 +1097,72 @@
       }
 
       renderProjects();
+
+      const reelSections = [...document.querySelectorAll(".reel-section")];
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let reelFrame = 0;
+      let settleTimer;
+      let lastSettledSection = null;
+
+      function updateReelDepth() {
+        reelFrame = 0;
+        if (reducedMotion.matches) {
+          reelSections.forEach((section) => {
+            section.style.removeProperty("--reel-tilt");
+            section.style.removeProperty("--reel-depth");
+            section.style.removeProperty("--reel-scale");
+            section.style.removeProperty("--reel-opacity");
+            section.removeAttribute("data-reel-focus");
+          });
+          return;
+        }
+
+        const viewportCenter = window.innerHeight / 2;
+        const isMobile = window.innerWidth <= 600;
+        const focusRange = Math.max(window.innerHeight * (isMobile ? 0.62 : 0.72), isMobile ? 360 : 480);
+        const maxTilt = isMobile ? 6 : 11;
+
+        reelSections.forEach((section) => {
+          const bounds = section.getBoundingClientRect();
+          const distance = bounds.top + bounds.height / 2 - viewportCenter;
+          const normalized = Math.max(-1, Math.min(1, distance / focusRange));
+          const falloff = Math.abs(normalized);
+          section.style.setProperty("--reel-tilt", `${(normalized * maxTilt).toFixed(2)}deg`);
+          section.style.setProperty("--reel-depth", `${(-falloff * (isMobile ? 42 : 74)).toFixed(1)}px`);
+          section.style.setProperty("--reel-scale", (1 - falloff * (isMobile ? 0.025 : 0.045)).toFixed(3));
+          section.style.setProperty("--reel-opacity", (1 - falloff * 0.16).toFixed(3));
+          section.toggleAttribute("data-reel-focus", falloff < 0.16);
+        });
+      }
+
+      function scheduleReelDepthUpdate() {
+        if (reelFrame) return;
+        reelFrame = requestAnimationFrame(updateReelDepth);
+      }
+
+      function settleReel() {
+        if (reducedMotion.matches) return;
+        const viewportCenter = window.innerHeight / 2;
+        const nearest = reelSections.reduce((current, section) => {
+          const bounds = section.getBoundingClientRect();
+          const distance = Math.abs(bounds.top + bounds.height / 2 - viewportCenter);
+          return !current || distance < current.distance ? { section, distance } : current;
+        }, null);
+        if (!nearest || nearest.distance > window.innerHeight * 0.24 || nearest.section === lastSettledSection) return;
+        lastSettledSection = nearest.section;
+        nearest.section.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function queueReelSettle() {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(settleReel, 140);
+      }
+
+      window.addEventListener("scroll", scheduleReelDepthUpdate, { passive: true });
+      window.addEventListener("scroll", queueReelSettle, { passive: true });
+      window.addEventListener("resize", scheduleReelDepthUpdate, { passive: true });
+      reducedMotion.addEventListener("change", scheduleReelDepthUpdate);
+      scheduleReelDepthUpdate();
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
