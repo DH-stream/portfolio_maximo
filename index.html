@@ -461,8 +461,8 @@
 
       .project-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
       }
 
       .project-card {
@@ -473,9 +473,8 @@
         padding: 0;
         overflow: hidden;
         border: 1px solid var(--border);
-        border-radius: var(--radius-md);
         background: var(--surface);
-        box-shadow: 0 20px 54px rgba(0, 0, 0, 0.23), inset 0 1px rgba(255, 255, 255, 0.06);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22), inset 0 1px rgba(255, 255, 255, 0.06);
         color: var(--text);
         cursor: pointer;
         text-align: left;
@@ -484,9 +483,7 @@
         transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
       }
 
-      .project-card:hover { border-color: var(--border-strong); box-shadow: 0 28px 64px rgba(0, 0, 0, 0.36), 0 0 32px rgba(0, 209, 255, 0.08); }
-
-      .project-card.featured { grid-column: span 2; }
+      .project-card:hover { border-color: var(--border-strong); box-shadow: 0 22px 44px rgba(0, 0, 0, 0.3), 0 0 22px rgba(0, 209, 255, 0.06); }
 
       .project-media {
         position: relative;
@@ -495,8 +492,6 @@
         border-bottom: 1px solid rgba(164, 230, 255, 0.1);
         background: #0c1320;
       }
-
-      .project-card.featured .project-media { aspect-ratio: 2.3 / 1; }
 
       .project-media::after {
         position: absolute;
@@ -537,7 +532,6 @@
       .tag {
         padding: 5px 9px;
         border: 1px solid rgba(0, 209, 255, 0.2);
-        border-radius: 999px;
         background: rgba(0, 209, 255, 0.07);
         color: var(--cyan-soft);
         font-family: "Geist Mono", monospace;
@@ -695,6 +689,7 @@
         .section { padding: 84px 0; }
         .section-heading { display: block; }
         .section-heading p { margin-top: 18px; }
+        .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
         .contact-layout { grid-template-columns: 1fr; }
       }
 
@@ -708,8 +703,6 @@
         .button { width: 100%; }
         .hero-signal { display: none; }
         .project-grid { grid-template-columns: 1fr; gap: 16px; }
-        .project-card.featured { grid-column: auto; }
-        .project-card.featured .project-media { aspect-ratio: 16 / 9; }
         .project-content { padding: 21px 20px 23px; }
         .project-title { font-size: 1.45rem; }
         .modal-sections { grid-template-columns: 1fr; gap: 24px; }
@@ -950,7 +943,7 @@
 
       function renderProjects() {
         projectGrid.innerHTML = PROJECTS.map((project, index) => `
-          <button class="project-card reveal ${index === 0 ? "featured" : ""}" type="button" data-project-id="${project.id}" style="--reveal-delay: ${Math.min(index * 90, 360)}ms">
+          <button class="project-card reveal" type="button" data-project-id="${project.id}" style="--reveal-delay: ${Math.min(index * 90, 360)}ms">
             <span class="project-media"><img class="project-image-${project.id}" src="${project.image}" alt="${project.imageAlt}" ${index > 0 ? "loading=\"lazy\"" : ""} /></span>
             <span class="project-content">
               <span class="project-tags">${renderTags(project.tags)}</span>
