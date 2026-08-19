@@ -542,13 +542,17 @@
       .profile-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 28px; }
       .profile-tags span { padding: 6px 8px; border: 1px solid rgba(164, 230, 255, 0.14); color: var(--muted); font-family: "Geist Mono", monospace; font-size: 0.64rem; }
       .profile-timeline { display: grid; gap: 14px; }
-      .profile-role { padding: clamp(20px, 3vw, 28px); }
+      .profile-role { width: 100%; padding: clamp(20px, 3vw, 28px); color: var(--text); cursor: pointer; font: inherit; text-align: left; transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
+      .profile-role:hover { border-color: var(--border-strong); box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 24px 56px rgba(0, 0, 0, 0.3), 0 0 24px rgba(0, 209, 255, 0.08); transform: translateY(-3px); }
       .profile-role header { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
       .profile-role h3 { margin: 0; color: var(--text); font-size: clamp(1.15rem, 2vw, 1.45rem); letter-spacing: -0.04em; }
       .profile-role h3 span { display: block; margin-top: 5px; color: var(--cyan-soft); font-family: "Geist Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
       .profile-role time { flex: 0 0 auto; color: var(--subtle); font-family: "Geist Mono", monospace; font-size: 0.68rem; letter-spacing: 0.08em; white-space: nowrap; }
       .profile-role ul { display: grid; gap: 9px; margin: 0; padding: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.55; list-style: none; }
       .profile-role li::before { margin-right: 10px; color: var(--cyan); content: "▹"; }
+      .profile-role-cta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; color: var(--cyan-soft); font-family: "Geist Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+      .profile-role-cta span:last-child { font-size: 1rem; transition: transform 180ms ease; }
+      .profile-role:hover .profile-role-cta span:last-child { transform: translate(4px, -4px); }
       .profile-education { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 18px; }
       .profile-education div { padding: 14px; border: 1px solid rgba(164, 230, 255, 0.1); }
       .profile-education strong { display: block; color: var(--text); font-size: 0.82rem; line-height: 1.35; }
@@ -820,6 +824,9 @@
         transform: translateY(-50%);
         transition: border-color 160ms ease, background 160ms ease, opacity 160ms ease;
       }
+
+      .modal-card.is-profile .modal-media,
+      .modal-card.is-profile .gallery-meta { display: none; }
       .gallery-control:hover { border-color: var(--cyan); background: rgba(0, 209, 255, 0.18); opacity: 1; }
       .gallery-control:disabled { display: none; }
       .gallery-prev { left: 18px; }
@@ -1015,7 +1022,7 @@
                 </div>
               </article>
               <div class="profile-timeline">
-                <article class="profile-role reveal">
+                <article class="profile-role reveal" role="button" tabindex="0" aria-haspopup="dialog" data-role-id="den-hartogh">
                   <header>
                     <h3>Den Hartogh Liquid Logistics<span>Country Team Operator</span></h3>
                     <time datetime="2023">2023 — nu</time>
@@ -1025,17 +1032,38 @@
                     <li>Kvalitetsuppföljning av lejda parter och tät kommunikation med slutkunder.</li>
                     <li>Projektledning i integrationsprojekt, upplärning av nyanställda och prissättning.</li>
                   </ul>
+                  <span class="profile-role-cta"><span>Öppna erfarenhet</span><span aria-hidden="true">↗</span></span>
                 </article>
-                <article class="profile-role reveal">
+                <article class="profile-role reveal" role="button" tabindex="0" aria-haspopup="dialog" data-role-id="link-warehouse-supervisor">
                   <header>
-                    <h3>Link Logistics AB<span>Warehouse &amp; Operations</span></h3>
-                    <time datetime="2019">2019 — 2023</time>
+                    <h3>Link Logistics AB<span>Warehouse Supervisor</span></h3>
+                    <time datetime="2022">2022 — 2023</time>
                   </header>
                   <ul>
-                    <li>Optimerade personalresurser och inkommande ordervolym som Warehouse Supervisor.</li>
-                    <li>Implementerade nya kunder, ansvarade för inköp och strategisk planering.</li>
-                    <li>Automatiserade föråldrade Excel-rutiner och arbetade med distributionssystem och fordonsflotta.</li>
+                    <li>Fortsatt optimering av personalresurser och inkommande ordervolym.</li>
                   </ul>
+                  <span class="profile-role-cta"><span>Öppna erfarenhet</span><span aria-hidden="true">↗</span></span>
+                </article>
+                <article class="profile-role reveal" role="button" tabindex="0" aria-haspopup="dialog" data-role-id="link-operations-manager">
+                  <header>
+                    <h3>Link Logistics AB<span>Interim Warehouse &amp; Operations Manager</span></h3>
+                    <time datetime="2021">2021 — 2022</time>
+                  </header>
+                  <ul>
+                    <li>Implementerade nya kunder, ansvarade för inköp och strategisk planering.</li>
+                    <li>Automatiserade föråldrade Excel-rutiner.</li>
+                  </ul>
+                  <span class="profile-role-cta"><span>Öppna erfarenhet</span><span aria-hidden="true">↗</span></span>
+                </article>
+                <article class="profile-role reveal" role="button" tabindex="0" aria-haspopup="dialog" data-role-id="link-terminal-supervisor">
+                  <header>
+                    <h3>Link Logistics AB<span>Terminal &amp; Distribution Supervisor</span></h3>
+                    <time datetime="2019">2019 — 2021</time>
+                  </header>
+                  <ul>
+                    <li>Implementering av distributionssystem och fordonsflotta.</li>
+                  </ul>
+                  <span class="profile-role-cta"><span>Öppna erfarenhet</span><span aria-hidden="true">↗</span></span>
                 </article>
                 <div class="profile-education reveal" aria-label="Utbildning">
                   <div><strong>Mikael Elias Teoretiska Gymnasium</strong><span>Samhällskunskap med inriktning psykologi · 2013 — 2016</span></div>
@@ -1111,16 +1139,16 @@
         <div class="modal-body">
           <div class="modal-header">
             <div>
-              <p class="eyebrow">Projektöversikt</p>
+              <p class="eyebrow" id="modal-eyebrow">Projektöversikt</p>
               <h2 id="modal-title"></h2>
             </div>
             <button class="modal-close" id="modal-close" type="button" aria-label="Stäng projektfönster">×</button>
           </div>
           <div class="project-tags modal-tags" id="modal-tags"></div>
           <div class="modal-sections">
-            <section class="modal-section"><h3>Vilket problem det löser</h3><p id="modal-problem"></p></section>
-            <section class="modal-section"><h3>Hur det fungerar</h3><p id="modal-how"></p></section>
-            <section class="modal-section"><h3>Vart projektet är idag</h3><p id="modal-status"></p></section>
+            <section class="modal-section"><h3 id="modal-problem-label">Vilket problem det löser</h3><p id="modal-problem"></p></section>
+            <section class="modal-section"><h3 id="modal-how-label">Hur det fungerar</h3><p id="modal-how"></p></section>
+            <section class="modal-section"><h3 id="modal-status-label">Vart projektet är idag</h3><p id="modal-status"></p></section>
           </div>
           <div class="modal-footer" id="modal-links"></div>
         </div>
@@ -1128,6 +1156,49 @@
     </dialog>
 
     <script>
+      const PROFILE_ROLES = [
+        {
+          id: "den-hartogh",
+          company: "Den Hartogh Liquid Logistics",
+          title: "Country Team Operator",
+          period: "2023 — nu",
+          tags: ["Transportplanering", "Kundkontakt", "Integration"],
+          responsibility: "Daglig planering av egna lastbilar samt lejda aktörer, kvalitetsuppföljning och tät kommunikation med slutkunder.",
+          learning: "Jag har utvecklat min förmåga att hålla ihop många beroenden samtidigt — från operativa beslut och prissättning till projektledning i integrationsprojekt och upplärning av nyanställda.",
+          currentValue: "Erfarenheten används idag i kombinationen av logistikförståelse, tydlig kommunikation och praktiska digitala förbättringar."
+        },
+        {
+          id: "link-warehouse-supervisor",
+          company: "Link Logistics AB",
+          title: "Warehouse Supervisor",
+          period: "2022 — 2023",
+          tags: ["Personalresurser", "Ordervolym", "Drift"],
+          responsibility: "Fortsatt optimering av personalresurser och inkommande ordervolym i en vardag där kapacitet behövde matchas mot verkligt inflöde.",
+          learning: "Rollen lärde mig att läsa av både siffror och människor — och att göra förändringar tillräckligt konkreta för att fungera i det dagliga arbetet.",
+          currentValue: "Jag tar med mig helhetsperspektivet när jag bygger verktyg som ska fungera för riktiga arbetsflöden, inte bara se bra ut i en demo."
+        },
+        {
+          id: "link-operations-manager",
+          company: "Link Logistics AB",
+          title: "Interim Warehouse & Operations Manager",
+          period: "2021 — 2022",
+          tags: ["Implementering", "Inköp", "Excel-automation"],
+          responsibility: "Implementerade nya kunder i lagersystemet, ansvarade för inköp och strategisk planering samt automatiserade föråldrade Excel-rutiner.",
+          learning: "Jag lärde mig att bryta ner komplexa behov, prioritera under tidspress och skapa struktur när flera delar av verksamheten förändras samtidigt.",
+          currentValue: "Den erfarenheten ligger bakom mitt intresse för automation: små, genomtänkta verktyg kan frigöra tid och minska onödiga manuella steg."
+        },
+        {
+          id: "link-terminal-supervisor",
+          company: "Link Logistics AB",
+          title: "Terminal & Distribution Supervisor",
+          period: "2019 — 2021",
+          tags: ["Distribution", "Fordonsflotta", "Systeminförande"],
+          responsibility: "Arbetade med implementering av distributionssystem och fordonsflotta i den operativa terminal- och distributionsmiljön.",
+          learning: "Jag fick en grund i hur system, fordon, människor och kundlöften måste fungera tillsammans för att en leverans ska bli bra.",
+          currentValue: "Det är fortfarande en viktig utgångspunkt när jag bedömer om en digital lösning faktiskt gör vardagen enklare för den som ska använda den."
+        }
+      ];
+
       const PROJECTS = [
         {
           id: "a-kod-automation",
@@ -1216,6 +1287,10 @@
       const projectModal = document.getElementById("project-modal");
       const modalCard = projectModal.querySelector(".modal-card");
       const modalClose = document.getElementById("modal-close");
+      const modalEyebrow = document.getElementById("modal-eyebrow");
+      const modalProblemLabel = document.getElementById("modal-problem-label");
+      const modalHowLabel = document.getElementById("modal-how-label");
+      const modalStatusLabel = document.getElementById("modal-status-label");
       const modalGallery = document.getElementById("modal-gallery");
       const modalImage = document.getElementById("modal-image");
       const modalGalleryPrev = document.getElementById("modal-gallery-prev");
@@ -1308,22 +1383,7 @@
         if (focusControl && activeGallery.length > 1) modalGalleryDots.querySelector(`[data-gallery-index="${activeGalleryIndex}"]`)?.focus();
       }
 
-      function openProject(projectId, trigger) {
-        const project = PROJECTS.find((item) => item.id === projectId);
-        if (!project) return;
-        activeProjectTrigger = trigger;
-        document.getElementById("modal-title").textContent = project.name;
-        activeGallery = getProjectGallery(project);
-        setGallerySlide(0);
-        document.getElementById("modal-tags").innerHTML = renderTags(project.tags);
-        document.getElementById("modal-problem").textContent = project.problem;
-        document.getElementById("modal-how").textContent = project.howItWorks;
-        document.getElementById("modal-status").textContent = project.status;
-        document.getElementById("modal-links").innerHTML = [
-          project.href ? `<a class="button button-ghost" href="${project.href}" target="_blank" rel="noreferrer">GitHub ↗</a>` : "",
-          project.liveHref ? `<a class="button button-primary" href="${project.liveHref}" target="_blank" rel="noreferrer">Öppna live ↗</a>` : ""
-        ].join("");
-
+      function showModalFromTrigger(trigger) {
         if (typeof projectModal.showModal === "function") projectModal.showModal();
         else {
           projectModal.setAttribute("open", "");
@@ -1343,6 +1403,50 @@
         });
       }
 
+      function openProfileRole(roleId, trigger) {
+        const role = PROFILE_ROLES.find((item) => item.id === roleId);
+        if (!role) return;
+        activeProjectTrigger = trigger;
+        activeGallery = [];
+        modalCard.classList.add("is-profile");
+        modalGallery.classList.remove("is-portrait");
+        modalEyebrow.textContent = "Erfarenhet";
+        document.getElementById("modal-title").textContent = role.title;
+        document.getElementById("modal-tags").innerHTML = renderTags([role.company, role.period, ...role.tags]);
+        modalProblemLabel.textContent = "Ansvar och resultat";
+        modalHowLabel.textContent = "Vad jag lärde mig";
+        modalStatusLabel.textContent = "Hur erfarenheten används idag";
+        document.getElementById("modal-problem").textContent = role.responsibility;
+        document.getElementById("modal-how").textContent = role.learning;
+        document.getElementById("modal-status").textContent = role.currentValue;
+        document.getElementById("modal-links").innerHTML = `<a class="button button-ghost" href="https://www.linkedin.com/in/max-kristoffersson-902489230/" target="_blank" rel="noreferrer">LinkedIn ↗</a>`;
+        showModalFromTrigger(trigger);
+      }
+
+      function openProject(projectId, trigger) {
+        const project = PROJECTS.find((item) => item.id === projectId);
+        if (!project) return;
+        activeProjectTrigger = trigger;
+        modalCard.classList.remove("is-profile");
+        modalEyebrow.textContent = "Projektöversikt";
+        modalProblemLabel.textContent = "Vilket problem det löser";
+        modalHowLabel.textContent = "Hur det fungerar";
+        modalStatusLabel.textContent = "Vart projektet är idag";
+        document.getElementById("modal-title").textContent = project.name;
+        activeGallery = getProjectGallery(project);
+        setGallerySlide(0);
+        document.getElementById("modal-tags").innerHTML = renderTags(project.tags);
+        document.getElementById("modal-problem").textContent = project.problem;
+        document.getElementById("modal-how").textContent = project.howItWorks;
+        document.getElementById("modal-status").textContent = project.status;
+        document.getElementById("modal-links").innerHTML = [
+          project.href ? `<a class="button button-ghost" href="${project.href}" target="_blank" rel="noreferrer">GitHub ↗</a>` : "",
+          project.liveHref ? `<a class="button button-primary" href="${project.liveHref}" target="_blank" rel="noreferrer">Öppna live ↗</a>` : ""
+        ].join("");
+
+        showModalFromTrigger(trigger);
+      }
+
       function closeProject() {
         if (!projectModal.open && !projectModal.hasAttribute("open")) return;
         projectModal.classList.remove("is-opening");
@@ -1352,10 +1456,19 @@
           projectModal.removeAttribute("aria-modal");
         }
         document.body.style.overflow = "";
+        modalCard.classList.remove("is-profile");
         activeProjectTrigger?.focus();
       }
 
       renderProjects();
+      document.querySelectorAll(".profile-role").forEach((roleCard) => {
+        roleCard.addEventListener("click", () => openProfileRole(roleCard.dataset.roleId, roleCard));
+        roleCard.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          openProfileRole(roleCard.dataset.roleId, roleCard);
+        });
+      });
 
       const reelSections = [...document.querySelectorAll(".reel-section")];
       const projectCards = [...projectGrid.querySelectorAll(".project-card")];

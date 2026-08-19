@@ -91,3 +91,4 @@
 - Make project media more readable by increasing the tile media height and showing portrait gallery slides in a taller modal frame.
 - Make reel settling user-safe: cancel an in-progress smooth settle before accepting new wheel/touch input, allow the top of the document to remain reachable, and only settle after scroll idle.
 - Add a LinkedIn-aligned professional profile section between About and Projects using the existing CV facts: Den Hartogh Liquid Logistics, Link Logistics AB, education, and skills. Keep it professional and link to the existing LinkedIn profile.
+- Make each prior role a keyboard-accessible, rectangular profile card that opens the existing project-style modal with role-specific responsibility, learning, and current-value copy.
