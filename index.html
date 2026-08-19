@@ -1072,7 +1072,10 @@
         ].join("");
 
         if (typeof projectModal.showModal === "function") projectModal.showModal();
-        else projectModal.setAttribute("open", "");
+        else {
+          projectModal.setAttribute("open", "");
+          projectModal.setAttribute("aria-modal", "true");
+        }
         document.body.style.overflow = "hidden";
         projectModal.classList.remove("is-opening");
         const source = trigger?.getBoundingClientRect();
@@ -1091,7 +1094,10 @@
         if (!projectModal.open && !projectModal.hasAttribute("open")) return;
         projectModal.classList.remove("is-opening");
         if (typeof projectModal.close === "function") projectModal.close();
-        else projectModal.removeAttribute("open");
+        else {
+          projectModal.removeAttribute("open");
+          projectModal.removeAttribute("aria-modal");
+        }
         document.body.style.overflow = "";
         activeProjectTrigger?.focus();
       }
@@ -1103,6 +1109,7 @@
       let reelFrame = 0;
       let settleTimer;
       let lastSettledSection = null;
+      let reelSettleCooldownUntil = 0;
 
       function updateReelDepth() {
         reelFrame = 0;
@@ -1141,7 +1148,7 @@
       }
 
       function settleReel() {
-        if (reducedMotion.matches) return;
+        if (reducedMotion.matches || performance.now() < reelSettleCooldownUntil) return;
         const viewportCenter = window.innerHeight / 2;
         const nearest = reelSections.reduce((current, section) => {
           const bounds = section.getBoundingClientRect();
@@ -1150,10 +1157,12 @@
         }, null);
         if (!nearest || nearest.distance > window.innerHeight * 0.24 || nearest.section === lastSettledSection) return;
         lastSettledSection = nearest.section;
+        reelSettleCooldownUntil = performance.now() + 720;
         nearest.section.scrollIntoView({ behavior: "smooth", block: "center" });
       }
 
       function queueReelSettle() {
+        if (performance.now() < reelSettleCooldownUntil) return;
         window.clearTimeout(settleTimer);
         settleTimer = window.setTimeout(settleReel, 140);
       }
@@ -1178,6 +1187,21 @@
       modalClose.addEventListener("click", closeProject);
       projectModal.addEventListener("cancel", (event) => { event.preventDefault(); closeProject(); });
       projectModal.addEventListener("click", (event) => { if (event.target === projectModal) closeProject(); });
+      projectModal.addEventListener("keydown", (event) => {
+        if (typeof projectModal.showModal === "function" || event.key !== "Tab") return;
+        const focusable = [...projectModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+          .filter((element) => element.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
 
       const menuToggle = document.getElementById("menu-toggle");
       const mobileNav = document.getElementById("mobile-nav");
