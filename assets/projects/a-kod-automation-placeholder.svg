@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">A-kod Automation image placeholder</title>
+  <desc id="desc">Neutral anonymous placeholder for a future A-kod Automation screenshot.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#101b2d" />
+      <stop offset="1" stop-color="#211535" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#00d1ff" stop-opacity=".2" />
+      <stop offset="1" stop-color="#00d1ff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)" />
+  <rect width="1200" height="675" fill="url(#glow)" />
+  <g fill="none" stroke="#a4e6ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" opacity=".8">
+    <rect x="525" y="218" width="150" height="125" rx="16" />
+    <path d="M563 218v-24c0-20 16-36 36-36h2c20 0 36 16 36 36v24" />
+    <path d="M583 280h34M600 280v30" />
+  </g>
+  <text x="600" y="414" fill="#f2f6ff" font-family="Arial, sans-serif" font-size="32" text-anchor="middle">Bild läggs till senare</text>
+  <text x="600" y="455" fill="#a4e6ff" font-family="monospace" font-size="18" text-anchor="middle" opacity=".75">A-KOD AUTOMATION · ANONYM</text>
+</svg>
