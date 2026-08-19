@@ -36,12 +36,15 @@
         --radius-lg: 28px;
         --radius-md: 18px;
         --radius-sm: 12px;
-        --content: 1180px;
+        --content: 1060px;
+        --ambient-x: 0px;
+        --ambient-y: 0px;
+        --ambient-scroll: 0px;
       }
 
       * { box-sizing: border-box; }
 
-      html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+      html { scroll-behavior: smooth; scroll-snap-type: none; }
 
       body {
         margin: 0;
@@ -108,9 +111,13 @@
         position: absolute;
         inset: 0;
         z-index: -1;
-        background: linear-gradient(110deg, transparent 12%, rgba(0, 209, 255, 0.04) 48%, transparent 82%);
+        background:
+          radial-gradient(circle at calc(15% + var(--ambient-x)) calc(18% + var(--ambient-y)), rgba(0, 209, 255, 0.1), transparent 30%),
+          radial-gradient(circle at calc(86% - var(--ambient-x)) calc(70% - var(--ambient-scroll)), rgba(220, 167, 255, 0.1), transparent 34%),
+          linear-gradient(110deg, transparent 12%, rgba(0, 209, 255, 0.04) 48%, transparent 82%);
         content: "";
         pointer-events: none;
+        will-change: background;
       }
 
       .page-shell::after {
@@ -402,6 +409,8 @@
       .signal-label.bottom { right: 30px; bottom: 28px; color: var(--lilac); }
 
       main {
+        position: relative;
+        isolation: isolate;
         perspective: 1100px;
         perspective-origin: 50% 50%;
         transform-style: preserve-3d;
@@ -410,9 +419,11 @@
       .reel-section {
         position: relative;
         scroll-snap-align: center;
-        scroll-snap-stop: normal;
+        scroll-snap-stop: always;
+        scroll-margin-block: 12px;
         transform: perspective(1100px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1));
         transform-origin: 50% 50%;
+        transform-style: preserve-3d;
         opacity: var(--reel-opacity, 1);
         will-change: transform, opacity;
       }
@@ -513,7 +524,9 @@
       .project-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
+        gap: 14px;
+        perspective: 1400px;
+        transform-style: preserve-3d;
       }
 
       .project-card {
@@ -529,16 +542,46 @@
         color: var(--text);
         cursor: pointer;
         text-align: left;
-        transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) translateY(0);
+        transform: perspective(1200px) rotateX(calc(var(--scroll-rotate-x, 0deg) + var(--pointer-rotate-x, 0deg))) rotateY(calc(var(--scroll-rotate-y, 0deg) + var(--pointer-rotate-y, 0deg))) translateZ(var(--card-depth, 0px)) translateY(var(--card-lift, 0px));
         transform-style: preserve-3d;
-        transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+        transition: border-color 220ms ease, box-shadow 220ms ease, transform 180ms ease;
+        will-change: transform;
       }
 
-      .project-card:hover { border-color: var(--border-strong); box-shadow: 0 22px 44px rgba(0, 0, 0, 0.3), 0 0 22px rgba(0, 209, 255, 0.06); }
+      .project-card::before {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(164, 230, 255, 0.18), transparent 34%);
+        content: "";
+        opacity: var(--glare-opacity, 0);
+        pointer-events: none;
+        transform: translateZ(14px);
+        transition: opacity 180ms ease;
+      }
+
+      .project-card::after {
+        position: absolute;
+        z-index: -1;
+        inset: 8px -10px -14px;
+        border: 1px solid rgba(0, 209, 255, 0.12);
+        background: linear-gradient(135deg, rgba(0, 209, 255, 0.12), rgba(220, 167, 255, 0.08));
+        box-shadow: 0 30px 54px rgba(0, 0, 0, 0.38);
+        content: "";
+        opacity: 0.72;
+        transform: translateZ(-18px) scale(0.96);
+        pointer-events: none;
+      }
+
+      .project-card:hover,
+      .project-card:focus-visible { border-color: var(--border-strong); box-shadow: 0 26px 48px rgba(0, 0, 0, 0.36), 0 0 28px rgba(0, 209, 255, 0.1); }
+
+      .project-media,
+      .project-content { position: relative; z-index: 1; transform: translateZ(8px); }
 
       .project-media {
         position: relative;
-        aspect-ratio: 16 / 9;
+        aspect-ratio: 16 / 7.5;
         overflow: hidden;
         border-bottom: 1px solid rgba(164, 230, 255, 0.1);
         background: #0c1320;
@@ -570,23 +613,23 @@
         display: flex;
         flex: 1;
         flex-direction: column;
-        padding: 25px 26px 27px;
+        padding: 18px 20px 20px;
       }
 
       .project-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 7px;
-        margin-bottom: 16px;
+        gap: 6px;
+        margin-bottom: 10px;
       }
 
       .tag {
-        padding: 5px 9px;
+        padding: 4px 7px;
         border: 1px solid rgba(0, 209, 255, 0.2);
         background: rgba(0, 209, 255, 0.07);
         color: var(--cyan-soft);
         font-family: "Geist Mono", monospace;
-        font-size: 0.66rem;
+        font-size: 0.6rem;
         letter-spacing: 0.03em;
       }
 
@@ -595,17 +638,21 @@
 
       .project-title {
         margin: 0;
-        font-size: clamp(1.35rem, 2.6vw, 2rem);
+        font-size: clamp(1.18rem, 2.2vw, 1.65rem);
         letter-spacing: -0.04em;
         line-height: 1.1;
       }
 
       .project-description {
         max-width: 660px;
-        margin: 13px 0 22px;
+        margin: 9px 0 14px;
         color: var(--muted);
-        font-size: 0.97rem;
-        line-height: 1.65;
+        font-size: 0.88rem;
+        line-height: 1.5;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
       }
 
       .project-cta {
@@ -667,6 +714,16 @@
 
       .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+      .project-card.reveal {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(calc(var(--scroll-rotate-x, 0deg) + var(--pointer-rotate-x, 0deg))) rotateY(calc(var(--scroll-rotate-y, 0deg) + var(--pointer-rotate-y, 0deg))) translateZ(var(--card-depth, 0px)) translateY(calc(var(--card-lift, 0px) + 22px));
+      }
+
+      .project-card.reveal.is-visible {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(calc(var(--scroll-rotate-x, 0deg) + var(--pointer-rotate-x, 0deg))) rotateY(calc(var(--scroll-rotate-y, 0deg) + var(--pointer-rotate-y, 0deg))) translateZ(var(--card-depth, 0px)) translateY(var(--card-lift, 0px));
+      }
+
       .reel-section.reveal {
         opacity: 0;
         transform: perspective(1100px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1)) translateY(22px);
@@ -676,6 +733,10 @@
         opacity: var(--reel-opacity, 1);
         transform: perspective(1100px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1));
       }
+
+      #projects.section { padding-block: 48px; }
+      #projects .section-heading { margin-bottom: 24px; }
+      #projects .section-heading h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
 
       .reel-section:not([data-reel-focus]) .section-heading,
       .reel-section:not([data-reel-focus]) .project-card,
@@ -758,7 +819,7 @@
         .section { padding: 84px 0; }
         .section-heading { display: block; }
         .section-heading p { margin-top: 18px; }
-        .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+        .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
         .contact-layout { grid-template-columns: 1fr; }
       }
 
@@ -776,7 +837,7 @@
         .reel-section.reveal.is-visible { transform: perspective(900px) rotateX(var(--reel-tilt, 0deg)) translateZ(var(--reel-depth, 0px)) scale(var(--reel-scale, 1)); }
         .reel-section::before { inset: 8% 0; }
         .project-grid { grid-template-columns: 1fr; gap: 16px; }
-        .project-content { padding: 21px 20px 23px; }
+        .project-content { padding: 18px 16px 19px; }
         .project-title { font-size: 1.45rem; }
         .modal-sections { grid-template-columns: 1fr; gap: 24px; }
         .modal-media { aspect-ratio: 16 / 10; }
@@ -796,7 +857,9 @@
         .reel-section,
         .reel-section.reveal,
         .reel-section.reveal.is-visible { transform: none; opacity: 1; will-change: auto; }
-        .project-card { transform: none; }
+        .project-card,
+        .project-card.reveal,
+        .project-card.reveal.is-visible { transform: none; }
       }
     </style>
   </head>
@@ -1046,13 +1109,18 @@
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - 0.5;
         const y = (event.clientY - rect.top) / rect.height - 0.5;
-        card.style.setProperty("--rotate-y", `${(x * 5).toFixed(2)}deg`);
-        card.style.setProperty("--rotate-x", `${(y * -5).toFixed(2)}deg`);
+        card.style.setProperty("--pointer-rotate-y", `${(x * 7).toFixed(2)}deg`);
+        card.style.setProperty("--pointer-rotate-x", `${(y * -7).toFixed(2)}deg`);
+        card.style.setProperty("--glare-x", `${((x + 0.5) * 100).toFixed(1)}%`);
+        card.style.setProperty("--glare-y", `${((y + 0.5) * 100).toFixed(1)}%`);
+        card.style.setProperty("--glare-opacity", "1");
       }
 
       function resetTilt(event) {
-        event.currentTarget.style.setProperty("--rotate-x", "0deg");
-        event.currentTarget.style.setProperty("--rotate-y", "0deg");
+        const card = event.currentTarget;
+        card.style.setProperty("--pointer-rotate-x", "0deg");
+        card.style.setProperty("--pointer-rotate-y", "0deg");
+        card.style.setProperty("--glare-opacity", "0");
       }
 
       function openProject(projectId, trigger) {
@@ -1105,11 +1173,72 @@
       renderProjects();
 
       const reelSections = [...document.querySelectorAll(".reel-section")];
+      const projectCards = [...projectGrid.querySelectorAll(".project-card")];
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       let reelFrame = 0;
       let settleTimer;
-      let lastSettledSection = null;
-      let reelSettleCooldownUntil = 0;
+      let settleFinishTimer;
+      let ambientFrame = 0;
+      let settleState = "idle";
+      let ambientPointerX = 0;
+      let ambientPointerY = 0;
+
+      function setCardDepth(card, values = {}) {
+        Object.entries(values).forEach(([property, value]) => card.style.setProperty(property, value));
+      }
+
+      function resetCardDepth() {
+        projectCards.forEach((card) => setCardDepth(card, {
+          "--scroll-rotate-x": "0deg",
+          "--scroll-rotate-y": "0deg",
+          "--card-depth": "0px",
+          "--card-lift": "0px",
+          "--pointer-rotate-x": "0deg",
+          "--pointer-rotate-y": "0deg",
+          "--glare-opacity": "0"
+        }));
+      }
+
+      function updateAmbient() {
+        ambientFrame = 0;
+        if (reducedMotion.matches) {
+          document.documentElement.style.setProperty("--ambient-x", "0px");
+          document.documentElement.style.setProperty("--ambient-y", "0px");
+          document.documentElement.style.setProperty("--ambient-scroll", "0px");
+          return;
+        }
+        const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        const scrollOffset = (window.scrollY / maxScroll - 0.5) * 86;
+        document.documentElement.style.setProperty("--ambient-x", `${(ambientPointerX * 42).toFixed(1)}px`);
+        document.documentElement.style.setProperty("--ambient-y", `${(ambientPointerY * 24 + scrollOffset * 0.32).toFixed(1)}px`);
+        document.documentElement.style.setProperty("--ambient-scroll", `${scrollOffset.toFixed(1)}px`);
+      }
+
+      function scheduleAmbient() {
+        if (ambientFrame) return;
+        ambientFrame = requestAnimationFrame(updateAmbient);
+      }
+
+      function handleAmbientPointer(event) {
+        if (!window.matchMedia("(pointer: fine)").matches || reducedMotion.matches) return;
+        ambientPointerX = event.clientX / Math.max(window.innerWidth, 1) - 0.5;
+        ambientPointerY = event.clientY / Math.max(window.innerHeight, 1) - 0.5;
+        scheduleAmbient();
+      }
+
+      function getReelFocusLine() {
+        return window.innerHeight * (window.innerWidth <= 600 ? 0.5 : 0.56);
+      }
+
+      function getLayoutTop(element) {
+        let top = 0;
+        for (let current = element; current; current = current.offsetParent) top += current.offsetTop;
+        return top;
+      }
+
+      function getLayoutCenter(element) {
+        return getLayoutTop(element) + element.offsetHeight / 2 - window.scrollY;
+      }
 
       function updateReelDepth() {
         reelFrame = 0;
@@ -1121,17 +1250,17 @@
             section.style.removeProperty("--reel-opacity");
             section.removeAttribute("data-reel-focus");
           });
+          resetCardDepth();
           return;
         }
 
-        const viewportCenter = window.innerHeight / 2;
+        const viewportCenter = getReelFocusLine();
         const isMobile = window.innerWidth <= 600;
         const focusRange = Math.max(window.innerHeight * (isMobile ? 0.62 : 0.72), isMobile ? 360 : 480);
         const maxTilt = isMobile ? 6 : 11;
 
         reelSections.forEach((section) => {
-          const bounds = section.getBoundingClientRect();
-          const distance = bounds.top + bounds.height / 2 - viewportCenter;
+          const distance = getLayoutCenter(section) - viewportCenter;
           const normalized = Math.max(-1, Math.min(1, distance / focusRange));
           const falloff = Math.abs(normalized);
           section.style.setProperty("--reel-tilt", `${(normalized * maxTilt).toFixed(2)}deg`);
@@ -1140,6 +1269,21 @@
           section.style.setProperty("--reel-opacity", (1 - falloff * 0.16).toFixed(3));
           section.toggleAttribute("data-reel-focus", falloff < 0.16);
         });
+
+        const cardTiltRange = isMobile ? 6 : 12;
+        const cardDepthRange = isMobile ? 16 : 36;
+        const cardFalloffRange = Math.max(window.innerHeight * 0.46, isMobile ? 320 : 420);
+        projectCards.forEach((card) => {
+          const bounds = card.getBoundingClientRect();
+          const distance = bounds.top + bounds.height / 2 - viewportCenter;
+          const normalized = Math.max(-1, Math.min(1, distance / cardFalloffRange));
+          const falloff = Math.abs(normalized);
+          setCardDepth(card, {
+            "--scroll-rotate-x": `${(-normalized * cardTiltRange).toFixed(2)}deg`,
+            "--card-depth": `${((1 - falloff) * cardDepthRange - falloff * 14).toFixed(1)}px`,
+            "--card-lift": `${((1 - falloff) * (isMobile ? 1 : 3)).toFixed(1)}px`
+          });
+        });
       }
 
       function scheduleReelDepthUpdate() {
@@ -1147,31 +1291,60 @@
         reelFrame = requestAnimationFrame(updateReelDepth);
       }
 
-      function settleReel() {
-        if (reducedMotion.matches || performance.now() < reelSettleCooldownUntil) return;
-        const viewportCenter = window.innerHeight / 2;
-        const nearest = reelSections.reduce((current, section) => {
-          const bounds = section.getBoundingClientRect();
-          const distance = Math.abs(bounds.top + bounds.height / 2 - viewportCenter);
+      function getNearestReelSection() {
+        const viewportCenter = getReelFocusLine();
+        return reelSections.reduce((current, section) => {
+          const distance = Math.abs(getLayoutCenter(section) - viewportCenter);
           return !current || distance < current.distance ? { section, distance } : current;
         }, null);
-        if (!nearest || nearest.distance > window.innerHeight * 0.24 || nearest.section === lastSettledSection) return;
-        lastSettledSection = nearest.section;
-        reelSettleCooldownUntil = performance.now() + 720;
-        nearest.section.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function finishReelSettle() {
+        window.clearTimeout(settleFinishTimer);
+        settleFinishTimer = undefined;
+        settleState = "idle";
+        scheduleReelDepthUpdate();
+      }
+
+      function cancelReelSettle() {
+        if (settleState !== "settling") return;
+        finishReelSettle();
+      }
+
+      function settleReel() {
+        if (reducedMotion.matches || settleState === "settling") return;
+        const nearest = getNearestReelSection();
+        if (!nearest || nearest.distance < 14) return;
+        settleState = "settling";
+        const targetScrollY = Math.max(0, getLayoutTop(nearest.section) + nearest.section.offsetHeight / 2 - getReelFocusLine());
+        window.scrollTo({ top: targetScrollY, behavior: "smooth" });
+        settleFinishTimer = window.setTimeout(finishReelSettle, 900);
       }
 
       function queueReelSettle() {
-        if (performance.now() < reelSettleCooldownUntil) return;
+        if (reducedMotion.matches || settleState === "settling") return;
         window.clearTimeout(settleTimer);
-        settleTimer = window.setTimeout(settleReel, 140);
+        settleTimer = window.setTimeout(settleReel, 180);
+      }
+
+      function handleScrollEnd() {
+        if (reducedMotion.matches) return;
+        if (settleState === "settling") finishReelSettle();
+        else settleReel();
       }
 
       window.addEventListener("scroll", scheduleReelDepthUpdate, { passive: true });
       window.addEventListener("scroll", queueReelSettle, { passive: true });
+      window.addEventListener("scroll", scheduleAmbient, { passive: true });
+      window.addEventListener("scrollend", handleScrollEnd, { passive: true });
+      window.addEventListener("wheel", cancelReelSettle, { passive: true });
+      window.addEventListener("touchstart", cancelReelSettle, { passive: true });
+      window.addEventListener("pointermove", handleAmbientPointer, { passive: true });
       window.addEventListener("resize", scheduleReelDepthUpdate, { passive: true });
-      reducedMotion.addEventListener("change", scheduleReelDepthUpdate);
+      window.addEventListener("resize", scheduleAmbient, { passive: true });
+      reducedMotion.addEventListener("change", () => { cancelReelSettle(); scheduleReelDepthUpdate(); scheduleAmbient(); });
       scheduleReelDepthUpdate();
+      scheduleAmbient();
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
