@@ -39,7 +39,6 @@
         --content: 1060px;
         --ambient-x: 0px;
         --ambient-y: 0px;
-        --ambient-scroll: 0px;
       }
 
       * { box-sizing: border-box; }
@@ -64,24 +63,22 @@
         height: 58vw;
         border-radius: 50%;
         content: "";
-        filter: blur(92px);
         opacity: 0.18;
         pointer-events: none;
+        transform: translate3d(var(--ambient-x), var(--ambient-y), 0);
         will-change: transform;
       }
 
       body::before {
         top: -18vw;
         left: -14vw;
-        background: var(--cyan);
-        animation: fluid-cyan 18s ease-in-out infinite alternate;
+        background: radial-gradient(circle, rgba(0, 209, 255, 0.42), rgba(0, 209, 255, 0.1) 42%, transparent 72%);
       }
 
       body::after {
         right: -12vw;
         bottom: -18vw;
-        background: var(--lilac);
-        animation: fluid-lilac 23s ease-in-out infinite alternate;
+        background: radial-gradient(circle, rgba(220, 167, 255, 0.34), rgba(220, 167, 255, 0.08) 42%, transparent 72%);
       }
 
       a { color: inherit; }
@@ -112,12 +109,13 @@
         inset: 0;
         z-index: -1;
         background:
-          radial-gradient(circle at calc(15% + var(--ambient-x)) calc(18% + var(--ambient-y)), rgba(0, 209, 255, 0.1), transparent 30%),
-          radial-gradient(circle at calc(86% - var(--ambient-x)) calc(70% - var(--ambient-scroll)), rgba(220, 167, 255, 0.1), transparent 34%),
+          radial-gradient(circle at 15% 18%, rgba(0, 209, 255, 0.1), transparent 30%),
+          radial-gradient(circle at 86% 70%, rgba(220, 167, 255, 0.1), transparent 34%),
           linear-gradient(110deg, transparent 12%, rgba(0, 209, 255, 0.04) 48%, transparent 82%);
         content: "";
         pointer-events: none;
-        will-change: background;
+        transform: translate3d(var(--ambient-x), var(--ambient-y), 0) scale(1.03);
+        will-change: transform;
       }
 
       .page-shell::after {
@@ -128,18 +126,13 @@
         width: 58vw;
         height: 58vw;
         border-radius: 50%;
-        background: var(--mint);
+        background: radial-gradient(circle, rgba(54, 255, 196, 0.28), rgba(54, 255, 196, 0.06) 42%, transparent 72%);
         content: "";
-        filter: blur(92px);
         opacity: 0.12;
         pointer-events: none;
+        transform: translate3d(var(--ambient-x), var(--ambient-y), 0);
         will-change: transform;
-        animation: fluid-mint 27s ease-in-out infinite alternate;
       }
-
-      @keyframes fluid-cyan { to { transform: translate(16vw, 12vh) scale(1.16); } }
-      @keyframes fluid-lilac { to { transform: translate(-14vw, -10vh) scale(0.9); } }
-      @keyframes fluid-mint { to { transform: translate(12vw, -14vh) scale(1.22); } }
 
       .container {
         width: min(calc(100% - 40px), var(--content));
@@ -738,14 +731,6 @@
       #projects .section-heading { margin-bottom: 24px; }
       #projects .section-heading h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
 
-      .reel-section:not([data-reel-focus]) .section-heading,
-      .reel-section:not([data-reel-focus]) .project-card,
-      .reel-section:not([data-reel-focus]) .contact-card { filter: saturate(0.88); }
-
-      .reel-section[data-reel-focus] .section-heading,
-      .reel-section[data-reel-focus] .project-card,
-      .reel-section[data-reel-focus] .contact-card { filter: none; }
-
       dialog {
         width: min(900px, calc(100% - 32px));
         max-height: min(860px, calc(100vh - 32px));
@@ -774,8 +759,35 @@
         to { opacity: 1; transform: translate(0, 0) scale(1); }
       }
 
-      .modal-media { aspect-ratio: 16 / 8; overflow: hidden; border-bottom: 1px solid var(--border); background: #0a111e; }
-      .modal-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: #0a111e; }
+      .modal-media { position: relative; aspect-ratio: 16 / 8; overflow: hidden; border-bottom: 1px solid var(--border); background: #0a111e; }
+      .modal-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: #0a111e; transition: opacity 160ms ease; }
+      .gallery-control {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid rgba(164, 230, 255, 0.3);
+        border-radius: 50%;
+        background: rgba(5, 8, 17, 0.72);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 1.4rem;
+        opacity: 0.9;
+        transform: translateY(-50%);
+        transition: border-color 160ms ease, background 160ms ease, opacity 160ms ease;
+      }
+      .gallery-control:hover { border-color: var(--cyan); background: rgba(0, 209, 255, 0.18); opacity: 1; }
+      .gallery-control:disabled { display: none; }
+      .gallery-prev { left: 18px; }
+      .gallery-next { right: 18px; }
+      .gallery-meta { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 20px; border-bottom: 1px solid var(--border); background: rgba(5, 8, 17, 0.38); }
+      .gallery-caption { flex: 1; margin: 0; color: var(--muted); font-family: "Geist Mono", monospace; font-size: 0.7rem; line-height: 1.45; }
+      .gallery-dots { display: flex; flex-wrap: wrap; justify-content: end; gap: 6px; }
+      .gallery-dot { width: 7px; height: 7px; padding: 0; border: 1px solid var(--cyan-soft); border-radius: 50%; background: transparent; cursor: pointer; opacity: 0.55; }
+      .gallery-dot.is-active { background: var(--cyan); box-shadow: 0 0 12px rgba(0, 209, 255, 0.7); opacity: 1; }
 
       .modal-body { padding: clamp(24px, 5vw, 48px); }
 
@@ -841,6 +853,8 @@
         .project-title { font-size: 1.45rem; }
         .modal-sections { grid-template-columns: 1fr; gap: 24px; }
         .modal-media { aspect-ratio: 16 / 10; }
+        .gallery-meta { align-items: start; flex-direction: column; gap: 10px; }
+        .gallery-dots { justify-content: start; }
         .footer-inner { display: block; }
         .footer-inner span { display: block; margin-top: 10px; }
       }
@@ -987,7 +1001,15 @@
 
     <dialog id="project-modal" aria-labelledby="modal-title">
       <div class="modal-card">
-        <div class="modal-media"><img id="modal-image" src="" alt="" /></div>
+        <div class="modal-media" id="modal-gallery" tabindex="0" aria-label="Projektbilder">
+          <button class="gallery-control gallery-prev" id="modal-gallery-prev" type="button" aria-label="Föregående projektbild">‹</button>
+          <img id="modal-image" src="" alt="" />
+          <button class="gallery-control gallery-next" id="modal-gallery-next" type="button" aria-label="Nästa projektbild">›</button>
+        </div>
+        <div class="gallery-meta" id="modal-gallery-meta">
+          <p class="gallery-caption" id="modal-gallery-caption" aria-live="polite"></p>
+          <div class="gallery-dots" id="modal-gallery-dots" aria-label="Välj projektbild"></div>
+        </div>
         <div class="modal-body">
           <div class="modal-header">
             <div>
@@ -1016,6 +1038,9 @@
           tags: ["Automation", "Webbverktyg", "Anonymiserat"],
           image: "assets/projects/a-kod-automation-placeholder.svg",
           imageAlt: "Anonym bildplats för A-kod Automation",
+          gallery: [
+            { src: "assets/projects/a-kod-automation-placeholder.svg", alt: "Anonym bildplats för A-kod Automation", caption: "Anonymiserad projektbild — kan ersättas senare." }
+          ],
           problem: "Återkommande administrativa steg tar tid och gör det lätt att missa detaljer när information behöver flyttas mellan olika format.",
           howItWorks: "Verktyget samlar in strukturerad information, bearbetar den med tydliga regler och gör nästa steg enklare att genomföra.",
           status: "Aktivt projekt. Bilden är medvetet anonym och kan bytas ut genom att ersätta placeholder-filen i assets/projects.",
@@ -1028,6 +1053,9 @@
           tags: ["Browser extension", "JavaScript", "UX feedback"],
           image: "assets/projects/click-notes.png",
           imageAlt: "Click Notes popup med Record, Copy och Clear",
+          gallery: [
+            { src: "assets/projects/click-notes.png", alt: "Click Notes popup med Record, Copy och Clear", caption: "Record, kommentera och kopiera en strukturerad handoff." }
+          ],
           problem: "Visuell feedback blir ofta vag när man bara försöker beskriva vilket element som behöver ändras.",
           howItWorks: "Starta inspelning, klicka på ett element, skriv en kommentar och exportera sedan alla anteckningar som Markdown.",
           status: "Fungerande unpacked extension utan backend eller konto.",
@@ -1040,6 +1068,10 @@
           tags: ["React", "TypeScript", "PWA", "Supabase"],
           image: "assets/projects/hem-listan-mobile.png",
           imageAlt: "Hem-Listan på en mobilskärm",
+          gallery: [
+            { src: "assets/projects/hem-listan-mobile.png", alt: "Hem-Listan på en mobilskärm", caption: "Översikt med aktiva listor och snabba mallar." },
+            { src: "assets/projects/gallery/hem-listan-use-step.png", alt: "Hem-Listan med en skapad Weekendresa-lista", caption: "En mall blir en aktiv lista som kan följas upp i vardagen." }
+          ],
           problem: "Vardagliga uppgifter behöver vara enkla att dela, återanvända och följa upp utan att skapa onödig administration.",
           howItWorks: "Listor, mallar, måltidsplanering och receptflöden samlas i en mobil-först-app med lokal funktion och möjlighet till synk.",
           status: "Publik webbapp i aktiv utveckling med PWA-stöd och lokal profil.",
@@ -1053,6 +1085,10 @@
           tags: ["React Native", "Expo", "Budget", "Löneperioder"],
           image: "assets/projects/budgetly-mobile.png",
           imageAlt: "Budgetly onboarding på en mobilskärm",
+          gallery: [
+            { src: "assets/projects/budgetly-mobile.png", alt: "Budgetly onboarding på en mobilskärm", caption: "Startvyn för budgetering utifrån löneperioder." },
+            { src: "assets/projects/gallery/budgetly-use-step.png", alt: "Budgetly med löne­dagsinställning", caption: "Lönedagen används för att skapa rätt första period." }
+          ],
           problem: "Månadsvyer passar inte alltid hur inkomster och utgifter faktiskt fördelas när lönen kommer på olika dagar.",
           howItWorks: "Användaren anger sin lönedag och får därefter perioder som följer den verkliga ekonomiska rytmen, med budget- och analysvyer.",
           status: "Publik Budgetly-preview från IPA-builder-projektet.",
@@ -1066,6 +1102,11 @@
           tags: ["React", "TypeScript", "Visual editor", "Tauri"],
           image: "assets/projects/visual-code-editor.png",
           imageAlt: "Visual App Studio startvy med mallar för Portfolio och Landing page",
+          gallery: [
+            { src: "assets/projects/visual-code-editor.png", alt: "Visual App Studio startvy med mallar för Portfolio och Landing page", caption: "Visual App Studio med canvas, scener, lager och timeline." },
+            { src: "assets/projects/gallery/visual-code-editor-studio.png", alt: "Visual App Studio med en redigerad app och timeline", caption: "En app byggs visuellt med scener, lager och preview." },
+            { src: "assets/projects/gallery/visual-code-editor-timeline.png", alt: "Visual App Studio med animationsegenskaper och keyframes", caption: "Animationer justeras med keyframes, duration och easing." }
+          ],
           problem: "Det är svårt att gå från en idé eller skiss till ett begripligt, körbart gränssnitt utan att tappa struktur och redigerbarhet.",
           howItWorks: "Guidade startmallar, canvas-redigering, lager, preview och export håller designbeslut och genererad React-kod i samma flöde.",
           status: "Senaste origin/main-versionen körd lokalt och fotograferad från Visual App Studio.",
@@ -1077,7 +1118,19 @@
       const projectModal = document.getElementById("project-modal");
       const modalCard = projectModal.querySelector(".modal-card");
       const modalClose = document.getElementById("modal-close");
+      const modalGallery = document.getElementById("modal-gallery");
+      const modalImage = document.getElementById("modal-image");
+      const modalGalleryPrev = document.getElementById("modal-gallery-prev");
+      const modalGalleryNext = document.getElementById("modal-gallery-next");
+      const modalGalleryMeta = document.getElementById("modal-gallery-meta");
+      const modalGalleryCaption = document.getElementById("modal-gallery-caption");
+      const modalGalleryDots = document.getElementById("modal-gallery-dots");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const finePointer = window.matchMedia("(pointer: fine)");
       let activeProjectTrigger = null;
+      let activeGallery = [];
+      let activeGalleryIndex = 0;
+      let galleryPointerStartX = null;
 
       function renderTags(tags, className = "") {
         return tags.map((tag) => `<span class="tag ${className}">${tag}</span>`).join("");
@@ -1104,7 +1157,7 @@
       }
 
       function handleTilt(event) {
-        if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (!finePointer.matches || reducedMotion.matches) return;
         const card = event.currentTarget;
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - 0.5;
@@ -1123,13 +1176,46 @@
         card.style.setProperty("--glare-opacity", "0");
       }
 
+      function getProjectGallery(project) {
+        return project.gallery?.length ? project.gallery : [{ src: project.image, alt: project.imageAlt, caption: "Projektbild" }];
+      }
+
+      function preloadGallerySlide(index) {
+        const slide = activeGallery[index];
+        if (!slide || slide.src === modalImage.src) return;
+        const image = new Image();
+        image.decoding = "async";
+        image.src = slide.src;
+      }
+
+      function setGallerySlide(index, { focusControl = false } = {}) {
+        if (!activeGallery.length) return;
+        activeGalleryIndex = (index + activeGallery.length) % activeGallery.length;
+        const slide = activeGallery[activeGalleryIndex];
+        modalImage.src = slide.src;
+        modalImage.alt = slide.alt;
+        modalGalleryCaption.textContent = slide.caption || "";
+        modalGalleryPrev.disabled = activeGallery.length < 2;
+        modalGalleryNext.disabled = activeGallery.length < 2;
+        modalGalleryMeta.classList.toggle("is-single", activeGallery.length < 2);
+        modalGalleryDots.innerHTML = activeGallery.map((item, itemIndex) => `
+          <button class="gallery-dot${itemIndex === activeGalleryIndex ? " is-active" : ""}" type="button" data-gallery-index="${itemIndex}" aria-label="Visa projektbild ${itemIndex + 1}" aria-pressed="${itemIndex === activeGalleryIndex}"></button>
+        `).join("");
+        modalGalleryDots.querySelectorAll(".gallery-dot").forEach((dot) => {
+          dot.addEventListener("click", () => setGallerySlide(Number(dot.dataset.galleryIndex), { focusControl: true }));
+        });
+        preloadGallerySlide((activeGalleryIndex + 1) % activeGallery.length);
+        preloadGallerySlide((activeGalleryIndex - 1 + activeGallery.length) % activeGallery.length);
+        if (focusControl && activeGallery.length > 1) modalGalleryDots.querySelector(`[data-gallery-index="${activeGalleryIndex}"]`)?.focus();
+      }
+
       function openProject(projectId, trigger) {
         const project = PROJECTS.find((item) => item.id === projectId);
         if (!project) return;
         activeProjectTrigger = trigger;
         document.getElementById("modal-title").textContent = project.name;
-        document.getElementById("modal-image").src = project.image;
-        document.getElementById("modal-image").alt = project.imageAlt;
+        activeGallery = getProjectGallery(project);
+        setGallerySlide(0);
         document.getElementById("modal-tags").innerHTML = renderTags(project.tags);
         document.getElementById("modal-problem").textContent = project.problem;
         document.getElementById("modal-how").textContent = project.howItWorks;
@@ -1174,14 +1260,13 @@
 
       const reelSections = [...document.querySelectorAll(".reel-section")];
       const projectCards = [...projectGrid.querySelectorAll(".project-card")];
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-      let reelFrame = 0;
       let settleTimer;
       let settleFinishTimer;
-      let ambientFrame = 0;
+      let motionFrame = 0;
       let settleState = "idle";
       let ambientPointerX = 0;
       let ambientPointerY = 0;
+      let ambientDirty = true;
 
       function setCardDepth(card, values = {}) {
         Object.entries(values).forEach(([property, value]) => card.style.setProperty(property, value));
@@ -1200,30 +1285,23 @@
       }
 
       function updateAmbient() {
-        ambientFrame = 0;
+        if (!ambientDirty && !reducedMotion.matches) return;
+        ambientDirty = false;
         if (reducedMotion.matches) {
           document.documentElement.style.setProperty("--ambient-x", "0px");
           document.documentElement.style.setProperty("--ambient-y", "0px");
-          document.documentElement.style.setProperty("--ambient-scroll", "0px");
           return;
         }
-        const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-        const scrollOffset = (window.scrollY / maxScroll - 0.5) * 86;
         document.documentElement.style.setProperty("--ambient-x", `${(ambientPointerX * 42).toFixed(1)}px`);
-        document.documentElement.style.setProperty("--ambient-y", `${(ambientPointerY * 24 + scrollOffset * 0.32).toFixed(1)}px`);
-        document.documentElement.style.setProperty("--ambient-scroll", `${scrollOffset.toFixed(1)}px`);
-      }
-
-      function scheduleAmbient() {
-        if (ambientFrame) return;
-        ambientFrame = requestAnimationFrame(updateAmbient);
+        document.documentElement.style.setProperty("--ambient-y", `${(ambientPointerY * 24).toFixed(1)}px`);
       }
 
       function handleAmbientPointer(event) {
-        if (!window.matchMedia("(pointer: fine)").matches || reducedMotion.matches) return;
+        if (!finePointer.matches || reducedMotion.matches) return;
         ambientPointerX = event.clientX / Math.max(window.innerWidth, 1) - 0.5;
         ambientPointerY = event.clientY / Math.max(window.innerHeight, 1) - 0.5;
-        scheduleAmbient();
+        ambientDirty = true;
+        scheduleMotionUpdate();
       }
 
       function getReelFocusLine() {
@@ -1241,7 +1319,6 @@
       }
 
       function updateReelDepth() {
-        reelFrame = 0;
         if (reducedMotion.matches) {
           reelSections.forEach((section) => {
             section.style.removeProperty("--reel-tilt");
@@ -1273,22 +1350,36 @@
         const cardTiltRange = isMobile ? 6 : 12;
         const cardDepthRange = isMobile ? 16 : 36;
         const cardFalloffRange = Math.max(window.innerHeight * 0.46, isMobile ? 320 : 420);
-        projectCards.forEach((card) => {
+        const cardDepthUpdates = projectCards.map((card) => {
           const bounds = card.getBoundingClientRect();
           const distance = bounds.top + bounds.height / 2 - viewportCenter;
           const normalized = Math.max(-1, Math.min(1, distance / cardFalloffRange));
           const falloff = Math.abs(normalized);
+          return {
+            card,
+            scrollTilt: `${(-normalized * cardTiltRange).toFixed(2)}deg`,
+            depth: `${((1 - falloff) * cardDepthRange - falloff * 14).toFixed(1)}px`,
+            lift: `${((1 - falloff) * (isMobile ? 1 : 3)).toFixed(1)}px`
+          };
+        });
+        cardDepthUpdates.forEach(({ card, scrollTilt, depth, lift }) => {
           setCardDepth(card, {
-            "--scroll-rotate-x": `${(-normalized * cardTiltRange).toFixed(2)}deg`,
-            "--card-depth": `${((1 - falloff) * cardDepthRange - falloff * 14).toFixed(1)}px`,
-            "--card-lift": `${((1 - falloff) * (isMobile ? 1 : 3)).toFixed(1)}px`
+            "--scroll-rotate-x": scrollTilt,
+            "--card-depth": depth,
+            "--card-lift": lift
           });
         });
       }
 
-      function scheduleReelDepthUpdate() {
-        if (reelFrame) return;
-        reelFrame = requestAnimationFrame(updateReelDepth);
+      function updateMotion() {
+        motionFrame = 0;
+        updateAmbient();
+        updateReelDepth();
+      }
+
+      function scheduleMotionUpdate() {
+        if (motionFrame) return;
+        motionFrame = requestAnimationFrame(updateMotion);
       }
 
       function getNearestReelSection() {
@@ -1303,7 +1394,7 @@
         window.clearTimeout(settleFinishTimer);
         settleFinishTimer = undefined;
         settleState = "idle";
-        scheduleReelDepthUpdate();
+        scheduleMotionUpdate();
       }
 
       function cancelReelSettle() {
@@ -1333,18 +1424,15 @@
         else settleReel();
       }
 
-      window.addEventListener("scroll", scheduleReelDepthUpdate, { passive: true });
+      window.addEventListener("scroll", scheduleMotionUpdate, { passive: true });
       window.addEventListener("scroll", queueReelSettle, { passive: true });
-      window.addEventListener("scroll", scheduleAmbient, { passive: true });
       window.addEventListener("scrollend", handleScrollEnd, { passive: true });
       window.addEventListener("wheel", cancelReelSettle, { passive: true });
       window.addEventListener("touchstart", cancelReelSettle, { passive: true });
       window.addEventListener("pointermove", handleAmbientPointer, { passive: true });
-      window.addEventListener("resize", scheduleReelDepthUpdate, { passive: true });
-      window.addEventListener("resize", scheduleAmbient, { passive: true });
-      reducedMotion.addEventListener("change", () => { cancelReelSettle(); scheduleReelDepthUpdate(); scheduleAmbient(); });
-      scheduleReelDepthUpdate();
-      scheduleAmbient();
+      window.addEventListener("resize", scheduleMotionUpdate, { passive: true });
+      reducedMotion.addEventListener("change", () => { ambientDirty = true; cancelReelSettle(); scheduleMotionUpdate(); });
+      scheduleMotionUpdate();
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -1357,10 +1445,34 @@
       }, { threshold: 0.12 });
       document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
 
+      modalGalleryPrev.addEventListener("click", () => setGallerySlide(activeGalleryIndex - 1, { focusControl: true }));
+      modalGalleryNext.addEventListener("click", () => setGallerySlide(activeGalleryIndex + 1, { focusControl: true }));
+      modalGallery.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "touch") galleryPointerStartX = event.clientX;
+      });
+      modalGallery.addEventListener("pointerup", (event) => {
+        if (galleryPointerStartX === null) return;
+        const delta = event.clientX - galleryPointerStartX;
+        galleryPointerStartX = null;
+        if (Math.abs(delta) < 42 || activeGallery.length < 2) return;
+        setGallerySlide(activeGalleryIndex + (delta < 0 ? 1 : -1));
+      });
+      modalGallery.addEventListener("pointercancel", () => { galleryPointerStartX = null; });
+
       modalClose.addEventListener("click", closeProject);
       projectModal.addEventListener("cancel", (event) => { event.preventDefault(); closeProject(); });
       projectModal.addEventListener("click", (event) => { if (event.target === projectModal) closeProject(); });
       projectModal.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" && activeGallery.length > 1) {
+          event.preventDefault();
+          setGallerySlide(activeGalleryIndex - 1);
+          return;
+        }
+        if (event.key === "ArrowRight" && activeGallery.length > 1) {
+          event.preventDefault();
+          setGallerySlide(activeGalleryIndex + 1);
+          return;
+        }
         if (typeof projectModal.showModal === "function" || event.key !== "Tab") return;
         const focusable = [...projectModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')]
           .filter((element) => element.offsetParent !== null);
